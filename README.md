@@ -4,6 +4,8 @@ Flexible and complete interface to document dimensions.
 
 Copyright (C) 1996-2010
 by Hideo Umeki <latexgeometry@gmail.com>
+Copyright (C) 2018
+Hideo Umeki and David Carlisle https://github.com/davidcarlisle/geometry
 
 Abstract:
   This package provides a flexible and easy interface to page dimensions.
@@ -15,22 +17,9 @@ Abstract:
 CTAN: macros/latex/contrib/geometry
 
 Recent changes:
-[Release 5.0-5.6]
-  * Package 'ifxetex' is loaded for robuster detection of XeTeX. (v5.6-)
-  * Changing page layout mid-document.
-  * A new set of options to specify layout area.
-  * A new driver option 'xetex'.
-  * New paper size presets for JIS B-series and ISO C-series (v5.4-).
-  * Changing default for underspecified margin.
-  * The option 'showframe' works on every page.
-  * The option 'showcrop' prints elbow-shaped crop marks at each corner
-    of the layout area, which is equal to paper size. (v5.5-)
-  * Package 'atbegshi' is required when 'showframe' or 'showcrop' is specified.
-  * Loading geometry.cfg precedes processing class options.
-  * Deleted options: 'compat2' and 'twosideshift'.
-  * Added 'onecolumn' option as a shorthand for 'twocolumn=false'.
-  * Changed the format of the verbose mode.
-  * Fixed typos and wrong figures, and revised expressions in the document.
+
+[Release 5.7]
+Add support for luatex (with new comand names introduces in luatex 0.85)
 
 (changes.txt for more history)
 
