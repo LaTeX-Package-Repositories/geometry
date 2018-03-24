@@ -19,7 +19,7 @@ CTAN: macros/latex/contrib/geometry
 Recent changes:
 
 [Release 5.7]
-Add support for luatex (with new comand names introduces in luatex 0.85)
+Add support for luatex (with new comand names introduced in luatex 0.85)
 
 (changes.txt for more history)
 
