@@ -24,7 +24,7 @@ Add support for luatex (with new comand names introduced in luatex 0.85)
 (changes.txt for more history)
 
 Files:
-  * README         -  this file
+  * README.md         -  this file
   * changes.txt    -  history of changes
   * geometry.ins   -  for installation to get .sty from .dtx
   * geometry.dtx   -  including sources and documentation
