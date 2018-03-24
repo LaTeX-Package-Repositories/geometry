@@ -3267,7 +3267,7 @@ the derived files: geometry.{sty,ins,drv}, geometry-samples.tex.
 %    \cs{ifpdf} is defined in \textsf{ifpdf} package in `oberdiek' bundle.
 %    \begin{macrocode} 
     \ifpdf
-      \ifx\directlua\@undefined
+      \ifx\pdfextension\@undefined
         \Gm@setdriver{pdftex}%
       \else
         \Gm@setdriver{luatex}%
