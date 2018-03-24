@@ -1,3 +1,6 @@
+2018-03-24 Release 5.7
+  * add support for luatex 0.85+
+
 2010-09-12 Release 5.6
   * Package 'ifxetex' is loaded for robuster detection of XeTeX.
   * Fixed a bug where 'pass' option was not reset in \newgeometry.

@@ -1,6 +1,7 @@
 % \iffalse meta-comment
 %
 % Copyright 1996-2010 by Hideo Umeki <latexgeometry@gmail.com>
+% Copyright 2018  Hideo Umeki and David Carlisle
 %
 % LaTeX Package: Geometry
 % -----------------------
@@ -14,13 +15,13 @@
 % version 2005/12/01 or later.
 %
 % This work is "maintained" (as per the LPPL maintenance status)
-% by Hideo Umeki.
+% by David Carlisle
 %
 % This work consists of the files geometry.dtx and
 % the derived files: geometry.{sty,ins,drv}, geometry-samples.tex.
 %
 % * Distribution
-%    CTAN: macros/latex/contrib/geometry/README
+%    CTAN: macros/latex/contrib/geometry/README.md
 %    CTAN: macros/latex/contrib/geometry/changes.txt
 %    CTAN: macros/latex/contrib/geometry/geometry.ins
 %    CTAN: macros/latex/contrib/geometry/geometry.dtx
@@ -39,12 +40,12 @@
 %</ignore>
 %<package|driver>\NeedsTeXFormat{LaTeX2e}
 %<package>\ProvidesPackage{geometry}
-%<package>  [2010/09/12 v5.6 Page Geometry]
+%<package>  [2018/03/24 v5.7 Page Geometry]
 %<*install>
 \input docstrip.tex
 \Msg{************************************************************************}
 \Msg{* Installation}
-\Msg{* Package: geometry 2010/09/12 v5.6 Page Geometry}
+\Msg{* Package: geometry 2018/03/24 v5.7 Page Geometry}
 \Msg{************************************************************************}
 
 \keepsilent
@@ -53,6 +54,8 @@
 
 Copyright (C) 1996-2010
 by Hideo Umeki <latexgeometry@gmail.com>
+Copyright (C) 2018
+by  Hideo Umeki and David Carlisle https://github.com/davidcarlisle/geometry
 
 This work may be distributed and/or modified under the conditions of
 the LaTeX Project Public License, either version 1.3c of this license
@@ -63,7 +66,7 @@ and version 1.3c or later is part of all distributions of LaTeX
 version 2005/12/01 or later.
 
 This work is "maintained" (as per the LPPL maintenance status)
-by Hideo Umeki.
+by David Carlisle.
 
 This work consists of the files geometry.dtx and
 the derived files: geometry.{sty,ins,drv}, geometry-samples.tex.
@@ -117,23 +120,6 @@ the derived files: geometry.{sty,ins,drv}, geometry-samples.tex.
 %</driver>
 % \fi
 %
-% \CheckSum{2680}
-%
-% \CharacterTable
-%  {Upper-case    \A\B\C\D\E\F\G\H\I\J\K\L\M\N\O\P\Q\R\S\T\U\V\W\X\Y\Z
-%   Lower-case    \a\b\c\d\e\f\g\h\i\j\k\l\m\n\o\p\q\r\s\t\u\v\w\x\y\z
-%   Digits        \0\1\2\3\4\5\6\7\8\9
-%   Exclamation   \!     Double quote  \"     Hash (number) \#
-%   Dollar        \$     Percent       \%     Ampersand     \&
-%   Acute accent  \'     Left paren    \(     Right paren   \)
-%   Asterisk      \*     Plus          \+     Comma         \,
-%   Minus         \-     Point         \.     Solidus       \/
-%   Colon         \:     Semicolon     \;     Less than     \<
-%   Equals        \=     Greater than  \>     Question mark \?
-%   Commercial at \@     Left bracket  \[     Backslash     \\
-%   Right bracket \]     Circumflex    \^     Underscore    \_
-%   Grave accent  \`     Left brace    \{     Vertical bar  \|
-%   Right brace   \}     Tilde         \~}
 %
 % \GetFileInfo{geometry.sty}
 %
@@ -1130,8 +1116,8 @@ the derived files: geometry.{sty,ins,drv}, geometry-samples.tex.
 %
 % \subsection{Drivers}\label{sec:drivers}
 % 
-% The package supports drivers |dvips|, |dvipdfm|, |pdftex|, |xetex| and
-% |vtex|. You can also set |dvipdfm| for \textsf{dvipdfmx} and
+% The package supports drivers |dvips|, |dvipdfm|, |pdftex|, |luatex|,
+% |xetex| and |vtex|. You can also set |dvipdfm| for \textsf{dvipdfmx} and
 % \textsf{xdvipdfmx}. |pdftex| for \textsf{pdflatex}, and |vtex| for
 % V\TeX{} environment.
 % The driver options are exclusive. The driver can be set by either
@@ -1920,6 +1906,7 @@ the derived files: geometry.{sty,ins,drv}, geometry-samples.tex.
 %    \begin{macro}{\Gm@dvips}%
 %    \begin{macro}{\Gm@dvipdfm}%
 %    \begin{macro}{\Gm@pdftex}%
+%    \begin{macro}{\Gm@luatex}%
 %    \begin{macro}{\Gm@xetex}%
 %    \begin{macro}{\Gm@vtex}%
 %    The driver names.
@@ -1927,10 +1914,11 @@ the derived files: geometry.{sty,ins,drv}, geometry-samples.tex.
 \def\Gm@dvips{dvips}%
 \def\Gm@dvipdfm{dvipdfm}%
 \def\Gm@pdftex{pdftex}%
+\def\Gm@luatex{luatex}%
 \def\Gm@xetex{xetex}%
 \def\Gm@vtex{vtex}%
 %    \end{macrocode}
-%    \end{macro}\end{macro}\end{macro}\end{macro}\end{macro}
+%    \end{macro}\end{macro}\end{macro}\end{macro}\end{macro}\end{macro}
 %    \begin{macro}{\Gm@true}%
 %    \begin{macro}{\Gm@false}%
 %    The macros for |true| and |false|.
@@ -2893,10 +2881,11 @@ the derived files: geometry.{sty,ins,drv}, geometry-samples.tex.
 %  \begin{key}{Gm}{dvips}
 %  \begin{key}{Gm}{dvipdfm}
 %  \begin{key}{Gm}{pdftex}
+%  \begin{key}{Gm}{luatex}
 %  \begin{key}{Gm}{xetex}
 %  \begin{key}{Gm}{vtex}
 %    The \Gm\ package supports |dvips|, |dvipdfm|, 
-%    |pdflatex| and |vtex|. |dvipdfm| works like |dvips|.
+%    |pdflatex|, |luatex| and |vtex|. |dvipdfm| works like |dvips|.
 %    \begin{macrocode}
 \define@key{Gm}{dvips}[true]{\ifGm@preamble{dvips}{%
   \Gm@doifelse{dvips}{#1}{\Gm@setdriver{dvips}}{\Gm@unsetdriver{dvips}}}}%
@@ -2904,6 +2893,8 @@ the derived files: geometry.{sty,ins,drv}, geometry-samples.tex.
   \Gm@doifelse{dvipdfm}{#1}{\Gm@setdriver{dvipdfm}}{\Gm@unsetdriver{dvipdfm}}}}%
 \define@key{Gm}{pdftex}[true]{\ifGm@preamble{pdftex}{%
   \Gm@doifelse{pdftex}{#1}{\Gm@setdriver{pdftex}}{\Gm@unsetdriver{pdftex}}}}%
+\define@key{Gm}{luatex}[true]{\ifGm@preamble{luatex}{%
+  \Gm@doifelse{luatex}{#1}{\Gm@setdriver{luatex}}{\Gm@unsetdriver{luatex}}}}%
 \define@key{Gm}{xetex}[true]{\ifGm@preamble{xetex}{%
   \Gm@doifelse{xetex}{#1}{\Gm@setdriver{xetex}}{\Gm@unsetdriver{xetex}}}}%
 \define@key{Gm}{vtex}[true]{\ifGm@preamble{vtex}{%
@@ -3276,7 +3267,11 @@ the derived files: geometry.{sty,ins,drv}, geometry-samples.tex.
 %    \cs{ifpdf} is defined in \textsf{ifpdf} package in `oberdiek' bundle.
 %    \begin{macrocode} 
     \ifpdf
-      \Gm@setdriver{pdftex}%
+      \ifx\directlua\@undefined
+        \Gm@setdriver{pdftex}%
+      \else
+        \Gm@setdriver{luatex}%
+      \fi
     \else
       \Gm@setdriver{dvips}%
     \fi
@@ -3591,12 +3586,34 @@ the derived files: geometry.{sty,ins,drv}, geometry-samples.tex.
       \setlength\pdfpagewidth{\Gm@pw}%
       \setlength\pdfpageheight{\Gm@ph}}%
     \ifnum\mag=\@m\else
-      \@tempdima=\mag sp%
+      \@tempdima=\mag sp
       \@ifundefined{pdfhorigin}{}{%
         \divide\pdfhorigin\@tempdima
         \multiply\pdfhorigin\@m
         \divide\pdfvorigin\@tempdima
         \multiply\pdfvorigin\@m}%
+      \ifx\Gm@truedimen\Gm@true
+        \setlength\paperwidth{\Gm@pw}%
+        \setlength\paperheight{\Gm@ph}%
+      \fi
+    \fi
+  \fi
+%    \end{macrocode}
+%    If |luatex| is set to |true|, pdf-commands are set properly.
+%    To avoid |luatex| magnification problem, \cs{horigin} and
+%    \cs{vorigin} are adjusted for \cs{mag}.
+%    \begin{macrocode}
+  \ifx\Gm@driver\Gm@luatex
+    \setlength\pagewidth{\Gm@pw}%
+    \setlength\pageheight{\Gm@ph}%
+    \ifnum\mag=\@m\else
+      \@tempdima=\mag sp
+        \edef\Gm@horigin{\pdfvariable horigin}%
+        \edef\Gm@vorigin{\pdfvariable origin}%
+        \divide\Gm@horigin\@tempdima
+        \multiply\Gm@horigin\@m
+        \divide\Gm@vorigin\@tempdima
+        \multiply\Gm@vorigin\@m
       \ifx\Gm@truedimen\Gm@true
         \setlength\paperwidth{\Gm@pw}%
         \setlength\paperheight{\Gm@ph}%
