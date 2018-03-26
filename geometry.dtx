@@ -40,12 +40,12 @@
 %</ignore>
 %<package|driver>\NeedsTeXFormat{LaTeX2e}
 %<package>\ProvidesPackage{geometry}
-%<package>  [2018/03/24 v5.7 Page Geometry]
+%<package>  [2018/03/26 v5.8 Page Geometry]
 %<*install>
 \input docstrip.tex
 \Msg{************************************************************************}
 \Msg{* Installation}
-\Msg{* Package: geometry 2018/03/24 v5.7 Page Geometry}
+\Msg{* Package: geometry 2018/03/26 v5.8 Page Geometry}
 \Msg{************************************************************************}
 
 \keepsilent
@@ -1294,8 +1294,8 @@ the derived files: geometry.{sty,ins,drv}, geometry-samples.tex.
 %
 % \subsection{Defaults}\label{sec:defaults}
 %
-%　This section sums up the default settings for the auto-completion
-%　described later.
+% This section sums up the default settings for the auto-completion
+% described later.
 % 
 % The default vertical margin ratio is $2/3$, namely,
 % \begin{equation}
@@ -2879,7 +2879,7 @@ the derived files: geometry.{sty,ins,drv}, geometry-samples.tex.
 %    \end{macrocode}
 %  \end{key}
 %  \begin{key}{Gm}{dvips}
-%  \begin{key}{Gm}{dvipdfm}
+%  \begin{key}{Gm}{dvipdfm}\begin{key}{Gm}{dvipdfmx}\begin{key}{Gm}{xdvipdfmx}
 %  \begin{key}{Gm}{pdftex}
 %  \begin{key}{Gm}{luatex}
 %  \begin{key}{Gm}{xetex}
@@ -2891,6 +2891,10 @@ the derived files: geometry.{sty,ins,drv}, geometry-samples.tex.
   \Gm@doifelse{dvips}{#1}{\Gm@setdriver{dvips}}{\Gm@unsetdriver{dvips}}}}%
 \define@key{Gm}{dvipdfm}[true]{\ifGm@preamble{dvipdfm}{%
   \Gm@doifelse{dvipdfm}{#1}{\Gm@setdriver{dvipdfm}}{\Gm@unsetdriver{dvipdfm}}}}%
+\define@key{Gm}{dvipdfmx}[true]{\ifGm@preamble{dvipdfm}{%
+  \Gm@doifelse{dvipdfm}{#1}{\Gm@setdriver{dvipdfm}}{\Gm@unsetdriver{dvipdfm}}}}%
+\define@key{Gm}{xdvipdfmx}[true]{\ifGm@preamble{dvipdfm}{%
+  \Gm@doifelse{dvipdfm}{#1}{\Gm@setdriver{dvipdfm}}{\Gm@unsetdriver{dvipdfm}}}}%
 \define@key{Gm}{pdftex}[true]{\ifGm@preamble{pdftex}{%
   \Gm@doifelse{pdftex}{#1}{\Gm@setdriver{pdftex}}{\Gm@unsetdriver{pdftex}}}}%
 \define@key{Gm}{luatex}[true]{\ifGm@preamble{luatex}{%
@@ -2900,7 +2904,7 @@ the derived files: geometry.{sty,ins,drv}, geometry-samples.tex.
 \define@key{Gm}{vtex}[true]{\ifGm@preamble{vtex}{%
   \Gm@doifelse{vtex}{#1}{\Gm@setdriver{vtex}}{\Gm@unsetdriver{vtex}}}}%
 %    \end{macrocode}
-%  \end{key}\end{key}\end{key}\end{key}\end{key}\end{key}
+%  \end{key}\end{key}\end{key}\end{key}\end{key}\end{key}\end{key}\end{key}
 %  \begin{key}{Gm}{verbose}
 %    The verbose mode.
 %    \begin{macrocode}

@@ -18,6 +18,9 @@ CTAN: macros/latex/contrib/geometry
 
 Recent changes:
 
+[Release 5.8]
+Add xdvipdfmx and dvipdfmx alias for dvipdfm option.
+
 [Release 5.7]
 Add support for luatex (with new comand names introduced in luatex 0.85)
 
