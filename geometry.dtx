@@ -40,12 +40,12 @@
 %</ignore>
 %<package|driver>\NeedsTeXFormat{LaTeX2e}
 %<package>\ProvidesPackage{geometry}
-%<package>  [2018/03/26 v5.8 Page Geometry]
+%<package>  [2018/04/16 v5.8 Page Geometry]
 %<*install>
 \input docstrip.tex
 \Msg{************************************************************************}
 \Msg{* Installation}
-\Msg{* Package: geometry 2018/03/26 v5.8 Page Geometry}
+\Msg{* Package: geometry 2018/04/16 v5.8 Page Geometry}
 \Msg{************************************************************************}
 
 \keepsilent
@@ -1128,7 +1128,7 @@ the derived files: geometry.{sty,ins,drv}, geometry-samples.tex.
 %
 % \begin{Options}
 % \item[\onlypre driver] specifies the driver with |driver=|\meta{driver name}. 
-% |dvips|, |dvipdfm|, |pdftex|, |vtex|, |xetex|, |auto| and |none| are
+% |dvips|, |dvipdfm|, |pdftex|, |luatex|, |vtex|, |xetex|, |auto| and |none| are
 % available as a driver name. The names except for |auto| and |none| can
 % be specified directly with the name without |driver=|.
 % |driver=auto| makes the auto-detection work whatever the previous setting is. 
@@ -1147,6 +1147,7 @@ the derived files: geometry.{sty,ins,drv}, geometry-samples.tex.
 %      \textsf{xdvipdfmx} to process the dvi output.
 % \item[\onlypre pdftex] sets \cs{pdfpagewidth} and \cs{pdfpageheight}
 %      internally.
+% \item[\onlypre luatex] sets \cs{pagewidth} and \cs{pageheight} internally.
 % \item[\onlypre xetex] is the same as |pdftex| except for ignoring
 %     |\pdf{h,v}origin| undefined in \XeLaTeX{}. This option is introduced in
 %     the version 5. Note that `geometry.cfg' in \TeX{} Live, which disables the
