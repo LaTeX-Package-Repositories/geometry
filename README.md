@@ -29,7 +29,6 @@ Add support for luatex (with new comand names introduced in luatex 0.85)
 Files:
   * README.md         -  this file
   * changes.txt    -  history of changes
-  * geometry.ins   -  for installation to get .sty from .dtx
   * geometry.dtx   -  including sources and documentation
   * geometry.pdf   -  print-ready documentation
 
@@ -37,10 +36,10 @@ Installation:
 [manual installation]
   * To get geometry.sty out of geometry.dtx
         $ tex geometry.dtx 
-    or  $ (la)tex geometry.ins
+    or  $ (la)tex geometry.ins (after first extraction)
   * To build documentation
         $ latex geometry.dtx  
-    or  $ latex geometry.drv
+    or  $ latex geometry.drv (after first extraction)
   * Put the derived files in the proper directories:
       -  tex/latex/geometry/geometry.sty
       -  doc/latex/geometry/geometry.pdf
