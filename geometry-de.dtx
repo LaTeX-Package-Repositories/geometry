@@ -1,0 +1,3844 @@
+% \iffalse meta-comment
+%
+% Copyright 1996-2010 by Hideo Umeki <latexgeometry@gmail.com>
+%
+% LaTeX Package: Geometry
+% -----------------------
+%
+% This work may be distributed and/or modified under the conditions of
+% the LaTeX Project Public License, either version 1.3c of this license
+% or (at your option) any later version. The latest version of this
+% license is in
+%    http://www.latex-project.org/lppl.txt
+% and version 1.3c or later is part of all distributions of LaTeX
+% version 2005/12/01 or later.
+%
+% This work is "maintained" (as per the LPPL maintenance status)
+% by Hideo Umeki.
+%
+% This work consists of the files geometry.dtx and
+% the derived files: geometry.{sty,ins,drv}, geometry-samples.tex.
+%
+% * Distribution
+%    CTAN: macros/latex/contrib/geometry/README
+%    CTAN: macros/latex/contrib/geometry/changes.txt
+%    CTAN: macros/latex/contrib/geometry/geometry.ins
+%    CTAN: macros/latex/contrib/geometry/geometry.dtx
+%    CTAN: macros/latex/contrib/geometry/geometry.pdf
+%
+% * See README for installation.
+%        
+%<*ignore>
+\begingroup
+  \def\x{LaTeX2e}
+\expandafter\endgroup
+\ifcase 0\ifx\install y1\fi\expandafter
+         \ifx\csname processbatchFile\endcsname\relax\else1\fi
+         \ifx\fmtname\x\else 1\fi\relax
+\else\csname fi\endcsname
+%</ignore>
+%<package|driver>\NeedsTeXFormat{LaTeX2e}
+%<package>\ProvidesPackage{geometry}
+%<package>  [2010/09/12 v5.6 Page Geometry]
+%<*install>
+\input docstrip.tex
+\Msg{************************************************************************}
+\Msg{* Installation}
+\Msg{* Package: geometry 2010/09/12 v5.6 Page Geometry}
+\Msg{************************************************************************}
+
+\keepsilent
+\askforoverwritefalse
+\preamble
+
+Copyright (C) 1996-2010
+by Hideo Umeki <latexgeometry@gmail.com>
+
+This work may be distributed and/or modified under the conditions of
+the LaTeX Project Public License, either version 1.3c of this license
+or (at your option) any later version. The latest version of this
+license is in
+   http://www.latex-project.org/lppl.txt
+and version 1.3c or later is part of all distributions of LaTeX
+version 2005/12/01 or later.
+
+This work is "maintained" (as per the LPPL maintenance status)
+by Hideo Umeki.
+
+This work consists of the files geometry.dtx and
+the derived files: geometry.{sty,ins,drv}, geometry-samples.tex.
+
+\endpreamble
+
+\generate{%
+  \file{geometry.ins}{\from{geometry-de.dtx}{install}}%
+  \file{geometry-de.drv}{\from{geometry-de.dtx}{driver}}%
+  \usedir{tex/latex/geometry}%
+  \file{geometry.sty}{\from{geometry-de.dtx}{package}}%
+  \file{geometry.cfg}{\from{geometry-de.dtx}{config}}%
+  \file{geometry-samples-de.tex}{\from{geometry-de.dtx}{samples}}%
+}
+
+\obeyspaces
+\Msg{************************************************************************}
+\Msg{*}
+\Msg{* To finish the installation you have to move the following}
+\Msg{* file into a directory searched by LaTeX:}
+\Msg{*}
+\Msg{* \space\space geometry.sty}
+\Msg{*}
+\Msg{* To produce the documentation run the file `geometry.drv'}
+\Msg{* through LaTeX.}
+\Msg{*}
+\Msg{* Happy TeXing!}
+\Msg{*}
+\Msg{************************************************************************}
+\endbatchfile
+%</install>
+%<*ignore>
+\fi
+%</ignore>
+%<*driver>
+\ProvidesFile{geometry.drv}
+\documentclass{ltxdoc}
+\usepackage[colorlinks, linkcolor=blue]{hyperref}
+\usepackage{graphicx}
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage[ngerman]{babel}
+\usepackage[a4paper, hmargin=2.5cm, vmargin=1cm, includeheadfoot]{geometry}
+\usepackage{charter}
+\DeclareRobustCommand\XeTeX{%
+      X\lower.5ex\hbox{\kern-.07em\reflectbox{E}}%
+      \kern-.15em\TeX}
+\DeclareRobustCommand\XeLaTeX{%
+      X\lower.5ex\hbox{\kern-.07em\reflectbox{E}}%
+      \kern-.15em\LaTeX}
+\begin{document}
+ \DocInput{geometry-de.dtx}
+\end{document}
+%</driver>
+% \fi
+%
+% \CheckSum{2680}
+%
+% \CharacterTable
+%  {Upper-case    \A\B\C\D\E\F\G\H\I\J\K\L\M\N\O\P\Q\R\S\T\U\V\W\X\Y\Z
+%   Lower-case    \a\b\c\d\e\f\g\h\i\j\k\l\m\n\o\p\q\r\s\t\u\v\w\x\y\z
+%   Digits        \0\1\2\3\4\5\6\7\8\9
+%   Exclamation   \!     Double quote  \"     Hash (number) \#
+%   Dollar        \$     Percent       \%     Ampersand     \&
+%   Acute accent  \'     Left paren    \(     Right paren   \)
+%   Asterisk      \*     Plus          \+     Comma         \,
+%   Minus         \-     Point         \.     Solidus       \/
+%   Colon         \:     Semicolon     \;     Less than     \<
+%   Equals        \=     Greater than  \>     Question mark \?
+%   Commercial at \@     Left bracket  \[     Backslash     \\
+%   Right bracket \]     Circumflex    \^     Underscore    \_
+%   Grave accent  \`     Left brace    \{     Vertical bar  \|
+%   Right brace   \}     Tilde         \~}
+%
+% \GetFileInfo{geometry.sty}
+%
+% \title{Das \textsf{geometry} Paket}
+% \date{\filedate\ \fileversion}
+% \author{Hideo Umeki\\\texttt{latexgeometry@gmail.com}\\\begin{small}Die Übersetzung wurde angefertigt von Hans-Martin Haase
+% (\texttt{hmhaase@pclinuxosusers.de})\end{small}}
+%
+% \MakeShortVerb{|}
+%
+% \def\OpenB{{\ttfamily\char`\{}}
+% \def\Comma{{\ttfamily\char`,}}
+% \def\CloseB{{\ttfamily\char`\}}}
+% \def\Gm{\textsf{geometry}}
+% \newcommand\argii[2]{\OpenB\meta{#1}\Comma\meta{#2}\CloseB}
+% \newcommand\argiii[3]{\OpenB\meta{#1}\Comma\meta{#2}\Comma\meta{#3}\CloseB}
+% \newcommand\vargii[2]{\OpenB#1\Comma#2\CloseB}
+% \newcommand\vargiii[3]{\OpenB#1\Comma#2\Comma#3\CloseB}
+% \newcommand\OR{\ \strut\vrule width .4pt\ }
+% \newcommand\gpart[1]{\textsf{\textsl{\color[rgb]{.0,.45,.7}#1}}}%
+% \newcommand\glen[1]{\textsf{#1}}
+% \newenvironment{key}[2]{\expandafter\macro\expandafter{`#2'}}{\endmacro}
+% \newenvironment{Options}%
+%  {\begin{list}{}{%
+%   \renewcommand{\makelabel}[1]{\texttt{##1}\hfil}%
+%   \setlength{\itemsep}{-.5\parsep}
+%   \settowidth{\labelwidth}{\texttt{xxxxxxxxxxx\space}}%
+%   \setlength{\leftmargin}{\labelwidth}%
+%   \addtolength{\leftmargin}{\labelsep}}%
+%   \raggedright}
+%  {\end{list}}
+% \newenvironment{Spec}%
+%  {\begin{list}{}{%
+%   \renewcommand{\makelabel}[1]{\fbox{##1}\hfil}%
+%   \setlength{\itemsep}{-.5\parsep}
+%   \settowidth{\labelwidth}{\texttt{S(x,x)}}%
+%   \setlength{\leftmargin}{\labelwidth}%
+%   \addtolength{\leftmargin}{\labelsep}%
+%   \addtolength{\leftmargin}{2em}%
+%   \setlength{\rightmargin}{2em}}%
+%   \raggedright}
+%  {\end{list}}
+% \def\Ss(#1,#2){\textsf{S(#1,#2)}}%
+% \def\Sp(#1,#2,#3){\mbox{|(#1,#2,#3)|}}%
+% \def\onlypre{\llap{$^{\dagger\:}$}}%
+%
+% \maketitle
+%
+% \begin{abstract}
+% Dieses Paket bietet einen flexiblen und einfachen Weg die Seitenmaße zu verändern.
+% Sie können das Seitenlayout mit intuitiven Parametern verändern. Ein Beispiel,
+% wenn Sie den Abstand von jedem Rand der Seite auf 2\,cm setzen möchten,
+% können Sie einfach |\usepackage[margin=2cm]{geometry}| eingeben. 
+% Das Seitenlayout kann in der Mitte des Dokuments verändert werden, mit dem Befehl
+% |\newgeometry|.  
+% \end{abstract}
+%
+% \section{Vorwort zu Version 5}
+%
+% \begin{itemize}
+%  \item \textbf{Das Seitenlayout in der Mitte des Dokuments ändern.}\par
+%   Die neuen Befehle \cs{newgeometry\{$\cdots$\}} und
+%   \cs{restoregeometry} erlauben es dem Benutzer, die Seitenmaße in der Mitte
+%   des Dokuments zu verändern. \cs{newgeometry} stimmt fast mit  
+%   \cs{geometry} überein, ausgenommen das \cs{newgeometry} alle Optionen,
+%   die in der Präambel spezifiziert sind, deaktiviert und überspringt die Optionen, die sich auf die Seitengröße beziehen:
+%    |landscape|, |portrait| und die Seitengrößenoptionen (solche wie
+%    |papersize|, |paper=a4paper| und andere).
+%  \item \textbf{Eine neue Reihe von Optionen, um den Layoutbereich zu spezifizieren.}\par
+%   Die Optionen, die für den Bereich angegeben wurden, in dem die Seitenmaße
+%   berechnet werden, sind hinzugefügt wurden: \textsf{layout}, \textsf{layoutsize}, 
+%   \textsf{layoutwidth}, \textsf{layoutheight} und weitere.
+%   Diese Möglichkeiten sind hilfreich, falls das angegebene Layout auf eine andere
+%   Papiergröße angewendet soll.  Wenn beispielsweise |a4paper|
+%   und |layout=a5paper| verwendet wird, dann benutzt das \Gm\ Paket das `A5' statt `A4' Layout, um
+%   die Ränder für die Papiergröße zu berechen.
+%  \item \textbf{Eine neue Treiberoption |xetex|.}\par
+%   Die neue Treiberoption |xetex| wurde hinzugefügt. Die Routine für die automatische Treiberdetektion
+%   ist überarbeitet worden, sodass ein Fehler mit einer nicht definierten
+%   Kontrollsequenz vermieden werden konnte. Beachte, dass `geometry.cfg' in \TeX{} Live, welches
+%   die Autodetektionsroutine deaktiviert und |pdftex| benutzt, nicht mehr
+%   nötig ist und es keine Probleme gibt, obwohl dies dennoch existiert.
+%   Um |xetex| einzustellen, ist es dringend empfohlen \XeLaTeX{} zu verwenden.
+%  \item \textbf{Neue Papiergröße für JIS B-Serien und ISO C-Serien.}\par
+%   Die Papiergrößenvoreinstellungen |b0j| bis |b6j| für JIS (Japanese Industrial Standards) B-Serien und
+%   |c0paper| bis |c6paper| für ISO C-Serien
+%   (v5.4$\sim$) wurden hinzugefügt.
+%  \item \textbf{Veränderung des Standards für nicht angegebenen Rand.}\par
+%   In der Vorversion wurde dann, wenn man nur einen Rand angab, z.\,B.
+%   |bottom=1cm|, von \Gm\ der andere Rand mit 
+%   diesem Randverhältnis (1:1 standardmäßig für die vertikalen Maße) gesetzt
+%   und man bekam in diesem Fall |top=1cm|.
+%   Die Version 5 stellt die Textkörpergröße auf den |scale|
+%   ($=0.7$) ein und bestimmt den nicht angegebenen Rand. (Siehe Kapitel~\ref{sec:rules}) 
+%  \item \textbf{Die Optionen |showframe| und |showcrop| arbeiten auf jeder Seite.}\par
+%   Mit der |showframe| Option werden die Seitenränder auf jeder Seite angezeigt.
+%   Des Weiteren druckt die neue |showcrop| Option Schittmarken auf jede Ecke des
+%   Layoutbereichs auf jeder Seite. Bedenken sie, dass die Marken unsichtbar sein werden,
+%   solange die Layoutgröße nicht schmaler wie die Papiergröße gemacht wird.
+%   Version 5.4 führt einen neuen |\shipout| Überladeprozess ein, der das
+%   \textsf{atbegshi} Paket benutzt, so wird das \textsf{atbegshi} Paket
+%   benötigt, wenn die showframe oder showcrop Option angegeben wird.
+%  \item \textbf{Laden von geometry.cfg vor der Verarbeitung der Klassenoptionen.}\par
+%    In der Vorgängerversion wurde \textsf{geometry.cfg} nach dem
+%    Verarbeiten der Dokumentklassenoptionen geladen. Jetzt, da die Konfigurationsdatei vor der Abarbeitung der 
+%	 Klassenoptionen geladen wird, können sie das Verhalten,
+%	 wie es in \textsf{geometry.cfg} angegeben ist, durch das Hinzufügen von
+%	 Optionen in der |\documentclass| oder genauso gut in |\usepackage| und |\geometry| verändern.
+%  \item \textbf{Beseitigte Optionen: |compat2| und |twosideshift|.}
+%	 Die Version 5 ist nicht länger mit den Vorgängerversionen kompatibel.
+%	 |compat2| und |twisideshift| wurden zur Vereinfachung entfernt.
+% \end{itemize}
+%
+% \section{Einführung}
+%
+% Die Maße für das Seitenlayout in \LaTeX\ einzustellen ist nicht so einfach.
+% Sie müssen dafür verschiedene ursprüngliche \LaTeX -Maße anpassen, um einen Textbereich
+% dort zu platzieren, wo sie ihn angezeigt haben möchten.
+% Wenn sie einen Textbereich ihres Dokuments zentrieren wollen, 
+% dann müssen sie beispielsweise die systemeigenen Maße wie folgt angeben:
+% \begin{quote}
+%    |\usepackage{calc}|\\
+%    |\setlength\textwidth{7in}|\\
+%    |\setlength\textheight{10in}|\\
+%    |\setlength\oddsidemargin{(\paperwidth-\textwidth)/2 - 1in}|\\
+%    |\setlength\topmargin{(\paperheight-\textheight|\\
+%    |                      -\headheight-\headsep-\footskip)/2 - 1in}|.
+% \end{quote}
+% Ohne das Paket \texttt{calc} würde das obere Beispiel noch
+% schwierigere Einstellungen benötigen. Das Paket \Gm\ bietet einen einfachen
+% Weg, die Parameter des Seitenlayouts zu konfigurieren. In diesem Fall müssen sie nur
+% dies einstellen:
+% \begin{quote}
+%    |\usepackage[text={7in,10in},centering]{geometry}|. 
+% \end{quote}
+% Neben dem Zentrierungsproblem, ist das Einstellen der Ränder von jeder Kante des Blattes aus
+% ebenso problematisch. Aber \Gm\ erledigt dies ebenso einfach.
+% Wenn sie jeden Rand auf 1.5\,in setzen wollen, dann können sie
+% \begin{quote}
+%    |\usepackage[margin=1.5in]{geometry}| 
+% \end{quote}
+% eingeben.
+% Weil das geometry Paket eine Autovervollständigung besitzt,
+% werden nicht angegebene Maße automatisch festgelegt.
+% Das \Gm\ Paket wird auch nützlich sein, wenn sie das Seitenlayout beispielsweise nach
+% den folgenden strikten Instruktionen einstellen müssen:
+% \begin{quote}\slshape
+%   Die vollständig erlaubte Breite des Textbereiches ist $6.5$, bei einer Höhe von $8.75$
+%   Inches (englische Zoll). Der obere Rand auf jeder Seite soll $1.2$ Inches von
+%   der oberen Kante der Seite aus betragen. Der linke Rand sollte $0.9$ Inch von der linken Kante entfernt sein. 
+%   Die Fußzeile mit der Seitenzahl sollte am unteren Ende des Textbereiches sein.
+% \end{quote}
+% In diesem Fall können sie bei der Benutzung von \Gm\
+% \begin{quote}
+% |\usepackage[total={6.5in,8.75in},|\\
+% |            top=1.2in, left=0.9in, includefoot]{geometry}|.
+% \end{quote}
+% eingeben.
+%
+% Die Konfiguration eines Textbereiches in einem Schriftstück mit dem Textsatzprogramm hat einige
+% Ähnlichkeiten mit dem Platzieren eines Fensters auf dem Hintergrund beim Fenstermanager des Betriebssystems. 
+% Der Name `geometry' kommt von der |geometry|-Option, die genutzt wird, um die Größe und Lokalisierung eines Fensters
+% beim X-Window-System anzugeben.
+%
+% \section{Seitengeometrie}
+%
+% Abbildung~\ref{fig:layout} zeigt die Seitenlayoutsmaße , die
+% im \Gm\ Paket definiert sind.
+% Das Seitenlayout beinhaltet einen \gpart{total body} (druckbaren Bereich) und \gpart{margins} (Ränder). 
+% Der \gpart{total body} besteht aus einem \gpart{body} (Textbereich) mit einem optionalen
+% \gpart{header} (Kopf), \gpart{footer} (Fuß) und Randbemerkungen (\gpart{marginpar}).
+% Es gibt vier Ränder: \gpart{left} (links), \gpart{right} (rechts), \gpart{top} (oben) und
+% \gpart{bottom} (unten). Für zweiseitige Dokumente, sollten horizontale Ränder \gpart{inner} (innen) und \gpart{outer} 
+% (außen) genannt werden.
+% \begin{quote}
+%  \begin{tabular}{rcl}
+%   \gpart{paper}&:&\gpart{total body} und
+%   \gpart{margins}\\
+%   \gpart{total body}&:&\gpart{body} (Textbereich)\quad
+%             (optionaler \gpart{head}, \gpart{foot} und \gpart{marginpar})\\
+%   \gpart{margins}&:&\gpart{left} (\gpart{inner}), 
+%      \gpart{right} (\gpart{outer}), \gpart{top} und \gpart{bottom}
+%   \end{tabular}
+% \end{quote}
+% Jeder Rand wird von der korrespondierenden Kante des Blattes gemessen. 
+% Zum Beispiel, linker Rand (innerer Rand) meint eine horizontale Entfernung
+% zwischen der linken (inneren) Kante des Blattes und der des \emph{total body} (druckbaren Bereichs).
+% Deshalb sind der linke und obere Rand in \Gm\ anders als das natürliche Maß
+% \cs{leftmargin} und \cs{topmargin} definiert.
+% Die Größe eines Body (Textbereichs) kann durch \cs{textwidth} (Textbreite) und
+% \cs{textheight} (Texthöhe) angepasst werden. 
+% Die Maße für die Seite, den druckbaren Bereich und die Ränder stehen in folgenden Beziehungen.
+% \begin{eqnarray}
+%  \label{eq:paperwidth}
+%  |paperwidth (Seitenbreite)| &=& |left (links)|+|width (Breite)|+|right (rechts)| \\
+%  |paperheight (Seitenhöhe)| &=& |top (oben)|+|height (Höhe)|+|bottom (unten)|
+%  \label{eq:paperheight}
+% \end{eqnarray}
+%
+% \begin{figure}[h]
+%  \centering\small
+%  {\unitlength=.65pt
+%  \begin{picture}(450,250)(0,-10)
+%  \put(20,0){\framebox(170,230){}}
+%  \put(20,235){\makebox(170,230)[br]{\gpart{Seite}}}
+%  \begingroup\thicklines
+%  \put(40,30){\framebox(120,170){}}\endgroup
+%  \put(40,30){\makebox(120,165)[tr]{\gpart{druckbarer Bereich}~}}
+%  \put(45,30){\makebox(0,170)[l]{|Höhe|}}
+%  \put(40,35){\makebox(120,0)[bc]{|Breite|}}
+%  \put(50,-20){\makebox(120,0)[bc]{|Seitenbreite|}}
+%  \put(10,45){\makebox(0,170)[r]{|Seitenhöhe|}}
+%  \put(90,200){\makebox(0,30)[lc]{|oben|}}
+%  \put(90,0){\makebox(0,30)[lc]{|unten|}}
+%  \put(10,70){\makebox(0,0)[r]{|links|}}
+%  \put(10,55){\makebox(0,0)[r]{(|innen|)}}
+%  \put(200,70){\makebox(0,0)[l]{|rechts|}}
+%  \put(200,55){\makebox(0,0)[l]{(|außen|)}}
+%  \put(80,230){\vector(0,-1){30}}\put(80,30){\vector(0,-1){30}}
+%  \put(80,200){\vector(0,1){30}}\put(80,0){\vector(0,1){30}}
+%  \put(20,70){\vector(1,0){20}}\put(40,70){\vector(-1,0){20}}
+%  \put(160,70){\vector(1,0){30}}\put(190,70){\vector(-1,0){30}}
+%  \multiput(160,30)(5,0){24}{\line(1,0){2}}
+%  \multiput(160,200)(5,0){24}{\line(1,0){2}}
+%  \begingroup\thicklines
+%  \put(280,30){\framebox(120,170){}}\endgroup
+%  \put(283,133){\makebox(0,12)[l]{|Texthöhe|}}
+%  \put(295,130){\vector(0,-1){100}}\put(295,150){\vector(0,1){50}}
+%  \multiput(280,220)(5,0){24}{\line(1,0){3}}
+%  \put(280,208){\makebox(120,20)[bc]{\gpart{Kopf}}}
+%  \multiput(280,207)(5,0){24}{\line(1,0){3}}
+%  \put(420,225){\makebox(0,0)[l]{|Kopfhöhe|}}
+%  \put(418,225){\line(-2,-1){20}}
+%  \put(420,213){\makebox(0,0)[l]{|Kopftrennung|}}
+%  \put(418,213){\line(-2,-1){20}}
+%  \put(420,12){\makebox(0,0)[l]{|Fußbereich|}}
+%  \put(418,12){\line(-2,1){20}}
+%  \put(280,40){\makebox(120,140)[c]{\gpart{Textkörper}}}
+%  \put(305,45){\vector(-1,0){25}}\put(375,45){\vector(1,0){25}}
+%  \put(80,230){\vector(0,-1){30}}\put(80,30){\vector(0,-1){30}}
+%  \put(280,48){\makebox(120,0)[c]{|Textbreite|}}
+%  \put(280,15){\makebox(120,10)[c]{\gpart{Fuß}}}
+%  \multiput(280,14)(5,0){24}{\line(1,0){2}}
+%  \put(410,30){\dashbox{3}(30,170){}}
+%  \put(415,30){\makebox(30,170)[l]{\gpart{Randnotiz}}}
+%  \put(425,45){\vector(-1,0){15}}\put(425,45){\vector(1,0){15}}
+%  \put(450,70){\makebox(0,0)[l]{|Randnotiztrennung|}}
+%  \put(448,70){\line(-3,-1){43}}
+%  \put(450,45){\makebox(0,0)[l]{|Randnotizbreite|}}
+%  \end{picture}}
+%  \caption[Namen der Maße für \Gm]{%
+%  \begin{minipage}[t]{.8\textwidth}\raggedright\small
+%  Namen von Maßen, die im \Gm\ Paket genutzt werden:
+%  |width| $=$ |textwidth (Textbreite)| und |height| $=$ |textheight (Texthöhe)| sind Standard.
+%  |left (links)|, |right (rechts)|, |top (oben)| und |bottom (unten)| sind Ränder. 
+%  Wenn die Ränder auf der Rückseite durch die |twoside (Zweiseitigkeit)| Option getauscht werden,
+%  dann werden die Ränder, die mit |left| und |right| angegeben wurden, für die inneren und äußeren Ränder genutzt.
+%  |inner (innen)| und |outer (außen)| sind Pseudonyme für |left| und |right|.
+%  \end{minipage}}
+%  \label{fig:layout}
+% \end{figure}
+%
+% \begin{figure}[h]
+%  \centering\small
+%  {\unitlength=.65pt
+%  \begin{picture}(490,280)(0,-10)
+%  \put(60,250){\makebox(120,0)[bl]{\textbf{(a)}~\textit{Standard}}}%
+%  \put(20,0){\framebox(170,230){}}
+%  \put(20,230){\makebox(170,15)[r]{\gpart{Seite}}}
+%  \begingroup\thicklines
+%  \put(40,30){\framebox(120,165){}}\endgroup
+%  \put(70,165){\vector(0,1){30}}
+%  \put(55,145){\makebox(0,20)[lc]{|Texthöhe|}}
+%  \put(70,145){\vector(0,-1){115}}
+%  \multiput(40,203)(5,0){24}{\line(1,0){3}}
+%  \multiput(40,213)(5,0){24}{\line(1,0){3}}
+%  \multiput(40,10)(5,0){24}{\line(1,0){3}}
+%  \put(40,203){\makebox(120,20)[bc]{\gpart{Kopf}}}
+%  \put(40,40){\makebox(120,140)[c]{\gpart{Textkörper}}}
+%  \put(40,11){\makebox(120,10)[c]{\gpart{Fuß}}}
+%  \put(150,230){\vector(0,-1){35}}\put(150,30){\vector(0,-1){30}}
+%  \put(150,195){\vector(0,1){35}}\put(150,0){\vector(0,1){30}}
+%  \put(160,197){\makebox(0,30)[lc]{|oben|}}
+%  \put(160,0){\makebox(0,30)[lc]{|unten|}}
+%  \multiput(160,30)(5,0){24}{\line(1,0){2}}
+%  \multiput(160,195)(5,0){24}{\line(1,0){2}}
+%  \put(255,250){\makebox(120,0)[bl]
+%      {\textbf{(b)}~|includehead| und |includefoot|}}%
+%  \put(260,0){\framebox(170,230){}}
+%  \put(260,230){\makebox(170,15)[r]{\gpart{Seite}}}
+%  \begingroup\thicklines
+%  \put(280,30){\framebox(120,165){}}\endgroup
+%  \put(310,152){\vector(0,1){25}}
+%  \put(295,130){\makebox(0,20)[lc]{|Texthöhe|}}
+%  \put(310,130){\vector(0,-1){80}}
+%  \multiput(280,184)(5,0){24}{\line(1,0){3}}
+%  \multiput(280,177)(5,0){24}{\line(1,0){3}}
+%  \multiput(280,50)(5,0){24}{\line(1,0){3}}
+%  \put(280,184){\makebox(120,10)[c]{\gpart{Kopf}}}
+%  \put(280,40){\makebox(120,140)[c]{\gpart{Textkörper}}}
+%  \put(400,140){\line(1,1){45}}
+%  \put(437,187){\makebox(50,10)[l]{\gpart{druckbarer Bereich}}}
+%  \put(280,31){\makebox(120,10)[c]{\gpart{Fuß}}}
+%  \put(370,230){\vector(0,-1){35}}\put(370,30){\vector(0,-1){30}}
+%  \put(370,195){\vector(0,1){35}}\put(370,0){\vector(0,1){30}}
+%  \put(380,197){\makebox(0,30)[lc]{|oben|}}
+%  \put(380,0){\makebox(0,30)[lc]{|unten|}}
+%  \end{picture}}
+%  \caption[Ein Effekt von \texttt{includehead} und \texttt{includefoot}.]{%
+%  \begin{minipage}[t]{.8\textwidth}\raggedright\small
+%    |includehead| und |includefoot| schließen den Kopf und den Fuß mit
+%    in den \gpart{total body} (druckbaren Bereich) ein. \textbf{(a)} |height| $=$ |textheight| (Standard).
+%    \textbf{(b)} |height| $=$ |textheight| $+$ |headheight| $+$ |headsep| $+$ 
+%    |footskip|, wenn |includehead| und |includefoot| aktiv. Wenn der obere und untere Rand angegeben ist
+%    führt |includehead| und |includefoot| dazu, dass die |Texthöhe| verringert wird.
+%  \end{minipage}}
+%  \label{fig:includes}
+% \end{figure}
+%
+% Die |Breite| und |Höhe| des druckbaren Bereichs wird definiert:
+% \begin{eqnarray}
+%  \label{eq:width}
+%  |width| &:=& |textwidth| \quad( +\>  |marginparsep|* + |marginparwidth|** )\\
+%  |height| &:=& |textheight| \quad(+\> |headheight|*** + |headsep|**** + |footskip|***** )
+%  \label{eq:height}
+% \end{eqnarray}
+% * 	Randnotiztrennung
+% ** 	Randnotizbreite
+% *** 	Kopfhöhe
+% **** 	Kopftrennung
+% ***** Fußbereich\\
+% In Gleichung (\ref{eq:width}) ist standardmäßig |width:=textwidth|, 
+% während |marginparsep| und |marginparwidth| nur in der |width (Breite)| enthalten sind,
+% wenn die |includemp| Option auf |true| gesetzt ist. 
+% In Gleichung (\ref{eq:height}) ist standardmäßig |height:=textheight|. 
+% Falls |includehead| auf |true| gesetzt ist, dann werden |headheight| und |headsep|
+% als Teil der Höhe (|height|) betrachtet.
+% Auf dem selben Weg, nimmt |includefoot| |footskip| in |height| auf. 
+% Abbildung~\ref{fig:includes} zeigt, wie diese Optionen
+% in der vertikalen Richtung arbeiten.
+%
+% Folglich besteht das Seitenlayout aus drei Teilen (Längen) in jeder
+% Richtung: ein Textkörper und zwei Ränder. Wenn zwei der Ränder explizit angegeben sind,
+% dann sind die anderen offensichtlich und müssen nicht angegeben werden.
+% Abbildung~\ref{fig:Labc} zeigt ein einfaches Modell der Seitenmaße. 
+% Falls eine Länge |L| gegeben ist und eingeteilt ist in den Textkörper |b|, die Ränder |a| und |c|, dann ist offensichtlich, 
+% dass
+% \begin{equation}
+%   |L|=|a|+|b|+|c|  \label{eq:Labc}
+% \end{equation}
+% Die Spezifikation mit zwei von drei (|a|, |b| und |c|) festgelegten, ist explizit lösbar.
+% Wenn zwei oder mehr der übrigen nicht angegeben sind, kann
+% Gleichung~(\ref{eq:Labc}) nicht ohne eine andere Beziehung zwischen ihnen gelöst werden.
+% Falls alle Werte angegeben sind, dann muss überprüft werden, ob diese Gleichung ~(\ref{eq:Labc}) genügen,
+% da es zu viele Angaben sind oder es ist `überspezifiziert'.
+%
+% \begin{figure}[h]
+%  \centering
+%  {\unitlength=0.8pt
+%  \begin{picture}(300,60)(0,-5)
+%  \begingroup\linethickness{5pt}
+%  \put(0,5){\textcolor{green}{\line(1,0){60}}}
+%  \put(60,5){\textcolor{black}{\line(1,0){160}}}
+%  \put(220,5){\textcolor{green}{\line(1,0){80}}}
+%  \endgroup
+%  \put(0,15){\makebox(60,10)[b]{|a|}}
+%  \put(60,0){\line(0,1){20}}
+%  \put(60,15){\makebox(160,10)[b]{|b|}}
+%  \put(220,0){\line(0,1){20}}
+%  \put(220,15){\makebox(80,10)[b]{|c|}}
+%  \put(0,0){\line(0,1){50}}
+%  \put(150,35){\vector(-1,0){150}}
+%  \put(0,40){\makebox(300,10){|L|}}
+%  \put(150,35){\vector(1,0){150}}
+%  \put(300,0){\line(0,1){50}}
+%  \end{picture}}
+%  \caption{Ein einfaches Modell der Seitenmaße.}
+%  \label{fig:Labc}
+% \end{figure}
+%
+% Das \Gm\ Paket besitzt einen Autovervollständigungsmechanismus, der vor dem
+% Ärger der Angabe von Seitenlayoutmaßen schützt. Zum Beispiel
+% können sie das Folgende
+% \begin{quote}
+%  |\usepackage[width=14cm, left=3cm]{geometry}|
+% \end{quote}
+% auf A4-Papier einstellen. In diesem Fall müssen sie den rechten Rand nicht angeben.
+% Die Details der Autovervollständigung werden in Kapitel~\ref{sec:rules} beschrieben.
+%
+%
+%
+%
+%
+% \section{Benutzerschnittstelle}
+%
+% \subsection{Befehle}
+%
+% Das \Gm\ Paket unterstützt die folgenden Befehle:
+% \begin{itemize}\setlength{\itemsep}{-.5\parsep}
+%  \item |\geometry{|\meta{Optionen}|}|
+%  \item |\newgeometry{|\meta{Optionen}|}| und |\restoregeometry|
+%  \item |\savegeometry{|\meta{Name}|}| und |\loadgeometry{|\meta{Name}|}|
+% \end{itemize}
+%
+% |\geometry{|\meta{Optionen}|}|
+% verändert das Seitenlayout entsprechend den angegebenen Optionen im Argument.
+% Dieser Befehl, wenn überhaupt, sollte nur in der Präambel platziert werden
+% (vor |\begin{document}|).
+% 
+% Das \Gm\ Paket kann als Teil einer Klasse oder eines weiteren Pakets, das sie im Dokument benutzen,
+% genutzt werden. Der Befehl \cs{geometry} kann einige der Einstellungen in der Präambel
+% überschreiben. Eine mehrfache Nutzung von \cs{geometry}
+% ist erlaubt und wird dann mit den verbundenen Optionen ausgeführt.
+% Wenn \Gm\ noch nicht geladen ist, können sie nur
+% |\usepackage[|\meta{Optionen}|]{geometry}| anstelle von \cs{geometry} nutzen.
+%
+% \medskip
+% |\newgeometry{|\meta{Optionen}|}|
+% verändert das Seitenlayout innerhalb des Dokuments. \cs{newgeometry} ist fast
+% gleich mit \cs{geometry}, ausgenommen, dass \cs{newgeometry} alle Optionen,
+% die von \cs{usepackage} und \cs{geometry} in
+% der Präambel vorgenommen wurden, deaktiviert. 
+% \cs{restoregeometry}
+% stellt das Seitenlayout, wie es in der Präambel angegeben ist, wieder her. Dieser Befehl
+% besitzt keine Argumente. Lesen sie Kapitel~\ref{sec:midchange} für Details.
+%
+% \medskip
+% |\savegeometry{|\meta{Name}|}|
+% speichert die Seitenmaße als \meta{Name}, wo sie
+% diesen Befehl nutzen.\\
+% |\loadgeometry{|\meta{Name}|}|
+% lädt die Seitenmaße, die als \meta{Name} gespeichert wurden. Lesen sie
+% Kapitel~\ref{sec:midchange} für Details.
+%
+% \subsection{Optionales Argument}
+%
+% Das \Gm\ Paket übernimmt die \textsf{keyval} Schnittstelle
+% `\meta{Schlüssel}=\meta{Wert}' für das optionale Argument von
+% \cs{usepackage}, \cs{geometry} und \cs{newgeometry}.
+% 
+% Das Argument beinhaltet eine Liste von kommaseparierten \textsf{keyval}
+% Optionen und besitzt folgende Grundregeln:
+% \begin{itemize}\setlength{\itemsep}{-.5\parsep}
+% \item Mehrfache Zeilen sind erlaubt, während es leere nicht sind.
+% \item Jedes Leerzeichen zwischen den Wörtern wird ignoriert.
+% \item Die Reihenfolge der Optionen ist grundlegend unabhängig.
+% (Es gibt einige Ausnahmen. Lesen sie Kapitel~\ref{sec:optionorder} für Details.)
+% \end{itemize}
+%  Zum Beispiel ist
+% \begin{quote}
+% |\usepackage[ a5paper ,  hmargin = { 3cm,|\\
+% |                .8in } , height|\\
+% |         =  10in ]{geometry}|
+% \end{quote}
+% äquivalent zu 
+% \begin{quote}
+%   |\usepackage[height=10in,a5paper,hmargin={3cm,0.8in}]{geometry}|
+% \end{quote}
+% Einigen Optionen ist es erlaubt, Unterlisten zu haben, z.\,B. |{3cm,0.8in}|.
+% Beachten sie, dass die Reihenfolge der Werte in der Liste bedeutsam ist.
+% Die obere Einstellung ist ebenso äquivalent zu Folgendem:
+% \begin{quote}
+%   |\usepackage{geometry}|\\
+%   |\geometry{height=10in,a5paper,hmargin={3cm,0.8in}}|
+% \end{quote}
+% oder
+% \begin{quote}
+%   |\usepackage[a5paper]{geometry}|\\
+%   |\geometry{hmargin={3cm,0.8in},height=8in}|\\
+%   |\geometry{height=10in}|.
+% \end{quote}
+% Folglich hängt die mehrfache Nutzung von \cs{geometry} die Optionen aneinander.
+%
+% \Gm\ unterstützt das Paket 
+% \textsl{calc}\footnote{CTAN:~\texttt{macros/latex/required/tools}}.
+% Zum Beispiel,
+% \begin{quote}
+%   |\usepackage{calc}|\\
+%   |\usepackage[textheight=20\baselineskip+10pt]{geometry}|
+% \end{quote}
+%
+% \subsection{Optionstypen}
+% \Gm\ Optionen sind in vier Typen eingeteilt:
+%
+% \begin{enumerate}\itemsep=0pt
+% \item \textbf{Wahrheitswerttyp}
+%
+%  Er nimmt einen Wahrheitswert an (|true (wahr)| oder |false (falsch)|). Falls kein Wert angegeben ist,
+%    wird standardmäßig |true (wahr)| eingesetzt.
+%    \begin{quote}
+%       \meta{Schlüssel}|=true|\OR|false|.\\
+%       \meta{Schlüssel} ohne Wert ist äquivalent zu 
+%       \meta{Schlüssel}|=true|.
+%    \end{quote}
+%    \textit{Beispiele:}~ |verbose=true|, |includehead|, 
+%    |twoside=false|.\\
+%    Der Papiername ist eine Ausnahme. Der bevorzugte Papiername sollte ohne Wert
+%    angegeben werden. Welcher Wert auch immer gegeben ist er wird ignoriert. Zum
+%    Beispiel ist |a4paper=XXX| äquivalent zu |a4paper|.
+%
+% \item \textbf{Typ mit einzelnem Wert}
+%
+%   Man benötigt einen zwingenden Wert.
+%    \begin{quote}
+%    \meta{Schlüssel}|=|\meta{Wert}.
+%    \end{quote}
+%    \textit{Beispiele:}~ |width=7in|, |left=1.25in|,
+%    |footskip=1cm|, |height=.86\paperheight|.
+%
+% \item \textbf{Typ mit zwei Werten}
+%
+%    Man benötigt ein Paar von kommagetrennten Werten in geschweiften Klammern. Die zwei Werte können
+%    zu einem gekürzt werden, wenn beide identisch sind.
+%    \begin{quote}
+%    \meta{Schlüssel}|=|\argii{Wert1}{Wert2}.\\
+%    \meta{Schlüssel}|=|\meta{Wert} ist äquivalent zu 
+%              \meta{Schlüssel}|=|\argii{Wert}{Wert}.
+%    \end{quote}
+%    \textit{Beispiele:}~ |hmargin={1.5in,1in}|, |scale=0.8|,
+%    |body={7in,10in}|.
+%
+% \item \textbf{Typ mit drei Werten}
+%
+%    Man benötigt drei zwingende Werte, kommagetrennte Werte in geschweiften Klammern.
+%    \begin{quote}
+%    \meta{Schlüssel}|=|\argiii{Wert1}{Wert2}{Wert3}
+%    \end{quote}
+%    Jeder Wert muss ein Maß sein oder Null. Falls sie einen leeren Wert angeben
+%    oder `|*|', dies bedeutet Null, dann wird der übergebene Wert dem Autovervollständigungsmechanismus zugeführt. 
+%    Sie müssen mindestens ein Maß angeben, typischerweise aber zwei.
+%    Sie können für alle Werte Null einsetzen,
+%    aber das macht keinen Sinn.
+%    \textit{Beispiele:}\\
+%    \hspace*{2em} |hdivide={2cm,*,1cm}|, |vdivide={3cm,19cm, }|,
+%                   |divide={1in,*,1in}|.
+% \end{enumerate}
+%
+% \section{Details zu Optionen}
+%
+% Dieses Kapitel beschreibt alle Optionen, die in \Gm{} verfügbar sind.
+% Optionen mit einem Dolch $^\dagger$ sind nicht vorhanden 
+% als Argumente von \cs{newgeometry} (Lesen sie Kapitel~\ref{sec:midchange}).
+%
+% \subsection{Papiergröße}\label{sec:paper}
+% 
+% Die Optionen unten dienen zum Einstellen der Größe des Papiers/Mediums und der Orientierung.
+% \begin{Options}
+% \item[\onlypre paper (Papier)\OR papername (Papiername)] ~\\ 
+%  gibt die Papiergröße anhand des Namens an. |paper=|\meta{Papiername}.
+%  Für besseren Komfort können sie den Papiernamen ohne |paper=| angeben.
+%  |a4paper| ist beispielsweise äquivalent zu |paper=a4paper|.
+% \item[\onlypre \vtop{
+%  \hbox{a0paper, a1paper, a2paper, a3paper, a4paper, a5paper, a6paper,}
+%  \hbox{b0paper, b1paper, b2paper, b3paper, b4paper, b5paper, b6paper,}
+%  \hbox{c0paper, c1paper, c2paper, c3paper, c4paper, c5paper, c6paper,}
+%  \hbox{b0j, b1j, b2j, b3j, b4j, b5j, b6j,}
+%  \hbox{ansiapaper, ansibpaper, ansicpaper, ansidpaper, ansiepaper,}
+%  \hbox{letterpaper, executivepaper, legalpaper}}]~\\[1ex] 
+%    gibt den Papiernamen an.  Der Wert wird ignoriert, sogar wenn einer angegeben wird.
+%    Beispielsweise hat das Folgende den gleichen Effekt:
+%    |a5paper|, |a5paper=true|, |a5paper=false| und so weiter.
+%   |a[0-6]paper|, |b[0-6]paper| und |c[0-6]paper| sind ISO A, B und C
+%   Serien von Papiergrößen.
+%   Die JIS (Japanischer Industriestandard) A-Serien ist identisch zu den
+%   ISO A-Serien, aber die JIS B-Serien sind von den ISO B-Serien verschieden.
+%   |b[0-6]j| sollte für die JIS B-Serien genutzt werden. 
+% \item[\onlypre screen] eine spezielle Papiergröße mit (B,H) = (225\,mm,180\,mm).
+%    Für Präsentationen mit dem PC und einem Beamer kann ``|screen,centering|'',
+%    in Verbindung mit `slide' in der Dokumentklasse nützlich sein.
+% \item[\onlypre paperwidth] Breite des Papiers. |paperwidth=|\meta{Länge}.
+% \item[\onlypre paperheight] Höhe des Papiers. |paperheight=|\meta{Länge}.
+% \item[\onlypre papersize] Breite und Höhe des Papiers. 
+%    |papersize=|\argii{Breite}{Höhe} oder |papersize=|\meta{Länge}.
+% \item[\onlypre landscape] wechselt die Papierorientierung in den Landschaftsmodus.
+% \item[\onlypre portrait] wechselt die Papierorientierung in den Portraitsmodus.
+%    Dies ist das Gleiche wie |landscape=false|.
+% \end{Options}
+%
+% Die Optionen für den Papiernamen (z.\,B., |a4paper|) und die Orientierung
+% (|portrait| und |landscape|) können als Dokumentklassenoptionen benutzt werden. 
+% Zum Beispiel können sie\\ |\documentclass[a4paper,landscape]{article}| eingeben, 
+% dann werden |a4paper| und |landscape| auch in \Gm\ abgearbeitet.
+% Dies ist ebenso im Fall von |twoside (zweiseitig)| und |twocolumn (zweispaltig)|
+% (Lesen sie auch Kapitel~\ref{sec:dimension}).
+%
+% \subsection{Layoutgröße}
+%
+%  Sie können den Layoutbereich mit den Optionen, die in diesem Kapitel beschrieben sind, ungeachtet der Papiergröße, angeben.
+%  Die Optionen helfen das angegebene Layout auf unterschiedlichen
+%  Papiergrößen zu drucken. Wenn sie beispielsweise |a4paper| und |layout=a5paper| nutzen, dann
+%  benutzt das Paket das `A5' Layout, um die Ränder auf dem `A4' Papier zu berechnen.
+%  Die Layoutgröße wird genauso groß wie die des Papiers.
+%  Die Optionen für die Layoutgröße sind mittels \cs{newgeometry} erreichbar,
+%  sodass sie die Layoutgröße in der Mitte des Dokuments verändern können.
+%  Die Papiergröße selbst kann so nicht geändert werden.
+%  Abbildung~\ref{fig:layoutandpaper} zeigt, was die Unterschiede zwischen
+%  |layout| und |paper| sind.
+% \begin{Options}
+% \item[layout] gibt die Layoutgröße vom Papiernamen an.
+% |layout=|\meta{Papiername}. Alle Papiernamen, die in \Gm\ definiert sind, sind wählbar.
+% Lesen sie auch Kapitel~\ref{sec:paper} für mehr Details.
+% \item[layoutwidth] Breite des Layouts. |layoutwidth=|\meta{Länge}.
+% \item[layoutheight] Höhe des Layouts. |layoutheight=|\meta{Länge}.
+% \item[layoutsize] Breite und Höhe des Layouts.
+%    |layoutsize=|\argii{Breite}{Höhe} oder |layoutsize=|\meta{Länge}.
+% \item[layouthoffset] gibt den horizontalen Versatz von der linken Kante des Papiers an.
+% |layouthoffset=|\meta{Länge}.
+% \item[layoutvoffset] gibt den vertikalen Versatz von der oberen Kante des Papiers an.
+% |layoutvoffset=|\meta{Länge}.
+% \item[layoutoffset] gibt beides, horizontalen und vertikalen Versatz an. 
+%  |layoutoffset=|\argii{hoffset}{voffset} oder |layoutsize=|\meta{Länge}.
+% \end{Options}
+% \begin{figure}[h]
+%  \centering\small
+%  {\unitlength=.6pt
+%  \begin{picture}(450,250)(0,-10)
+%  \put(20,0){\makebox(168,12)[r]{\gpart{Papier}}}
+%  \put(20,0){\framebox(170,230){}}
+%  \put(21,40){\dashbox{3}(140,189){}}
+%  \put(21,28){\makebox(140,12)[r]{\gpart{Layout}}}
+%  \put(40,50){\makebox(100,10){\gpart{Fuß}}}
+%  \put(40,50){\line(1,0){100}}
+%  \put(40,65){\framebox(100,125){\gpart{Textbereich}}}
+%  \put(40,200){\framebox(100,10){\gpart{Kopf}}}
+%  \put(20,230){\makebox(140,20){|Layoutbreite|}}
+%  \put(40,240){\vector(-1,0){20}}
+%  \put(140,240){\vector(1,0){20}}
+%  \put(10,145){\vector(0,1){85}}
+%  \put(15,125){\makebox(0,20)[r]{|Layouthöhe|}}
+%  \put(10,125){\vector(0,-1){85}}
+%  \put(280,0){\makebox(168,12)[r]{\gpart{Papier}}}
+%  \put(280,0){\framebox(170,230){}}
+%  \put(293,35){\dashbox{3}(140,189){}}
+%  \put(293,23){\makebox(140,12)[r]{\gpart{Layout}}}
+%  \put(312,45){\makebox(100,10){\gpart{Fuß}}}
+%  \put(312,45){\line(1,0){100}}
+%  \put(312,60){\framebox(100,125){\gpart{Textbereich}}}
+%  \put(312,195){\framebox(100,10){\gpart{Kopf}}}
+%  \put(235,230){\makebox(80,20)[l]{|layouthoffset|}}
+%  \put(260,210){\vector(1,0){20}}
+%  \put(308,210){\vector(-1,0){15}}
+%  \put(260,210){\line(-1,2){10}}
+%  \put(355,230){\makebox(100,20){|layoutvoffset|}}
+%  \put(350,250){\vector(0,-1){20}}
+%  \put(350,209){\vector(0,1){15}}
+%  \end{picture}}
+%  \caption[Layout und Papier]{%
+%  \begin{minipage}[t]{.7\textwidth}\raggedright\small
+%  Die Maße sind mit denen der Layoutgröße verwandt. Beachte, dass die Layoutgrößenvorgaben
+%  zu der Größe des Papiers korrespondieren, sodass sie die meisten layoutbezogenen Optionen
+%  nicht explizit angeben müssen.
+%  \end{minipage}}
+%  \label{fig:layoutandpaper}
+% \end{figure}
+% 
+% \subsection{Größe des Textbereichs}\label{sec:body}
+%
+% Die Optionen, die die Größe des \gpart{druckbaren Bereichs} angeben, werden in diesem Kapitel beschrieben.
+%
+% \begin{Options}
+% \item[hscale]
+%    Verhältnis der Breite des \gpart{druckbaren Bereichs} zur \cs{paperwidth (Papierbreite)}. 
+%    |hscale=|\meta{h-scale}, z.\,B. |hscale=0.8| ist äquivalent zu
+%    |width=0.8|\cs{paperwidth (Papierbreite)}. (|0.7| ist der Standard)
+% \item[vscale]
+%    Verhältnis der Höhe des \gpart{druckbaren Bereichs} zur \cs{paperheight (Papierhöhe)}, z.\,B.
+%    |vscale=|\meta{v-scale}. (|0.7| ist der Standard) |vscale=0.9| ist äquivalent
+%    zu |height=0.9|\cs{paperheight (Papierhöhe)}.
+% \item[scale] Verhältnis des \gpart{druckbaren Bereichs} zum Papier.
+%    |scale=|\argii{h-scale}{v-scale} oder |scale=|\meta{scale}.
+%    (|0.7| ist der Standard)
+% \item[width\OR totalwidth] ~\\
+%    Breite des \gpart{druckbaren Bereichs}. |width=|\meta{Länge} oder
+%    |totalwidth=|\meta{Länge}. Dieses Maß korrespondiert zur |textwidth (Textbreite)|,
+%    aber wenn |includemp| auf |true| gesetzt ist, dann ist die |Breite| $\ge$ |Textbreite|, 
+%    weil die |Breite| die Breite der Randnotizen beinhaltet.
+%    Wenn die |Textbreite| und die |Breite| gleichzeitig angegeben werden, 
+%    dann hat die |Textbreite| eine höhere Priorität als die |Breite|.
+% \item[height\OR totalheight] ~\\
+%    Höhe des \gpart{druckbaren Bereichs}, wobei Kopf und Fuß standardmäßig ausgeschlossen sind.
+%    Wenn |includehead| oder |includefoot| gesetzt ist, dann beinhaltet die |height (Höhe)|
+%    den Kopf oder den Fuß der Seite sowie die |textheight (Texthöhe)|.
+%    |height=|\meta{Länge} oder |totalheight=|\meta{Länge}. Falls beide,
+%    |textheight (Texthöhe)| und |height (Höhe)|, angegeben sind, wird die |height (Höhe)| ignoriert werden.
+% \item[total] Breite und Höhe des \gpart{druckbaren Bereichs}.\\
+%    |total=|\argii{Breite}{Höhe} oder |total=|\meta{Länge}.
+% \item[textwidth] gibt die \cs{textwidth (Textbreite)}, die Breite des \gpart{Körpers} 
+%    (der Textbereich) an. |textwidth=|\meta{Länge}.
+% \item[textheight] gibt die \cs{textheight (Texthöhe)}, die Höhe des
+%    \gpart{Körpers} (der Textkörper) an. |textheight=|\meta{Länge}.
+% \item[text\OR body] gibt beides, die \cs{textwidth (Textbreite)} und \cs{textheight (Texthöhe)}
+%    des Körpers der Seite an. |body=|\argii{Breite}{Höhe} oder
+%    |text=|\meta{Länge}.
+% \item[lines] erlaubt dem Benutzer, die \cs{textheight (Texthöhe)} durch die Anzahl
+%    der Zeilen anzugeben. |lines|=\meta{ganzzahliger Wert}.
+% \item[includehead] schließt den Kopf der Seite, die \cs{headheight (Kopfhöhe)}
+%    und \cs{headsep (Kopftrennung)} in den \gpart{druckbaren Bereich} ein. Diese Option ist in den Voreinstellungen durch
+%    |false| deaktiviert. Es ist das Gegenteil von |ignorehead|. Betrachten sie auch
+%    Abbildung~\ref{fig:includes} und Abbildung~\ref{fig:modes}.
+% \item[includefoot] schließt den Fuß der Seite, \cs{footskip (Fußbereich)},
+%    in den \gpart{druckbaren Bereich} ein. Es ist das Gegenteil von |ignorefoot|.
+%    Die Voreinstellung ist |false| (deaktiviert). Betrachten sie auch Abbildung~\ref{fig:includes} und
+%    Abbildung~\ref{fig:modes}.
+% \item[includeheadfoot]~\\ 
+%    setzt beides, |includehead| und |includefoot|, auf |true|, dies ist das Gegenteil
+%    von |ignoreheadfoot|. Betrachten sie auch Abbildung~\ref{fig:includes} und
+%    Abbildung~\ref{fig:modes}.
+% \item[includemp] schließt die Randnotizen, die \cs{marginparwidth (Randnotizbreite)}
+%    und \cs{marginparsep (Randnotiztrennung)} in den \gpart{Körper} ein, wenn die horizontalen Maße
+%    berechnet werden.
+% \item[includeall] setzt beides, |includeheadfoot| und |includemp| auf
+%    |true| (aktiv). Betrachten sie auch Abbildung~\ref{fig:modes}.
+% \item[ignorehead] missachtet den Kopf der Seite,
+%    |headheight (Kopfhöhe)| und |headsep (Kopftrennung)|, sind ausschlaggebend für das vertikale Layout, aber diese ändern
+%    dessen Längen nichts. Es ist äquivalent zu |includehead=false|. Diese Option ist mit
+%    |true| voreingestellt. Lesen sie auch |includehead|.
+% \item[ignorefoot] missachtet den Fuß der Seite, der |footskip (Fußbereich)|,
+%    ist ausschlaggebend für das vertikale Layout, aber dies ändert die Länge nicht.
+%    Diese Voreinstellung der Option ist |true|. Lesen sie auch |includefoot|.
+% \item[ignoreheadfoot]~\\ setzt beides, |ignorehead| und |ignorefoot|
+%    auf |true|. Lesen sie auch |includeheadfoot|.
+% \item[ignoremp] vernachlässigt die Randnotizen bei der Berechnung der horizontalen
+%    Ränder (der Standard ist |true|). Wenn die Randnotizen die Seite überfüllen,
+%    dann wird eine Warnmeldung angezeigt werden, wenn |verbose=true| aktiviert ist.
+%    Sehen sie auch |includemp| und Abbildung~\ref{fig:modes}.
+% \item[ignoreall] setzt beides, |ignoreheadfoot| und |ignoremp| auf |true|. 
+%    Lesen sie auch |includeall|.
+% \item[heightrounded]~\\
+%    Diese Option rundet die \cs{textheight (Texthöhe)}, um \textit{n}-Mal mehr (\textit{n}:
+%    ist eine ganze Zahl) \cs{baselineskip} plus \cs{topskip}, um 
+%    ``underfull vbox'' in manchen Fällen zu vermeiden. Zum Beispiel, wenn die \cs{textheight (Texthöhe)}
+%    486pt ist, mit \cs{baselineskip} 12pt und \cs{topskip} 10pt, dann
+%    \begin{quote}
+%      $(39\times12\textrm{pt}+10\textrm{pt}=)\: 478\textrm{pt}
+%       < 486\textrm{pt} < 
+%      490\textrm{pt} \:(=40\times12\textrm{pt}+10\textrm{pt})$,
+%    \end{quote}
+%    als Ergebnis wird die \cs{textheight (Texthöhe)} auf 490\,pt aufgerundet. |heightrounded=false|
+%    ist voreingestellt.
+% \end{Options}
+%
+% Abbildung~\ref{fig:modes} illustriert die verschiedenen Layouttypen mit den verschiedenen Layoutmodi.
+% Die Maße für einen Kopf und einen Fuß können durch den
+% |nohead|- oder |nofoot|-Modus kontrolliert werden, dies setzt jede Länge auf 0\,pt.
+% Auf der anderen Seite verändern Optionen mit dem Präfix |ignore| \textit{nicht}
+% die korrespondierenden, ursprünglichen Maße.
+%
+%
+% Die folgenden Optionen können den Körper und die Ränder gleichzeitig angeben, mit
+% drei kommagetrennten Werten in geschweiften Klammern.
+%
+% \begin{figure}[h]
+%  \centering\small
+%  {\unitlength=.65pt
+%  \begin{picture}(460,525)(0,0)
+%  \put( 20,310){\framebox(120,170){}}
+%  \put( 20,507){\makebox(120,0)[bl]%
+%  {\textbf{(a)}~|includeheadfoot|}}
+%  \put( 20,460){\line(1,0){120}}\put( 20,450){\line(1,0){120}}
+%  \put( 20,330){\line(1,0){120}}
+%  \put( 20,485){\makebox(120,0)[br]{\gpart{druckbarer Bereich}}}
+%  \put( 20,335){\makebox(120,0)[bc]{|Textbreite|}}
+%  \put(150,470){\makebox(0,0)[l]{|headheight|}}
+%  \put(150,450){\makebox(0,0)[l]{|headsep|}}
+%  \put(150,390){\makebox(0,0)[l]{|textheight|}}
+%  \put(150,320){\makebox(0,0)[l]{|Fußbereich|}}
+%  \put( 10,460){\makebox(120,20)[bc]{\gpart{Kopf}}}
+%  \put( 10,320){\makebox(120,140)[c]{\gpart{Körper}}}
+%  \put( 10,310){\makebox(120,10)[c]{\gpart{Fuß}}}
+%  \put(250,310){\framebox(120,170){}}
+%  \put(250,507){\makebox(120,0)[bl]%
+%  {\textbf{(b)}~|includeall|}}
+%  \put(250,460){\line(1,0){95}}\put(250,450){\line(1,0){95}}
+%  \put(250,330){\line(1,0){95}}\put(345,330){\line(0,1){120}}
+%  \put(350,330){\line(0,1){120}}\put(350,450){\line(1,0){20}}
+%  \put(350,330){\line(1,0){20}}
+%  \put(250,485){\makebox(120,0)[br]{\gpart{druckbarer Bereich}}}
+%  \put(250,460){\makebox(95,20)[bc]{\gpart{Kopf}}}
+%  \put(250,320){\makebox(95,140)[c]{\gpart{Fuß}}}
+%  \put(385,390){\makebox(95,0)[cl]%
+%  {\gpart{\shortstack[l]{Rand-\\notiz}}}}
+%  \put(250,310){\makebox(95,10)[c]{\gpart{Fuß}}}
+%  \put(250,335){\makebox(95,0)[bc]{|textwidth|}}
+%  \multiput(360, 390)(4,0){6}{\line(1,0){2}}
+%  \multiput(348,333)(0,-4){12}{\line(0,1){2}}
+%  \multiput(360,333)(0,-4){8}{\line(0,1){2}}
+%  \put(355,292){\makebox(0,0)[bl]{|marginparwidth|}}
+%  \put(345,275){\makebox(0,0)[bl]{|marginparsep|}}
+%  \put( 20, 40){\framebox(120,170){}}
+%  \put( 20,237){\makebox(120,0)[bl]%
+%  {\textbf{(c)}~|includefoot|}}
+%  \put( 20, 60){\line(1,0){120}}
+%  \put( 20,215){\makebox(120,0)[br]{\gpart{druckbarer Bereich}}}
+%  \put(150,130){\makebox(0,0)[l]{|textheight|}}
+%  \put(150, 50){\makebox(0,0)[l]{|footskip|}}
+%  \put( 20, 50){\makebox(120,160)[c]{\gpart{Körper}}}
+%  \put( 20, 40){\makebox(120,10)[c]{\gpart{Fuß}}}
+%  \put( 20, 65){\makebox(120,10)[c]{|textwidth|}}
+%  \put(250, 40){\framebox(120,170){}}
+%  \put(250,237){\makebox(120,0)[bl]%
+%  {\textbf{(d)}~|includefoot,includemp|}}
+%  \put(250, 60){\line(1,0){95}}\put(350, 60){\line(1,0){20}}
+%  \put(250,215){\makebox(120,0)[br]{\gpart{druckbarer Bereich}}}
+%  \put(250, 50){\makebox(95,160)[c]{\gpart{Körper}}}
+%  \put(385,130){\makebox(95,0)[cl]%
+%  {\gpart{\shortstack[l]{Rand-\\notiz}}}}
+%  \put(250, 40){\makebox(95,10)[c]{\gpart{Fuß}}}
+%  \put(250, 65){\makebox(95,0)[bc]{|textwidth|}}
+%  \put(345, 60){\line(0,1){150}}\put(350, 60){\line(0,1){150}}
+%  \multiput(360, 130)(4,0){6}{\line(1,0){2}}
+%  \multiput(348, 63)(0,-4){12}{\line(0,1){2}}
+%  \multiput(360, 63)(0,-4){8}{\line(0,1){2}}
+%  \put(355,22){\makebox(0,0)[bl]{|marginparwidth|}}
+%  \put(345, 5){\makebox(0,0)[bl]{|marginparsep|}}
+%  \end{picture}}
+%  \caption[Musterlayout für den \gpart{druckbaren Bereich} mit verschiedenen 
+%     Layoutmodi]{%
+%  \begin{minipage}[t]{.8\textwidth}\small
+%    Musterlayouts für den \gpart{druckbaren Bereich} mit verschiedenen Veränderungen.
+%    (a) |includeheadfoot|, (b) |includeall|, (c) |includefoot|
+%     und (d) |includefoot,includemp|. 
+%    Wenn |reversemp| auf |true| gesetzt ist, dann werden die Orte
+%    für die Randnotizen auf jeder Seite getauscht.
+%    Die Option |twoside| tauscht beides, die Ränder und die Randnotizen auf der Rückseite.
+%    Beachten sie, dass die Randnotiz gedruckt wird, falls vorhanden, trotz das
+%    |ignoremp| oder |includemp=false| und Überlauf der Seite, in einigen Fällen.
+%  \end{minipage}}
+%  \label{fig:modes}
+% \end{figure}
+%
+% \begin{Options}
+% \item[hdivide] horizontale Aufteilung (links,Breite,rechts).
+%   |hdivide=|\argiii{linker Rand}{Breite}{rechter Rand}. 
+%   Beachten sie, dass sie nicht alle drei Parameter eingeben sollten.
+%   Die beste Möglichkeit der Nutzung dieser Option ist die Angabe von zwei der drei Parameter und 
+%   das Freilassen des verbliebenen mit Null(nichts) oder `|*|'. Zum Beispiel, wenn sie 
+%   |hdivide={2cm,15cm, }| einstellen, dann wird der Rand von der rechtsseitigen Kante der Seite
+%   die Rechnung bestimmen |paperwidth-2cm-15cm|.
+% \item[vdivide] vertikale Aufteilung (oben,Höhe,unten).
+%   |vdivide=|\argiii{oberer Rand}{Höhe}{unterer Rand}.
+% \item[divide] |divide=|\vargiii{$A$}{$B$}{$C$} wird interpretiert als 
+%   |hdivide=|\vargiii{$A$}{$B$}{$C$} und |vdivide=|\vargiii{$A$}{$B$}{$C$}.
+% \end{Options}
+%
+% \subsection{Randgröße}\label{sec:margin}
+%
+% Die Optionen zum Spezifizieren der Größe der Ränder sind unten aufgelistet.
+%
+% \begin{Options}
+% \item[left\OR lmargin\OR inner]~\\
+%    linker Rand (für einseitige Dokumente) oder innerer Rand (für zweiseitige Dokumente) des 
+%    \gpart{druckbaren Bereichs}. Mit anderen Worten, es ist die Distanz zwischen der linken (inneren)
+%    Kante des Papiers und der des \gpart{druckbaren Bereichs}. |left=|\meta{Länge}.
+%    |inner (innen)| hat keine besondere Bedeutung, nur eine alternative für |left| und |lmargin|.
+% \item[right\OR rmargin\OR outer]~\\ 
+%    rechter oder äußerer Rand des \gpart{druckbaren Bereichs}. |right=|\meta{Länge}.
+% \item[top\OR tmargin] oberer Rand der Seite. |top=|\meta{Länge}.
+%    Beachten sie, dass diese Option nichts mit dem ursprünglichen Maß 
+%    \cs{topmargin} zu tun hat.
+% \item[bottom\OR bmargin]~\\ 
+%    unterer Rand der Seite. |bottom=|\meta{Länge}.
+% \item[hmargin] linker und rechter Rand.
+%   |hmargin=|\argii{linker Rand}{rechter Rand} oder |hmargin=|\meta{Länge}.
+% \item[vmargin] oberer und unterer Rand.
+%   |vmargin=|\argii{oberer Rand}{unterer Rand} oder |vmargin=|\meta{Länge}.
+% \item[margin] |margin=|\vargii{$A$}{$B$} ist äquivalent zu 
+%   |hmargin=|\vargii{$A$}{$B$} und |vmargin=|\vargii{$A$}{$B$}.
+%   |margin=|$A$ wird automatisch erweitert zu |hmargin=|$A$ und |vmargin=|$A$.
+% \item[hmarginratio]
+%   Verhältnis des horizontalen Rands des |linken| (inneren) zum |rechten| (äußeren). 
+%   Der Wert des \meta{Verhältnisses} sollte mit zwei Werten, die durch einen Doppelpunkt getrennt sind, 
+%   angegeben werden. Jeder Wert sollte eine positive ganze Zahl kleiner 100 sein,
+%   um einen arithmetischen Überlauf zu verhindern, z.\,B. |2:3| anstatt |1:1.5|.
+%   Das Standardverhältnis ist |1:1| für einseitige Dokumente, |2:3| für zweiseitige.
+% \item[vmarginratio]
+%    Verhältnis des vertikalen Randes, des |oberen| Randes zum |unteren|. Das Standardverhältnis ist |2:3|.
+% \item[marginratio\OR ratio]~\\
+%    horizontale und vertikale Randverhältnisse.
+%   |marginratio=|\argii{horizontales Verhältnis}{vertikales Verhältnis} oder
+%   |marginratio=|\meta{Verhältnis}.
+% \item[hcentering] aktiviert die automatische horizontale Zentrierung und ist
+%   äquivalent zu |hmarginratio=1:1|. Es ist für die Option oneside auf |true| gesetzt.
+%   Lesen sie auch |hmarginratio|.
+% \item[vcentering] aktiviert die automatische vertikale Zentrierung und ist
+%   äquivalent zu |vmarginratio=1:1|. Diese Option ist standardmäßig auf |false| gesetzt.
+%   Lesen sie auch |vmarginratio|.
+% \item[centering] aktiviert die automatische Zentrierung und ist äquivalent zu
+%   |marginratio=1:1|. Lesen sie auch |marginratio|. Der Standard ist |false|.
+% \item[twoside] wechselt das Layout in den twoside (zweiseitigen) Modus, wobei der linke und der rechte Rand auf der
+%   Rückseite vertauscht wird. Die Option setzt einen \cs{@twoside} und \cs{@mparswitch} 
+%   Schalter. Lesen sie auch |asymmetric|.
+% \item[asymmetric] führt ein zweiseitiges Layout ein, wobei die Ränder nicht getauscht werden
+%   auf alternativen Seiten (durch die Einstellung \cs{oddsidemargin} zu 
+%   \cs{evensidemargin} |+| |bindingoffset|) und die Randnotizen
+%   immer auf der selben Seite bleiben. Diese Option kann als Alternative für die
+%   twoside Option genutzt werden. Lesen sie auch |twoside|.
+% \item[bindingoffset]~\\ entfernt einen angegeben Raum 
+%   von der linken Seite bei oneside oder der inneren Seite bei
+%   twoside. |bindingoffset=|\meta{Länge}. Dies ist nützlich, wenn die Seiten durch eine 
+%   Pressbindung verbunden sind (glued, stitched, stapled \ldots).
+%   Betrachten sie auch Abbildung~\ref{fig:bindingoffset}.
+% \item[hdivide] Siehe Beschreibung im Kapitel~\ref{sec:body}.
+% \item[vdivide] Siehe Beschreibung im Kapitel~\ref{sec:body}.
+% \item[divide] Siehe Beschreibung im Kapitel~\ref{sec:body}.
+% \end{Options}
+% \begin{figure}[h]
+%  \centering\small
+%  {\unitlength=.65pt
+%  \begin{picture}(500,270)(0,0)
+%  \put(20,0){\framebox(170,230){}}
+%  \put(20,255){\makebox(80,20)[l]{\textbf{a)}~jede Seite für oneside oder}}
+%  \put(20,240){\makebox(80,20)[l]{\hspace{3ex}eine einzelne Seite für twoside}}
+%  \put(110,225){\makebox(80,20)[r]{\gpart{Papier}}}
+%  \put(55,37){\framebox(110,170)[tc]{\gpart{druckbarer Bereich}}}
+%  \multiput(38,0)(0,7){33}{\line(0,1){4}}
+%  \put(38,100){\vector(1,0){17}}\put(55,100){\vector(-1,0){17}}
+%  \put(60,95){\makebox(80,10)[l]{|left|}}
+%  \put(60,80){\makebox(80,10)[l]{(|inner|)}}
+%  \put(165,100){\vector(1,0){25}}\put(190,100){\vector(-1,0){25}}
+%  \put(195,95){\makebox(80,10)[l]{|right|}}
+%  \put(195,80){\makebox(80,10)[l]{(|outer|)}}
+%  \put(20,16){\vector(1,0){18}}
+%  \put(45,10){\makebox(80,10)[bl]{|bindingoffset|}}
+%  \put(280,255){\makebox(80,20)[l]{\textbf{b)}~ (Rück-) Seiten für twoside}}
+%  \put(280,0){\framebox(170,230){}}
+%  \put(370,225){\makebox(80,20)[r]{\gpart{Papier}}}
+%  \put(305,37){\framebox(110,170)[tc]{\gpart{druckbarer Bereich}}}
+%  \multiput(432,0)(0,7){33}{\line(0,1){4}}
+%  \put(280,100){\vector(1,0){25}}\put(305,100){\vector(-1,0){25}}
+%  \put(310,95){\makebox(80,10)[l]{|outer|}}
+%  \put(310,80){\makebox(80,10)[l]{(|right|)}}
+%  \put(415,100){\vector(1,0){17}}\put(432,100){\vector(-1,0){17}}
+%  \put(373,95){\makebox(80,10)[l]{|inner|}}
+%  \put(373,80){\makebox(80,10)[l]{(|left|)}}
+%  \put(450,16){\vector(-1,0){18}}
+%  \put(330,10){\makebox(80,10)[bl]{|bindingoffset|}}
+%  \end{picture}}
+%  \caption[\texttt{bindingoffset} Option]{%
+%   \begin{minipage}[t]{.8\textwidth}\raggedright\small
+%   Die Option |bindingoffset| fügt eine angegebene Länge zum inneren Rand hinzu.
+%   Beachten sie, dass die |twoside| Option die horizontalen Ränder und die Randnotizen
+%   zusammen mit |bindingoffset| auf jeder Seite tauscht (siehe
+%   \textbf{b)}), aber die |asymmetric| Option unterdrücke den Tausch der Ränder und der Randnotizen
+%   (aber |bindingoffset| wird dennoch getauscht).
+%   \end{minipage}}
+%  \label{fig:bindingoffset}
+% \end{figure}
+%
+% \subsection{Ursprüngliche Maße}\label{sec:dimension}
+%
+% Die unteren Optionen überschreiben die ursprünglichen Maße von \LaTeX\ und die Veränderungen für das Seitenlayout
+% (Betrachten sie auch die rechte Seite in Abbildung~\ref{fig:layout}).
+%
+% \begin{Options}
+% \item[headheight\OR head]~\\
+%    modifiziert die \cs{headheight}, die Höhe des Kopfes.
+%    |headheight=|\meta{Länge} oder |head=|\meta{Länge}.
+% \item[headsep] modifiziert die \cs{headsep}, die Abtrennung zwischen dem Kopfbereich und dem Text
+%    (body). |headsep=|\meta{Länge}.
+% \item[footskip\OR foot]~\\ modifiziert den \cs{footskip}, die Distanzabtrennung zwischen
+%    der Grundlinie der letzten Zeile des Textes und der Grundlinie des Fußes.
+%    |footskip=|\meta{Länge} oder |foot=|\meta{Länge}.
+% \item[nohead] entfernt den Platz für den Kopf der Seite, dies ist äquivalent zu
+%    \cs{headheight}|=0pt| und \cs{headsep}|=0pt|.
+% \item[nofoot] entfernt den Platz für den Fuß der Seite, dies ist äquivalent zu
+%    \cs{footskip}|=0\,pt|.
+% \item[noheadfoot] ist äquivalent zu |nohead| und |nofoot|, dies bedeutet, dass
+%    \cs{headheight}, \cs{headsep} und \cs{footskip} alle auf |0pt| eingestellt werden.
+% \item[footnotesep] verändert die Maße \cs{skip}\cs{footins}, die Abtrennung zwischen
+%    dem unteren Ende des Textkörpers und dem oberen Ende des Fußnotentextes.
+% \item[marginparwidth\OR marginpar]~\\ 
+%    modifiziert die \cs{marginparwidth}, die Breite der Randnotizen.
+%    |marginparwidth=|\meta{Länge}.
+% \item[marginparsep] modifiziert die \cs{marginparsep}, die Abtrennung zwischen
+%    dem Körper und den Randnotizen. |marginparsep=|\meta{Länge}.
+% \item[nomarginpar] schrumpft den Platz für die Randnotizen auf 0\,pt, dies
+%    ist äquivalent zu \cs{marginparwidth}|=0pt| und \cs{marginparsep}|=0pt|.
+% \item[columnsep] modifiziert die \cs{columnsep}, die Abtrennung zwischen zwei
+%    Spalten im |twocolumn| Modus.
+% \item[hoffset]  modifiziert \cs{hoffset}. |hoffset=|\meta{Länge}.
+% \item[voffset]  modifiziert \cs{voffset}. |voffset=|\meta{Länge}.
+% \item[offset] horizontaler und vertikaler Versatz.\\
+%    |offset=|\argii{hoffset}{voffset} oder |offset=|\meta{Länge}.
+% \item[twocolumn] aktiviert den |twocolumn| Modus mit \cs{@twocolumntrue}.
+%   |twocolumn=false| bezeichnet den onecolumn Modus (Modus mit einer Spalte) mit \cs{@twocolumnfalse}.
+%   Anstatt |twocolumn=false|, können sie |onecolumn| angeben (die Vorgabe ist
+%   |true|)
+% \item[onecolumn] arbeitet als |twocolumn=false|. Auf der anderen Seite ist
+%   |onecolumn=false| äquivalent zu |twocolumn|. 
+% \item[twoside] aktiviert beides, \cs{@twosidetrue} und \cs{@mparswitchtrue}.
+%   Lesen sie auch Kapitel~\ref{sec:margin}.
+% \item[textwidth] lässt sie die \cs{textwidth (Textbreite)} direkt einstellen. Lesen sie auch Kapitel~\ref{sec:body}.
+% \item[textheight] lässt sie die \cs{textheight (Texthöhe)} direkt einstellen. Lesen sie auch Kapitel~\ref{sec:body}.
+% \item[reversemp\OR reversemarginpar]~\\
+%   sorgt dafür, dass die Randnotizen am (inneren) linken Rand erscheinen, mit
+%   \cs{@reversemargintrue}. Die Option verändert nichts am |includemp| Modus.
+%   Diese Option ist mit |false| voreingestellt.
+% \end{Options}
+%
+% \subsection{Treiber}\label{sec:drivers}
+% 
+% Dieses Paket unterstützt die Treiber |dvips|, |dvipdfm|, |pdftex|, |xetex| und
+% |vtex|. Sie können auch |dvipdfm| für \textsf{dvipdfmx} einstellen und
+% \textsf{xdvipdfmx}. |pdftex| für \textsf{pdflatex}, und |vtex| für die
+% V\TeX{} Umgebung.
+% Die Treiberoptionen sind exklusiv. Der Treiber kann durch beides eingestellt werden,
+% |driver=|\meta{Treibername} oder die direkte Angabe eines Treibers wie |pdftex|.
+% Standardmäßig nimmt \Gm\ den Treiber, der am besten zum benutzten System passt.
+% Deshalb müssen sie in den meisten Fällen keinen Treiber angeben.
+% Wie auch immer, wenn sie |dvipdfm| benutzen wollen, dann sollten sie dies explizit angeben.
+%
+% \begin{Options}
+% \item[\onlypre driver] gibt den Treibernamen mit |driver=|\meta{Treibername} an. 
+% |dvips|, |dvipdfm|, |pdftex|, |vtex|, |xetex|, |auto| und |none| sind
+% als Treibername einsetzbar. Außer den Namen für |auto| und |none| können
+% alle Treiber direkt mit dem Namen, ohne |driver=|, angegeben werden.
+% |driver=auto| schaltet die automatische Detektion ein, egal was die vorherigen Einstellungen waren. 
+% |driver=none| schaltet die automatische Detektion ab und es wird kein Treiber gewählt. Dies
+% könnte nützlich sein, wenn sie wollen, dass andere Pakete die Treibereinstellungen herausfinden sollen.
+% Ein Beispiel: Wenn sie das \textsf{crop} Paket mit \Gm{} nutzen wollen,
+% dann sollten sie |\usepackage[driver=none]{geometry}| aufrufen, bevor
+% sie das \textsf{crop} Paket aufrufen.
+% \item[\onlypre dvips] schreibt die Papiergröße in die dvi Ausgabe, mit dem \cs{special}
+%     Makro. Wenn sie \textsl{dvips} als DVI-zu-PS Treiber nutzen, dann
+%     brauchen sie, wenn sie beispielsweise ein Dokument mit |\geometry{a3paper,landscape}|
+%     auf A3-Papier mit der landscape Orientierung drucken wollen, die Optionen
+%     ``|-t a3 -t landscape|'' für \textsl{dvips} nicht. 
+% \item[\onlypre dvipdfm] arbeitet wie |dvips|, ausgenommen die landscape Korrektur.
+%      Sie können diese Option einschalten, wenn sie \textsf{dvipdfmx} nutzen und
+%      \textsf{xdvipdfmx}, um die dvi Ausgabe zu erzeugen.
+% \item[\onlypre pdftex] setzt \cs{pdfpagewidth} und \cs{pdfpageheight}
+%      intern.
+% \item[\onlypre xetex] ist dasselbe wie |pdftex|, ausgenommen das Ignorieren von
+%     |\pdf{h,v}origin|, das in \XeLaTeX{} nicht definiert ist. Diese Option wurde in 5. Version eingeführt.
+%     Beachten sie, dass die `geometry.cfg' in \TeX{} Live, welche die
+%     automatische Detektionsroutine deaktiviert und |pdftex| einstellt, nicht länger notwendig ist.
+%     Trotzdem gibt es keine Probleme, sogar wenn die Datei nicht gelöscht wird.
+%     Anstatt |xetex|, können sie |dvipdfm| angeben, mit \XeLaTeX{},
+%     wenn sie die Besonderheiten von dvipdfm nutzen wollen, die \XeTeX{} unterstützt.
+% \item[\onlypre vtex] setzt die Maße \cs{mediawidth} und \cs{mediaheight}
+%     für V\TeX. Wenn dieser Treiber ausgewählt ist (explizit oder automatisch),
+%     wird \Gm\ den Ausgabemodus (DVI, PDF oder PS), der in V\TeX gewählt ist, selbstständig herausfinden
+%     und die richtigen Einstellungen für ihn machen.
+% \end{Options}
+% Wenn der explizit angegebene Treiber nicht zum benutzten Textsatzprogramm passt,
+% dann wird der Standardtreiber |dvips| ausgewählt.
+%
+% \subsection{Sonstige Optionen}
+%
+%  Die sonstigen nützlichen Optionen werden jetzt beschrieben.
+%
+% \begin{Options}
+% \item[\onlypre verbose] zeigt die Parameterergebnisse im Terminal an.
+%   |verbose=false| (Standard) schreibt diese nur in die Log-Datei.
+% \item[\onlypre reset] setzt die Layoutmaße zurück und nimmt die Einstellungen an,
+%   die vor dem Laden von \Gm\ vorgegeben waren. Die Optionen, die in 
+%   |geometry.cfg| angegeben sind, werden auch entfernt.
+%   Beachten sie, dass dies nicht |pass| und |mag| mit |truedimen| zurücksetzen kann.
+%   |reset=false| hat keine Auswirkungen und kann ein vorheriges
+%   |reset|(|=true|), falls es dies gibt, nicht aufheben. Zum Beispiel, wenn sie
+%   \begin{quote}
+%     |\documentclass[landscape]{article}|\\
+%     |\usepackage[twoside,reset,left=2cm]{geometry}|
+%   \end{quote}
+%   eingeben, mit |\ExecuteOptions{scale=0.9}| in |geometry.cfg|,
+%   dann bleiben |landscape| und |left=2cm| wirksam
+%   und |scale=0.9| und |twoside| sind unwirksam.
+% \item[\onlypre mag] setzt den Vergrößerungswert (\cs{mag}) und modifiziert automatisch 
+%   \cs{hoffset} und \cs{voffset} entsprechend der Vergrößerung.
+%   |mag=|\meta{Wert}. Beachten sie, dass \meta{Wert} ein ganzzahliger Wert sein sollte,
+%   wobei 1000 die Normalgröße ist. Ein Beispiel: |mag=1414| mit |a4paper|
+%   bietet eine erweiterte Druckgröße in |a3paper|, welches $1.414$
+%   (=$\sqrt{2}$) mal größer als |a4paper| ist. Die Vergrößerung der Schriftart benötigt extra
+%   Speicherplatz. \textbf{Beachten sie, dass die Einstellung über jeder anderen
+%   Einstellung mit `true' Maßen stehen sollte, solchen Maßen wie |1.5truein|, |2truecm|
+%   und so weiter.} Lesen sie auch die |truedimen| Option.
+% \item[\onlypre truedimen] verändert alle internen expliziten Maßwerte in 
+%   \textit{true} Maße, z.\,B. wird |1in| zu |1truein|.
+%   Typischerweise wird diese Option zusammen mit der |mag| Option genutzt. Beachten sie, dass
+%   dies unwirksam gegenüber extern angegebenen Maßen ist. Ein Beispiel:
+%   Wenn sie ``\texttt{mag=1440, margin=10pt, truedimen}'' einstellen, dann sind die Ränder nicht
+%   `true' aber vergrößert. Wenn sie exakte Ränder wollen, dann sollten sie stattdessen wie folgt definieren
+%   ``\texttt{mag=1440, margin=10truept, truedimen}''.
+% \item[\onlypre pass] deaktiviert alle geometry Optionen und Berechnungen,
+%   ausgenommen |verbose| und |showframe|. Es ist unabhängig von der Reihenfolge und kann
+%   für das Überprüfen des Seitenlayouts der Dokumentklasse, sonstiger Pakete
+%   und manuellen Einstellungen ohne \Gm\ genutzt werden.
+% \item[\onlypre showframe] zeigt sichtbare Ränder um den Textbereich und die Seite
+%   und die Linien für den Kopf und den Fuß auf der ersten Seite.
+% \item[\onlypre showcrop] druckt Schnittmarken auf jede Ecke des benutzerdefinierten
+%  Layoutbereichs.
+% \end{Options}
+%
+% \section{Verarbeitungsoptionen}\label{sec:process}
+% 
+% \subsection{Reihenfolge des Ladens}\label{sec:loadorder}
+%
+% Wenn es eine |geometry.cfg| gibt, irgendwo wo es \TeX{} finden kann, dann lädt \Gm\ diese
+% zuerst. Ein Beispiel: In |geometry.cfg| können sie
+% |\ExecuteOptions{a4paper}| schreiben, welches A4-Format als das Standardpapier angibt.
+% Grundlegend können sie alle Optionen, die in \Gm\ definiert sind, mit
+% |\ExecuteOptions{}| nutzen.
+% 
+% Die Reihenfolge des Ladens in der Präambel ihres Dokuments ist wie folgt:
+% \begin{enumerate}
+%  \item |geometry.cfg|, wenn sie existiert.
+%  \item Optionen, die mit |\documentclass[|\meta{Optionen}|]{...}| angegeben werden.
+%  \item Optionen, die mit |\usepackage[|\meta{Optionen}|]{geometry}| angegeben werden.
+%  \item Optionen, die mit |\geometry{|\meta{Optionen}|}| angegeben werden. Die jeweilige Option
+%  kann mehrfach aufgerufen werden. (Die |reset| Option wird alle Optionen,
+%  die in |\usepackage{geometry}| oder |\geometry| angegeben wurden,
+%  zurücksetzen.)
+% \end{enumerate}
+%
+% \subsection{Reihenfolge der Optionen}\label{sec:optionorder}
+%
+% Die Spezifikation der \Gm\ Optionen ist unabhängig von der Reihenfolge
+% und überschreibt die vorherigen gleichartigen Einstellungen.
+% Ein Beispiel: 
+% \begin{center}
+% |[left=2cm, right=3cm]| ist äquivalent zu 
+% |[right=3cm, left=2cm]|.
+% \end{center}
+% Der mehrfache Aufruf der Optionen überschreibt die jeweiligen vorherigen
+% Einstellungen. Auch hier ein Beispiel: 
+% \begin{center}
+%  |[verbose=true, verbose=false]| das Ergebnis ist |verbose=false|. 
+% \end{center}
+% |[hmargin={3cm,2cm}, left=1cm]| ist das Gleiche wie |hmargin={1cm,2cm}|, 
+% wobei der linke (oder innere) Rand durch |left=1cm| überschrieben wird. 
+%
+% |reset| und |mag| sind Ausnahmen.
+% Die |reset| Option entfernt alle geometry Optionen (ausgenommen |pass|)
+% davor. Wenn sie
+% \begin{quote}
+% |\documentclass[landscape]{article}|\\
+% |\usepackage[margin=1cm,twoside]{geometry}|\\
+% |\geometry{a5paper, reset, left=2cm}|
+% \end{quote}
+% einstellen, dann werden |margin=1cm| (Rand), |twoside| und |a5paper| entfernt und 
+% ist gelegentlich äquivalent zu
+% \begin{quote}
+% |\documentclass[landscape]{article}|\\
+% |\usepackage[left=2cm]{geometry}|
+% \end{quote}
+%
+% Die |mag| Option sollte vor jeder anderen Einstellungen mit
+% `true' Länge, solche wie |left=1.5truecm|, |width=5truein| und so weiter, stehen.
+% Die |\mag| Option kann vor dem Aufruf dieses Pakets stehen.
+%
+% \subsection{Priorität}\label{sec:priority}
+%  
+% Es gibt verschiedene Wege die Maße des \gpart{Körpers} einzustellen:
+% |scale|, |total|, |text| und |lines|. Das \Gm\ Paket gibt den konkreteren Spezifikationen
+% eine höhere Priorität. Hier ist die Prioritätsregel
+% für den \gpart{Textkörper}.
+% \[\begin{array}{c}
+% \textrm{Priorität:}\qquad\textrm{niedrig}\quad
+%    \longrightarrow\quad\textrm{hoch}\\[1em]
+% \left\{\begin{array}{l}|hscale|\\|vscale|\\|scale|
+%        \end{array}\right\} <
+% \left\{\begin{array}{l}|width|\\|height|\\|total|
+%        \end{array}\right\} <
+% \left\{\begin{array}{l}|textwidth|\\|textheight|
+%         \\|text|\end{array}\right\} < |lines|.
+% \end{array}\]
+% Ein Beispiel: 
+% \begin{quote}
+%  |\usepackage[hscale=0.8, textwidth=7in, width=18cm]{geometry}|
+% \end{quote}
+% ist das Gleiche wie |\usepackage[textwidth=7in]{geometry}|. Ein weiteres Beispiel:
+% \begin{quote}
+%  |\usepackage[lines=30, scale=0.8, text=7in]{geometry}|
+% \end{quote}
+% resultiert in \texttt{[lines=30, textwidth=7in]}.
+%
+% \subsection{Standards}\label{sec:defaults}
+%
+% Dieses Kapitel summiert die Standardeinstellungen für die automatische Vervollständigung,
+% die später beschrieben wird.
+% 
+% Das Standardverhältnis für den vertikalen Rand ist $2/3$, namentlich,
+% \begin{equation}
+%  |top| : |bottom| = 2 : 3 \qquad\textit{Standard}.
+% \end{equation}
+% Was den horizontalen Rand betrifft, hängen die Standardwerte davon ab,
+% ob das Dokument einseitig oder zweiseitig ist,
+% \begin{equation}
+%  |left|\;(|inner|) : |right|\;(|outer|) 
+%       = \left\{ \begin{array}{ll}
+%              1 : 1 \qquad\textit{Standard für oneside},\\
+%              2 : 3 \qquad\textit{Standard für twoside}.
+%         \end{array}\right.
+% \end{equation}
+% Offensichtlich ist, dass der Standard für den horizontalen Rand für einseitig (oneside) `centering' ist.
+%
+% Das \Gm\ Paket besitzt folgende Standardeinstellungen für
+% \textit{onesided (einseitige)} Dokumente:
+% \begin{itemize}\setlength{\itemsep}{-.5\parsep}
+%   \item |scale=0.7| (\gpart{Textkörper} ist $0.7 \times \gpart{Papier}$)
+%   \item |marginratio={1:1, 2:3}| (1:1 für horizontal und 2:3 für vertikale Ränder)
+%   \item |ignoreall| (der Kopf, der Fuß, die Randnotizen sind ausgeschlossen, 
+%   wenn die Größe des \gpart{Körpers (body)} berechnet wird.)
+% \end{itemize}
+% Für \textit{twosided (zweiseitige)} Dokumente mit der |twoside| Option, ist die Standardeinstellung
+% die gleiche, wie bei \textit{onesided (einseitigen)}, ausgenommen, dass das horizontale Randverhältnis
+% auf |2:3| gesetzt wird.
+%
+% Zusätzliche Optionen überschreiben die vorher angegebenen Maße.\\
+% 
+% \subsection{Autovervollständigung} \label{sec:rules}
+%
+% Abbildung~\ref{fig:specrule} zeigt schematisch, wie viele Spezifikationsmuster
+% existieren und wie sie die Zweideutigkeiten der Spezifikationen lösen können.
+% Jede Achse zeigt die Anzahl der Längen,
+% die explizit für den Körper und die Ränder angegeben werden müssen. \Ss($m$,$b$) zeigt die
+% Spezifikation mit einer Menge an Zahlen $(\gpart{Rand},\gpart{Körper})=(m,b)$.
+%
+% Ein Beispiel: Die Spezifikation |width=14cm, left=3cm| ist kategorisiert in
+% \Ss(1,1), welches eine ad\-äquate Spezifikation ist. Wenn sie
+% |right=4cm| hinzufügen, dann wird es \Ss(2,1) sein und überspezifiziert. 
+% Wenn nur |width=14cm| gegeben ist, dann ist es in \Ss(0,1) unterspezifiziert. 
+%
+% Das \Gm\ Paket besitzt einen Autovervollständigungsmechanismus, der, wenn
+% die Layoutparameter unter- oder überspezifiziert sind,
+% die Unstimmigkeiten herausarbeitet und dann die Standards nutzt und andere
+% Verhältnisse. Hier sind die Spezifikationen und die Vervollständigungsregeln.
+%
+% \begin{figure}[h]
+%  \centering
+%  {\unitlength=1pt
+%  \begin{picture}(400,150)(40,0)
+%  \put(1,49){\makebox(90,49)[r]{\large 0}}
+%  \put(1,1){\makebox(70,99)[r]{\large \gpart{Textkörper}}}
+%  \put(1,1){\makebox(90,49)[r]{\large 1}}
+%  \put(100,100){\makebox(99,20){\large 0}}
+%  \put(100,50){\framebox(99,49){}}
+%  \put(100,80){\makebox(99,15){\Ss(0,0)}}
+%  \put(100,50){\makebox(99,49){benutze |scale|}}
+%  {\linethickness{1pt}%
+%  \put(150,35){\line(0,1){30}}
+%  \put(150,35){\line(-1,3){4}}
+%  \put(150,35){\line(1,3){4}}}
+%  \put(100,0){\framebox(99,49){}}
+%  \put(100,2){\makebox(99,15){\Ss(0,1)}}
+%  \put(100,0){\makebox(99,49){nutze |marginratio|}}
+%  \put(200,120){\makebox(99,12){\large \gpart{Rand}}}
+%  \put(200,100){\makebox(99,20){\large 1}}
+%  \put(200,50){\framebox(99,49){benutze |scale|}}
+%  \put(200,55){\makebox(89,10)[r]{\scriptsize\shortstack[l]{wenn |ratio|\\angegeben}}}
+%  \put(200,2){\makebox(99,15){\Ss(1,1)}}
+%  {\linethickness{1pt}%
+%  \put(250,35){\line(0,1){30}}
+%  \put(250,35){\line(-1,3){4}}
+%  \put(250,35){\line(1,3){4}}}
+%  {\linethickness{1pt}%
+%  \put(225,25){\line(-1,0){35}}
+%  \put(225,25){\line(-3,-1){12}}
+%  \put(225,25){\line(-3,1){12}}}
+%  \put(200,80){\makebox(99,15){\Ss(1,0)}}
+%  \put(200,0){\framebox(99,49){\textcolor{red}{\textit{lösbar}}}}
+%  \put(300,100){\makebox(99,20){\large 2}}
+%  \put(300,80){\makebox(99,15){\Ss(2,0)}}
+%  \put(300,50){\framebox(99,49){\textcolor{red}{\textit{lösbar}}}}
+%  \put(300,0){\framebox(99,49){vergesse den |body|}}
+%  \put(300,2){\makebox(99,15){\Ss(2,1)}}
+%  {\linethickness{1pt}%
+%  \multiput(290,65)(5,0){6}{\line(1,0){3}}
+%  \put(320,65){\line(-3,-1){12}}
+%  \put(320,65){\line(-3,1){12}}}
+%  {\linethickness{1pt}%
+%  \put(350,65){\line(0,-1){30}}
+%  \put(350,65){\line(-1,-3){4}}
+%  \put(350,65){\line(1,-3){4}}}
+%  \end{picture}}
+%  \caption[Spezifikationen und Komplettierungsregeln]{%
+%  \begin{minipage}[t]{.7\textwidth}\raggedright\small
+%  Die Spezifikationen \Ss(0,0) zu \Ss(2,1) und die Komplettierungsregeln
+%  (Pfeile). Spalten- und Zeilennummern bezeichnen die Anzahl der explizit
+%  angegebenen Längen für den Rand und den Körper. \Ss($m$,$b$) bezeichnet eine
+%  Spezifikation mit einer Menge an Zahlen $(\gpart{Rand},\gpart{Körper})=(m,b)$. 
+%  \end{minipage}}
+%  \label{fig:specrule}
+% \end{figure}
+%
+% \begin{Spec}
+% \item[\Ss(0,0)]
+% Es ist nichts angegeben. Das \Gm\ Paket gibt für den \gpart{body (Körper)} den
+% Standard |scale| ($=0.7$) vor. \\ Ein Beispiel: |width (Breite)| wird auf
+% $|0.7|\times|layoutwidth|$ eingestellt. Beachten sie, dass standardmäßig die |layoutwidth| 
+% und |layoutheight| (Layoutbreite und -höhe) gleich der |\paperwidth| und |\paperheight| (Papierbreite und -höhe)
+% sein werden.
+% Demnach wird \Ss(0,0) zu \Ss(0,1). Siehe auch \Ss(0,1).
+% \bigskip
+%
+% \item[\Ss(0,1)]
+% Nur der \gpart{body} ist angegeben, wie z.\,B. |width=7in|, |lines=20|,
+% |body={20cm,24cm}|, |scale=0.9| und so weiter.
+% Dann setzt \Gm\ die Ränder mithilfe des Randverhältnisses.
+% Falls kein Verhältnis angegeben ist, wird das Standardverhältnis genutzt.
+% Das Standardverhältnis für das vertikale Randverhältnis ist wie folgt definiert:
+% \begin{equation}
+%  |top| : |bottom| = 2 : 3 \qquad\textit{Standard}.
+% \end{equation}
+% Was das horizontale Verhältnis betrifft, hängt das Standardverhältnis davon ab,
+% ob das Dokument einseitig oder zweiseitig ist.
+% \begin{equation}
+%  |left|\;(|inner|) : |right|\;(|outer|) 
+%       = \left\{ \begin{array}{ll}
+%              1 : 1 \qquad\textit{Der Standard bei einseitig},\\
+%              2 : 3 \qquad\textit{Der Standard bei zweiseitig}.
+%         \end{array}\right.
+% \end{equation}
+% Wenn zum Beispiel auf A4-Papier die |height=22cm| angegeben ist, 
+% dann berechnet \Gm\ den |top (oberen)| Rand wie folgt:
+% \begin{equation}
+%   \begin{array}{ll}
+%   |top| &= ( |layoutheight| - |height| ) \times 2/5 \\
+%         &= (29.7-22)\times2/5 = 3.08\textrm{(cm)}
+%   \end{array}
+% \end{equation}
+% Demnach sind der |top (obere)| Rand und die |height (Höhe)| des Körpers bestimmt wurden, die
+% Spezifikation für die Vertikale wird also zu \Ss(1,1) und
+% alle Parameter können gelöst werden.
+% \bigskip
+%
+% \item[\Ss(1,0)]
+% Nur ein Rand ist angegeben, wie |bottom=2cm|, |left=1in|,
+% |top=3cm| und so weiter.
+%
+% \begin{itemize}
+% \item \textbf{Wenn das Randverhältnis \textit{nicht} angegeben ist}, dann nimmt \Gm\
+% den Standard für |scale| ($=0.7$) für den \gpart{body} an. 
+% Wenn beispielsweise |top=2.4cm| angegeben ist, dann setzt \Gm\
+% \begin{center}
+%     $|height|= |0.7|\times|layoutheight|$ 
+%            ~~($=|0.7\paperheight|$ by default),
+% \end{center}
+% dann wird \Ss(1,0) zu \Ss(1,1), wobei der |bottom| mit
+% $|layoutheight|-(|height|+|top|)$ berechnet wird und in 6.51\,cm auf A4-Papier resultiert,
+% wenn die Layoutgröße gleich der Papiergröße ist.
+% \medskip
+% \item \textbf{Wenn das Randverhältnis angegeben ist}, wie
+% |hmarginratio={1:2}|, |vratio={3:4}| und so weiter,
+% dann setzt \Gm\ die anderen% Ränder mit dem gegebenen Randverhältnis.
+% Falls z.\,B. eine Menge an Optionen ``|top=2.4cm,vratio={3:4}|'' spezifiziert wurde,
+% dann setzt \Gm\ den |bottom| auf den berechneten Wert von |3.2cm|
+% \begin{center}
+%     $|bottom|= |top|/3\times4 = 3.2\textrm{cm}$
+% \end{center}
+% Demnach wird \Ss(1,0) zu \Ss(2,0).
+% \end{itemize}
+%
+% Beachten sie, dass in der Version 4 oder früher das Berechnungsverfahren ein anderes war.
+% Deshalb wird, wenn sie in Version 5 und 4 die gleichen Werte eingeben,
+% das Ergebnis nicht gleich sein.
+% Wenn nur |top=2.4cm| gegeben ist, 
+% dann bekommen sie in Version 4 oder früher |bottom=2.4cm|, aber sie werden
+% |bottom=6.51cm| bei Version 5 erhalten.
+% \bigskip
+%
+% \item[\Ss(2,1)]
+% Der \gpart{body (Körper)} und zwei \gpart{margins (Ränder)} sind angegeben, wie z.\,B.
+%  |vdivide={1in,8in,1.5in}|, ``|left=3cm,width=13cm,right=4cm|'' und
+%  so weiter. Seit \Gm\ grundsätzlich die Priorität an die \gpart{margins} gibt,
+%  wenn die Maße überspezifiziert sind, vergisst \Gm\ den \gpart{body} und setzt diesen zurück.
+%  Ein Beispiel: Wenn sie
+% \begin{center}
+%    |\usepackage[a4paper,left=3cm,width=13cm,right=4cm]{geometry}|,
+% \end{center}
+% angeben, dann wird die |width (Breite)| auf 14\,cm zurückgesetzt, da die Breite von A4-Papier 21\,cm
+% ist.
+% \end{Spec}
+%
+% \section{Verändern des Layouts innerhalb des Dokuments}\label{sec:midchange}
+%
+% Die Version 5 bietet die neuen Befehle \cs{newgeometry\{$\cdots$\}} und
+% und \cs{restoregeometry} an, welche es ihnen erlauben, das Seitenlayout im Dokuments zu verändern.
+% Nicht wie \cs{geometry} in der Präambel,
+% ist \cs{newgeometry} nur nach |\begin{document}| verfügbar.
+% Es setzt alle Optionen zurück, ausgenommen die,
+% die sich auf die Papiergröße beziehen -- |landscape|, |portrait| -- und Papiergrößenoptionen 
+% (wie |papersize|, |paper=a4paper| und so weiter), die nicht
+% durch \cs{newgeometry} geändert werden können. 
+%
+% Der Befehl \cs{restoregeometry} sichert das in der Präambel (vor |\begin{document}|) angegebene Seitenlayout,
+% welches mit |\usepackage{geometry}|, \cs{geometry} und deren Optionen erzeugt wurde.
+%
+% Beachten sie, dass beide, \cs{newgeometry} und \cs{restoregeometry}, ein
+% |\clearpage| einfügen, da wo sie aufgerufen werden.
+%
+% Es folgt ein Beispiel für das Verändern des Layouts im Dokument. Das Layout L1 wird wie folgt angegeben:
+% |hmargin=3cm| (|left (linker)| und |right (rechter)| Rand sind |3cm|
+% lang), dies wird in L2 in |left=3cm|, |right=1cm| und
+% |bottom=0.1cm| geändert. Das Layout L1 wird mit \cs{restoregeometry}
+% gesichert. 
+% \begin{center}
+% \begin{minipage}{.8\textwidth}
+% |\usepackage[hmargin=3cm]{geometry}|\\
+% |\begin{document}|\\
+%  \medskip
+%  \hspace{1cm}\fbox{Layout L1}\\
+% \medskip
+% |\newgeometry{left=3cm,right=1cm,bottom=0.1cm}|\\
+% \medskip
+%  \hspace{1cm}\fbox{Layout L2 (neu)}\\
+% \medskip
+% |\restoregeometry|\\
+% \medskip
+%  \hspace{1cm}\fbox{Layout L1 (wiederhergestellt)}\\
+% \medskip
+% |\newgeometry{margin=1cm,includefoot}|\\
+% \medskip
+%  \hspace{1cm}\fbox{Layout L3 (neu)}\\
+% \medskip
+% |\end{document}|
+% \end{minipage}%
+% \end{center}
+% \begin{center}
+%  \centering\small
+%  {\unitlength=.8pt
+%  \begin{picture}(450,180)(0,0)
+%  \put(0,165){\makebox(95,12){(gesichert)}}
+%  \put(15,135){\framebox(65,10){\gpart{Kopf}}}
+%  \put(15,60){\framebox(65,70){\gpart{Textkörper}}}
+%  \put(15,45){\makebox(65,12){\gpart{Fuß}}}
+%  \put(15,45){\line(1,0){65}}
+%  \put(0,20){\framebox(95,140){}}
+%  \put(0,0){\makebox(95,20){L1}}
+%  \put(104,90){\circle*{4}}
+%  \put(110,90){\circle*{4}}
+%  \put(116,90){\circle*{4}}
+%  \put(125,165){\makebox(95,12){\cs{newgeometry}}}
+%  \put(140,135){\framebox(71,10){\gpart{Kopf}}}
+%  \put(140,33){\framebox(71,97){\gpart{Textkörper}}}
+%  \put(140,21){\makebox(71,12){\gpart{Fuß}}}
+%  \put(125,20){\framebox(95,140){}}
+%  \put(125,0){\makebox(95,20){L2 (neu)}}
+%  \put(229,90){\circle*{4}}
+%  \put(235,90){\circle*{4}}
+%  \put(241,90){\circle*{4}}
+%  \put(250,165){\makebox(95,12){\cs{restoregeometry}}}
+%  \put(265,135){\framebox(65,10){\gpart{Kopf}}}
+%  \put(265,60){\framebox(65,70){\gpart{Textkörper}}}
+%  \put(265,45){\makebox(65,12){\gpart{Fuß}}}
+%  \put(265,45){\line(1,0){65}}
+%  \put(250,20){\framebox(95,140){}}
+%  \put(250,0){\makebox(95,20){L1 (wiederhergestellt)}}
+%  \put(354,90){\circle*{4}}
+%  \put(360,90){\circle*{4}}
+%  \put(366,90){\circle*{4}}
+%  \put(375,165){\makebox(95,12){\cs{newgeometry}}}
+%  \put(383,41){\framebox(80,111){\gpart{Textkörper}}}
+%  \put(383,29){\makebox(80,12){\gpart{Fuß}}}
+%  \put(383,29){\line(1,0){80}}
+%  \put(375,20){\framebox(95,140){}}
+%  \put(375,0){\makebox(95,20){L3 (neu)}}
+%  \end{picture}}
+% \end{center}
+%
+% Eine Menge von Befehlen |\savegeometry{|\meta{Name}|}| und
+% |\loadgeometry{|\meta{Name}|}| ist nützlich, wenn sie mehrere
+% verschiedene Layouts in ihrem Dokument nutzen wollen.
+% Ein Beispiel: 
+% \begin{center}
+% \begin{verbatim}
+%     \usepackage[hmargin=3cm]{geometry}
+%     \begin{document}
+%           L1
+%     \newgeometry{left=3cm,right=1cm,bottom=0.1cm}
+%     \savegeometry{L2}
+%           L2 (neu, gespeichert)
+%     \restoregeometry
+%           L1 (wiederhergestellt)
+%     \newgeometry{margin=1cm,includefoot}
+%           L3 (neu)
+%     \loadgeometry{L2}
+%           L2 (geladen)
+%     \end{document}
+% \end{verbatim}
+% \end{center}
+%
+% \section{Beispiele}
+%
+% \begin{enumerate}
+% \item Ein einseitiges Seitenlayout mit einem zentrierten Textbereich auf dem Papier:\\
+% Das sich anschließende Beispiel hat das gleiche Ergebnis, weil das horizontale Randverhältnis
+% auf |1:1| gesetzt ist, wie es bei einseitigen Dokumenten der Standard ist.
+% \begin{itemize}
+%   \item |centering|
+%   \item |marginratio=1:1|
+%   \item |vcentering|
+% \end{itemize}
+%
+% \item Ein zweiseitiges Layout mit einem Versatz von 1\,cm für das Binden auf der Innenseite:\\
+% \begin{itemize}
+%   \item |twoside, bindingoffset=1cm|
+% \end{itemize}
+% In diesem Fall ist die |textwidth (Textbreite)| kürzer als der Standard bei zweiseitigen Dokumenten
+% $0.7\times|1cm|$ ($=|0.7cm|$), weil die Standardbreite des
+% \gpart{body (Körpers)} mit |scale=0.7| eingestellt ist, was bedeutet,  
+% $|width|=|0.7|\times|layoutwidth|$ ($=|0.7\paperwidth|$ standardmäßig).
+%
+% \item Ein Layout mit linkem, rechtem und oberem Rand (3\,cm, 2\,cm und
+% 2.5\,in), mit einer Texthöhe von 40 Zeilen und der Einbeziehung des Kopfes
+% und des Fußes auf der Seite in den \gpart{druckbaren Bereich}:\\
+% Die zwei Beispiele haben das gleiche Ergebnis.
+% \begin{itemize}
+%   \item |left=3cm, right=2cm, lines=40, top=2.5in, includeheadfoot|
+%   \item |hmargin={3cm,2cm}, tmargin=2.5in, lines=40, includeheadfoot|
+% \end{itemize}
+%
+% \item Ein Layout mit einer Höhe des \gpart{druckbaren Bereichs} von 10\,in, einem unteren Rand von
+%  2\,cm und der Standardbreite:\\ Der obere Rand wird automatisch berechnet.
+%  Jede der unteren Lösungen erzeugt das gleiche Layout.
+% \begin{itemize}
+%     \item |vdivide={*, 10in, 2cm}|
+%     \item |bmargin=2cm, height=10in|
+%     \item |bottom=2cm, textheight=10in| 
+% \end{itemize}
+% Beachten sie, dass die Maße für \gpart{Kopf} and \gpart{Fuß} von der |Höhe|
+% des \gpart{druckbaren Bereichs} ausgeschlossen sind. Ein zusätzliches |includefoot| sorgt dafür,
+% dass der \cs{footskip (Fußbereich)} in die |totalheight (Gesamthöhe)| einbezogen wird. Deshalb ist in den unteren zwei
+% Fällen die |textheight (Texthöhe)| im vorhergehenden Layout kürzer als in letzterem
+% (mit exakt 10\,in) über dem \cs{footskip}. In anderen Worten, 
+% |height| = |textheight| + |footskip| falls |includefoot=true| ist, in diesem Falle.
+% \begin{itemize}
+%     \item |bmargin=2cm, height=10in, includefoot|
+%     \item |bottom=2cm, textheight=10in, includefoot|
+% \end{itemize}
+%
+% \item Ein Layout mit einer \glen{textwidth (Textbreite)} und \glen{textheight (Texthöhe)} von 90\% des
+% Papiers und einem zentrierten \gpart{body}:
+% Jede der unteren Lösungen erzeugt das gleiche Seitenlayout, sofern
+% die |layoutwidth (Layoutbreite)| und die |layoutheight (Layouthöhe)| nicht geändert werden, also der Standard beibehalten
+% wird.
+% \begin{itemize}
+%   \item |scale=0.9, centering|
+%   \item |text={.9\paperwidth,.9\paperheight}, ratio=1:1|
+%   \item |width=.9\paperwidth, vmargin=.05\paperheight, marginratio=1:1|
+%   \item |hdivide={*,0.9\paperwidth,*}, vdivide={*,0.9\paperheight,*}|
+%   (für einseitige Dokumente)
+%   \item |margin={0.05\paperwidth,0.05\paperheight}|
+% \end{itemize}
+% Sie können ein |heightrounded| hinzufügen, um eine ``underfull vbox warning'' (Warnmeldung) wie
+% \begin{quote}\small
+%  |Underfull \vbox (badness 10000) has occurred while \output is active|.
+% \end{quote}
+% zu vermeiden.
+% Lesen sie auch Kapitel~\ref{sec:body} für eine detaillierte Beschreibung zu |heightrounded|.
+%
+% \item Ein Layout, bei dem die Breite für die Randnotizen auf 3\,cm eingestellt ist und in
+% die Breite des \gpart{druckbaren Bereichs} einbezogen ist:\\ Die folgenden Beispiele erzeugen das Gleiche.
+% \begin{itemize}
+%   \item |marginparwidth=3cm, includemp|
+%   \item |marginpar=3cm, ignoremp=false|
+% \end{itemize}
+%
+% \item Ein Layout, bei dem der \gpart{body} das ganze Papier (A5-Papier im |landscape| Modus) einnimmt:\\
+% Die folgenden Beispiele sind gleich.
+% \begin{itemize}
+%   \item |a5paper, landscape, scale=1.0|
+%   \item |landscape=TRUE, paper=a5paper, margin=0pt|
+% \end{itemize}
+%
+% \item  Ein Bildschirmgrößenlayout, verwendbar für Präsentationen mit dem PC oder dem Beamer:
+% \begin{verbatim}
+%   \documentclass{slide}
+%   \usepackage[screen,margin=0.8in]{geometry}
+%    ...
+%   \begin{slide}
+%      ...
+%   \end{slide}\end{verbatim}
+% \item Ein Layout mit vergrößerter Schrift und Zwischenräumen, von A4 auf A3:\\
+%  Im unteren Fall ist die sich ergebende Papiergröße A3.
+% \begin{itemize}
+%     \item |a4paper, mag=1414|.
+% \end{itemize}
+% Wenn sie ein Layout mit doppelt so großer Schriftgröße, aber ohne das
+% Verändern der Papiergröße wollen, dann tippen sie
+% \begin{itemize}
+%   \item |letterpaper, mag=2000, truedimen|.
+% \end{itemize}
+%  Sie können die |dvips| Option hinzufügen, das ist nützlich, um eine Vorschau der eigenen
+%  Papiergröße zu betrachten, die durch |dviout| oder |xdvi| erzeugt wird.
+%
+% \item  Verändern des Layouts auf der ersten Seite und Beibehalten der anderen Einstellungen 
+%  vor dem Laden von \Gm:\\ Benutzen sie die |pass| Option, |\newgeometry|
+%  und |\restoregeometry|.
+% \begin{verbatim}
+%   \documentclass{book}
+%   \usepackage[pass]{geometry}
+%      % 'pass' vernachlässigt das Paketlayout,
+%      %  so wird das originale 'book' Layout gespeichert.
+%   \begin{document}
+%   \newgeometry{margin=1cm}% Verändert die Maße der ersten Seite.
+%      Seite 1
+%   \restoregeometry % stellt das 'book' Layout wieder her.
+%      Seite 2 und folgende
+%   \end{document}\end{verbatim}
+%
+% \item Ein komplexes Seitenlayout:
+% \begin{verbatim}
+%  \usepackage[a5paper, landscape, twocolumn, twoside,
+%      left=2cm, hmarginratio=2:1, includemp, marginparwidth=43pt, 
+%      bottom=1cm, foot=.7cm, includefoot, textheight=11cm, heightrounded,
+%      columnsep=1cm, dvips,  verbose]{geometry}\end{verbatim}
+% Probieren sie das Layoutsetzen selbst und überprüfen sie, wie das Ergebnis ist. |:-)|
+% \end{enumerate}
+%
+% \section{Bekannte Probleme}
+% \begin{itemize}
+%  \item Mit |mag| $\neq 1000$ und |truedimen|,
+%  |paperwidth| und |paperheight| ist die Anzeige im verbose-Modus verschieden von der
+%  wirklichen Größe der resultierenden PDF. Die PDF ist aber korrekt.
+%
+%  \item Mit |mag| $\neq 1000$, \textit{no} |truedimen|
+%  und \textsf{hyperref} sollte \textsf{hyperref} vor \Gm\ geladen werden. 
+%  Andernfalls wird die PDF-Größe fehlerhaft.
+%
+%  \item Mit dem \textsf{crop} Paket und |mag| $\neq 1000$
+%  arbeitet die |center|-Option von \textsf{crop} nicht gut.
+%
+% \end{itemize}
+%
+% \section{Danksagungen}
+%  Der Autor würdigt hiermit die hilfreichen Vorschläge und Kommentare Vieler (in alphabetischer Reihenfolge ihrer
+%  Familennamen):
+%  Jean-Bernard Addor, 
+%  Frank Bennett,
+%  Alexis Dimitriadis,
+%  Friedrich Flender,
+%  Adrian Heathcote,
+%  Stephan Hennig,
+%  Morten H\o{}gholm,
+%  Jonathan Kew,
+%  James Kilfiger,
+%  Yusuke Kuroki,
+%  Jean-Marc Lasgouttes,
+%  Wlodzimierz Macewicz,
+%  Frank Mittelbach,
+%  Eckhard Neber,
+%  Rolf Niepraschk,
+%  Hans Fr.~Nordhaug,
+%  Heiko Oberdiek,
+%  Keith Reckdahl, 
+%  Peter Riocreux,
+%  Will Robertson,
+%  Pablo Rodriguez,
+%  Nico Schlöemer,
+%  Perry C.~Stearns, 
+%  Frank Stengel,
+%  Plamen Tanovski,
+%  Petr Uher,
+%  Piet van Oostrum,
+%  Vladimir Volovich,
+%  Michael Vulis.
+%
+% \StopEventually{%
+% }
+% 
+% \newgeometry{hmargin={4.8cm,1.2cm}, vmargin={1cm,1cm}, includeheadfoot, marginpar=3.8cm}
+% \section{Implementierung}
+%    \begin{macrocode}
+%<*package>
+%    \end{macrocode}
+%    This package requires the following packages:
+%    \textsf{keyval}, \textsf{ifpdf}, \textsf{ifvtex} and \textsf{ifxetex}.
+%    \begin{macrocode}
+\RequirePackage{keyval}%
+\RequirePackage{ifpdf}%
+\RequirePackage{ifvtex}%
+\RequirePackage{ifxetex}%
+%    \end{macrocode}
+% 
+%    Internal switches are declared here.
+%    \begin{macrocode}
+\newif\ifGm@verbose
+\newif\ifGm@landscape
+\newif\ifGm@swap@papersize
+\newif\ifGm@includehead
+\newif\ifGm@includefoot
+\newif\ifGm@includemp
+\newif\ifGm@hbody
+\newif\ifGm@vbody
+\newif\ifGm@heightrounded
+\newif\ifGm@showframe
+\newif\ifGm@showcrop
+\newif\ifGm@pass
+\newif\ifGm@resetpaper
+\newif\ifGm@layout
+\newif\ifGm@newgm
+%    \end{macrocode}
+%    \begin{macro}{\Gm@cnth}
+%    \begin{macro}{\Gm@cntv}
+%    The counters for horizontal and vertical partitioning patterns.
+%    \begin{macrocode}
+\newcount\Gm@cnth
+\newcount\Gm@cntv
+%    \end{macrocode}
+%    \end{macro}\end{macro}
+%    \begin{macro}{\c@Gm@tempcnt}
+%    The counter is used to set number with \textsf{calc}.
+%    \begin{macrocode}
+\newcount\c@Gm@tempcnt
+%    \end{macrocode}
+%    \end{macro}
+%    \begin{macro}{\Gm@bindingoffset}
+%    The binding offset for the inner margin.
+%    \begin{macrocode}
+\newdimen\Gm@bindingoffset
+%    \end{macrocode}
+%    \end{macro}
+%    \begin{macro}{\Gm@wd@mp}
+%    \begin{macro}{\Gm@odd@mp}
+%    \begin{macro}{\Gm@even@mp}
+%    Correction lengths for \cs{textwidth}, \cs{oddsidemargin} and 
+%    \cs{evensidemargin} in |includemp| mode.
+%    \begin{macrocode}
+\newdimen\Gm@wd@mp
+\newdimen\Gm@odd@mp
+\newdimen\Gm@even@mp
+%    \end{macrocode}
+%    \end{macro}\end{macro}\end{macro}
+%    \begin{macro}{\Gm@layoutwidth}
+%    \begin{macro}{\Gm@layoutheight}
+%    \begin{macro}{\Gm@layouthoffset}
+%    \begin{macro}{\Gm@layoutvoffset}
+%    The dimensions for the layout area.
+%    \begin{macrocode}
+\newdimen\Gm@layoutwidth
+\newdimen\Gm@layoutheight
+\newdimen\Gm@layouthoffset
+\newdimen\Gm@layoutvoffset
+%    \end{macrocode}
+%    \end{macro}\end{macro}\end{macro}\end{macro}
+%    \begin{macro}{\Gm@dimlist}
+%    The token in which \LaTeX{} native dimensions can be stored.
+%    \begin{macrocode}
+\newtoks\Gm@dimlist
+%    \end{macrocode}
+%    \end{macro}
+%    \begin{macro}{\Gm@warning}
+%    The macro to print warning messages.
+%    \begin{macrocode}
+\def\Gm@warning#1{\PackageWarningNoLine{geometry}{#1}}%
+%    \end{macrocode}
+%    \end{macro}
+%    \begin{macro}{\ifGm@preamble}
+%    The macro executes the option given as an argument
+%    only if it's specified in the preamble, as the options of
+%    |\usepackage| and/or the argument of |\geometry|. Otherwise,
+%    the macro would print the warning message and ignores 
+%    the option setting.
+%    \begin{macrocode}
+\def\ifGm@preamble#1{%
+  \ifGm@newgm
+   \Gm@warning{`#1': not available in `\string\newgeometry'; skipped}%
+  \else
+    \expandafter\@firstofone
+  \fi}%
+%    \end{macrocode}
+%    \end{macro}
+%    \begin{macro}{\Gm@Dhratio}
+%    \begin{macro}{\Gm@Dhratiotwo}
+%    \begin{macro}{\Gm@Dvratio}
+%    The default values for the horizontal and vertical 
+%    \textsl{marginalratio} are defined. \cs{Gm@Dhratiotwo} denotes the
+%    default value of horizontal \textsl{marginratio} for twoside
+%    page layout with left and right margins swapped on verso pages,
+%    which is set by |twoside|.
+%    \begin{macrocode}
+\def\Gm@Dhratio{1:1}% = left:right default for oneside
+\def\Gm@Dhratiotwo{2:3}% = inner:outer default for twoside.
+\def\Gm@Dvratio{2:3}% = top:bottom default
+%    \end{macrocode}
+%    \end{macro}\end{macro}\end{macro}
+%    \begin{macro}{\Gm@Dhscale}
+%    \begin{macro}{\Gm@Dvscale}
+%    The default values for the horizontal and vertical \textsl{scale}
+%    are defined with $0.7$.
+%    \begin{macrocode}
+\def\Gm@Dhscale{0.7}%
+\def\Gm@Dvscale{0.7}%
+%    \end{macrocode}
+%    \end{macro}\end{macro}
+%    \begin{macro}{\Gm@dvips}%
+%    \begin{macro}{\Gm@dvipdfm}%
+%    \begin{macro}{\Gm@pdftex}%
+%    \begin{macro}{\Gm@xetex}%
+%    \begin{macro}{\Gm@vtex}%
+%    The driver names.
+%    \begin{macrocode}
+\def\Gm@dvips{dvips}%
+\def\Gm@dvipdfm{dvipdfm}%
+\def\Gm@pdftex{pdftex}%
+\def\Gm@xetex{xetex}%
+\def\Gm@vtex{vtex}%
+%    \end{macrocode}
+%    \end{macro}\end{macro}\end{macro}\end{macro}\end{macro}
+%    \begin{macro}{\Gm@true}%
+%    \begin{macro}{\Gm@false}%
+%    The macros for |true| and |false|.
+%    \begin{macrocode}
+\def\Gm@true{true}%
+\def\Gm@false{false}%
+%    \end{macrocode}
+%    \end{macro}\end{macro}
+%    \begin{macro}{\Gm@orgpw}
+%    \begin{macro}{\Gm@orgph}
+%    These macros keep original paper (media) size intact.
+%    \begin{macrocode}
+\edef\Gm@orgpw{\the\paperwidth}%
+\edef\Gm@orgph{\the\paperheight}%
+%    \end{macrocode}
+%    \end{macro}\end{macro}
+%    \begin{macro}{\Gm@savelength}
+%    The macro saves the specified length to |\Gm@restore|.
+%    \begin{macrocode}
+\def\Gm@savelength#1{%
+  \g@addto@macro\Gm@restore{\expandafter\noexpand\expandafter\csname
+  #1\endcsname\expandafter=\expandafter\the\csname #1\endcsname\relax}}%
+%    \end{macrocode}
+%    \end{macro}
+%    \begin{macro}{\Gm@saveboolean}
+%    The macro saves the specified boolean to |\Gm@restore|.
+%    \begin{macrocode}
+\def\Gm@saveboolean#1{%
+  \csname if#1\endcsname
+    \g@addto@macro\Gm@restore{\expandafter\noexpand\csname #1true\endcsname}%
+  \else
+    \g@addto@macro\Gm@restore{\expandafter\noexpand\csname #1false\endcsname}%
+  \fi}%
+%    \end{macrocode}
+%    \end{macro}
+%    \begin{macro}{\Gm@restore}
+%    The initialization for |\Gm@restore|.
+%    \begin{macrocode}
+\def\Gm@restore{}%
+%    \end{macrocode}
+%    \end{macro}
+%    \begin{macro}{\Gm@save}
+%    The definition of the macro saving the real lengths
+%    \LaTeX\ options.
+%    \begin{macrocode}
+\def\Gm@save{%
+  \Gm@savelength{paperwidth}%
+  \Gm@savelength{paperheight}%
+  \Gm@savelength{textwidth}%
+  \Gm@savelength{textheight}%
+  \Gm@savelength{evensidemargin}%
+  \Gm@savelength{oddsidemargin}%
+  \Gm@savelength{topmargin}%
+  \Gm@savelength{headheight}%
+  \Gm@savelength{headsep}%
+  \Gm@savelength{topskip}%
+  \Gm@savelength{footskip}%
+  \Gm@savelength{baselineskip}%
+  \Gm@savelength{marginparwidth}%
+  \Gm@savelength{marginparsep}%
+  \Gm@savelength{columnsep}%
+  \Gm@savelength{hoffset}%
+  \Gm@savelength{voffset}
+  \Gm@savelength{Gm@layoutwidth}%
+  \Gm@savelength{Gm@layoutheight}%
+  \Gm@savelength{Gm@layouthoffset}%
+  \Gm@savelength{Gm@layoutvoffset}%
+  \Gm@saveboolean{@twocolumn}%
+  \Gm@saveboolean{@twoside}%
+  \Gm@saveboolean{@mparswitch}%
+  \Gm@saveboolean{@reversemargin}}%
+%    \end{macrocode}
+%    \end{macro}
+%    \begin{macro}{\Gm@initnewgm}
+%    The macro initializes the parameters for layout
+%    in |\newgeometry|.
+%    \begin{macrocode}
+\def\Gm@initnewgm{%
+  \Gm@passfalse
+  \Gm@swap@papersizefalse
+  \Gm@dimlist={}
+  \Gm@hbodyfalse
+  \Gm@vbodyfalse
+  \Gm@heightroundedfalse
+  \Gm@includeheadfalse
+  \Gm@includefootfalse
+  \Gm@includempfalse
+  \let\Gm@width\@undefined
+  \let\Gm@height\@undefined
+  \let\Gm@textwidth\@undefined
+  \let\Gm@textheight\@undefined
+  \let\Gm@lines\@undefined
+  \let\Gm@hscale\@undefined
+  \let\Gm@vscale\@undefined
+  \let\Gm@hmarginratio\@undefined
+  \let\Gm@vmarginratio\@undefined
+  \let\Gm@lmargin\@undefined
+  \let\Gm@rmargin\@undefined
+  \let\Gm@tmargin\@undefined
+  \let\Gm@bmargin\@undefined
+  \Gm@layoutfalse
+  \Gm@layouthoffset\z@
+  \Gm@layoutvoffset\z@
+  \Gm@bindingoffset\z@}%
+%    \end{macrocode}
+%    \end{macro}
+%    \begin{macro}{\Gm@initall}
+%    This initialization is called as soon as the package is load
+%    It's also called as soon as |reset| option is specified.
+%    \begin{macrocode}
+\def\Gm@initall{%
+  \let\Gm@driver\@empty
+  \let\Gm@truedimen\@empty
+  \let\Gm@paper\@undefined
+  \Gm@resetpaperfalse
+  \Gm@landscapefalse
+  \Gm@verbosefalse
+  \Gm@showframefalse
+  \Gm@showcropfalse
+  \Gm@newgmfalse
+  \Gm@initnewgm}%
+%    \end{macrocode}
+%    \end{macro}
+%    \begin{macro}{\Gm@setdriver}
+%    The macro sets the specified driver.
+%    \begin{macrocode}
+\def\Gm@setdriver#1{%
+  \expandafter\let\expandafter\Gm@driver\csname Gm@#1\endcsname}%
+%    \end{macrocode}
+%    \end{macro}
+%    \begin{macro}{\Gm@unsetdriver}
+%    The macro unsets the specified driver if it has been set.
+%    \begin{macrocode}
+\def\Gm@unsetdriver#1{%
+  \expandafter\ifx\csname Gm@#1\endcsname\Gm@driver\let\Gm@driver\@empty\fi}%
+%    \end{macrocode}
+%    \end{macro}
+%    \begin{macro}{\Gm@setbool}
+%    \begin{macro}{\Gm@setboolrev}
+%    The macros for boolean option processing.
+%    \begin{macrocode}
+\def\Gm@setbool{\@dblarg\Gm@@setbool}%
+\def\Gm@setboolrev{\@dblarg\Gm@@setboolrev}%
+\def\Gm@@setbool[#1]#2#3{\Gm@doif{#1}{#3}{\csname Gm@#2\Gm@bool\endcsname}}%
+\def\Gm@@setboolrev[#1]#2#3{\Gm@doifelse{#1}{#3}%
+  {\csname Gm@#2\Gm@false\endcsname}{\csname Gm@#2\Gm@true\endcsname}}%
+%    \end{macrocode}
+%    \end{macro}\end{macro}
+%    \begin{macro}{\Gm@doif}
+%    \begin{macro}{\Gm@doifelse}
+%    \cs{Gm@doif} excutes the third argument |#3| using a boolean value
+%    |#2| of a option |#1|. \cs{Gm@doifelse} executes the third
+%    argument |#3| if a boolean option |#1| with its value |#2| |true|,
+%    and executes the fourth argument |#4| if |false|.
+%    \begin{macrocode}
+\def\Gm@doif#1#2#3{%
+  \lowercase{\def\Gm@bool{#2}}%
+  \ifx\Gm@bool\@empty
+    \let\Gm@bool\Gm@true
+  \fi
+  \ifx\Gm@bool\Gm@true
+  \else
+    \ifx\Gm@bool\Gm@false
+    \else
+      \let\Gm@bool\relax
+    \fi
+  \fi
+  \ifx\Gm@bool\relax
+    \Gm@warning{`#1' should be set to `true' or `false'}%
+  \else
+    #3
+  \fi}%
+\def\Gm@doifelse#1#2#3#4{%
+  \Gm@doif{#1}{#2}{\ifx\Gm@bool\Gm@true #3\else #4\fi}}%
+%    \end{macrocode}
+%    \end{macro}\end{macro}
+%    \begin{macro}{\Gm@reverse}
+%    The macro reverses a bool value.
+%    \begin{macrocode}
+\def\Gm@reverse#1{%
+  \csname ifGm@#1\endcsname
+  \csname Gm@#1false\endcsname\else\csname Gm@#1true\endcsname\fi}%
+%    \end{macrocode}
+%    \end{macro}
+%    \begin{macro}{\Gm@defbylen}
+%    \begin{macro}{\Gm@defbycnt}
+%    Macros \cs{Gm@defbylen} and \cs{Gm@defbycnt} can be used to define
+%    \cs{Gm@xxxx} variables by length and counter respectively
+%    with \textsf{calc} package.
+%    \begin{macrocode}
+\def\Gm@defbylen#1#2{%
+  \begingroup\setlength\@tempdima{#2}%
+  \expandafter\xdef\csname Gm@#1\endcsname{\the\@tempdima}\endgroup}%
+\def\Gm@defbycnt#1#2{%
+  \begingroup\setcounter{Gm@tempcnt}{#2}%
+  \expandafter\xdef\csname Gm@#1\endcsname{\the\value{Gm@tempcnt}}\endgroup}%
+%    \end{macrocode}
+%    \end{macro}\end{macro}
+%    \begin{macro}{\Gm@set@ratio}
+%    The macro parses the value of options specifying marginal ratios,
+%    which is used in \cs{Gm@setbyratio} macro.
+%    \begin{macrocode}
+\def\Gm@sep@ratio#1:#2{\@tempcnta=#1\@tempcntb=#2}%
+%    \end{macrocode}
+%    \end{macro}
+%    \begin{macro}{\Gm@setbyratio}
+%    The macro determines the dimension specified by |#4| calculating
+%    |#3|$\times a / b$, where $a$ and $b$ are given by \cs{Gm@mratio}
+%    with $a:b$ value. If |#1| in brackets is |b|, $a$ and $b$ are swapped.
+%    The second argument with |h| or |v| denoting horizontal or vertical
+%    is not used in this macro.
+%    \begin{macrocode}
+\def\Gm@setbyratio[#1]#2#3#4{% determine #4 by ratio
+  \expandafter\Gm@sep@ratio\Gm@mratio\relax
+  \if#1b
+    \edef\@@tempa{\the\@tempcnta}%
+    \@tempcnta=\@tempcntb
+    \@tempcntb=\@@tempa\relax
+  \fi
+  \expandafter\setlength\expandafter\@tempdimb\expandafter
+    {\csname Gm@#3\endcsname}%
+  \ifnum\@tempcntb>\z@
+    \multiply\@tempdimb\@tempcnta
+    \divide\@tempdimb\@tempcntb
+  \fi
+  \expandafter\edef\csname Gm@#4\endcsname{\the\@tempdimb}}%
+%    \end{macrocode}
+%    \end{macro}
+%    \begin{macro}{\Gm@detiv}
+%    This macro determines the fourth length(|#4|) from |#1|(\glen{layoutwidth}
+%    or \glen{layoutheight}), |#2| and |#3|. It is used in
+%    \cs{Gm@detall} macro.
+%    \begin{macrocode}
+\def\Gm@detiv#1#2#3#4{% determine #4.
+  \expandafter\setlength\expandafter\@tempdima\expandafter
+    {\csname Gm@layout#1\endcsname}%
+  \expandafter\setlength\expandafter\@tempdimb\expandafter
+    {\csname Gm@#2\endcsname}%
+  \addtolength\@tempdima{-\@tempdimb}%
+  \expandafter\setlength\expandafter\@tempdimb\expandafter
+    {\csname Gm@#3\endcsname}%
+  \addtolength\@tempdima{-\@tempdimb}%
+  \ifdim\@tempdima<\z@
+    \Gm@warning{`#4' results in NEGATIVE (\the\@tempdima).%
+    ^^J\@spaces `#2' or `#3' should be shortened in length}%
+  \fi
+  \expandafter\edef\csname Gm@#4\endcsname{\the\@tempdima}}%
+%    \end{macrocode}
+%    \end{macro}
+%    \begin{macro}{\Gm@detiiandiii}
+%    This macro determines |#2| and |#3| from |#1| with the first argument
+%    (|#1|) can be |width| or |height|, which is expanded into dimensions
+%    of paper and total body. It is used in \cs{Gm@detall} macro.
+%    \begin{macrocode}
+\def\Gm@detiiandiii#1#2#3{% determine #2 and #3.
+  \expandafter\setlength\expandafter\@tempdima\expandafter
+    {\csname Gm@layout#1\endcsname}%
+  \expandafter\setlength\expandafter\@tempdimb\expandafter
+    {\csname Gm@#1\endcsname}%
+  \addtolength\@tempdima{-\@tempdimb}%
+  \ifdim\@tempdima<\z@
+    \Gm@warning{`#2' and `#3' result in NEGATIVE (\the\@tempdima).%
+                  ^^J\@spaces `#1' should be shortened in length}%
+  \fi
+  \ifx\Gm@mratio\@undefined
+    \expandafter\Gm@sep@ratio\Gm@Dmratio\relax
+  \else
+    \expandafter\Gm@sep@ratio\Gm@mratio\relax
+    \ifnum\@tempcntb>\z@\else
+      \Gm@warning{margin ratio a:b should be non-zero; default used}%
+      \expandafter\Gm@sep@ratio\Gm@Dmratio\relax
+    \fi
+  \fi 
+  \@tempdimb=\@tempdima
+  \advance\@tempcntb\@tempcnta
+  \divide\@tempdima\@tempcntb
+  \multiply\@tempdima\@tempcnta
+  \advance\@tempdimb-\@tempdima
+  \expandafter\edef\csname Gm@#2\endcsname{\the\@tempdima}%
+  \expandafter\edef\csname Gm@#3\endcsname{\the\@tempdimb}}%
+%    \end{macrocode}
+%    \end{macro}
+%
+%    \begin{macro}{\Gm@detall} 
+%    This macro determines partition of each direction.
+%    The first argument (|#1|) should be |h| or |v|, the second (|#2|)
+%    |width| or |height|, the third (|#3|) |lmargin| or |top|, and 
+%    the last (|#4|) |rmargin| or |bottom|.
+%    \begin{macrocode}
+\def\Gm@detall#1#2#3#4{%
+  \@tempcnta\z@
+  \if#1h
+    \let\Gm@mratio\Gm@hmarginratio
+    \edef\Gm@Dmratio{\if@twoside\Gm@Dhratiotwo\else\Gm@Dhratio\fi}%
+  \else
+    \let\Gm@mratio\Gm@vmarginratio
+    \edef\Gm@Dmratio{\Gm@Dvratio}%
+  \fi
+%    \end{macrocode}
+%    \cs{@tempcnta} is treated as a three-digit binary value with
+%    top, middle and bottom denoted |left|(|top|), |width|(|height|)
+%    and |right|(|bottom|) margins user specified respectively.
+%    \begin{macrocode}
+  \if#1h
+    \ifx\Gm@lmargin\@undefined\else\advance\@tempcnta4\relax\fi
+    \ifGm@hbody\advance\@tempcnta2\relax\fi
+    \ifx\Gm@rmargin\@undefined\else\advance\@tempcnta1\relax\fi
+    \Gm@cnth\@tempcnta
+  \else
+    \ifx\Gm@tmargin\@undefined\else\advance\@tempcnta4\relax\fi
+    \ifGm@vbody\advance\@tempcnta2\relax\fi
+    \ifx\Gm@bmargin\@undefined\else\advance\@tempcnta1\relax\fi
+    \Gm@cntv\@tempcnta
+  \fi
+%    \end{macrocode}
+%    Case the value is |000| (=0) with nothing fixed (default):
+%    \begin{macrocode}
+  \ifcase\@tempcnta
+    \if#1h
+      \Gm@defbylen{width}{\Gm@Dhscale\Gm@layoutwidth}%
+    \else
+      \Gm@defbylen{height}{\Gm@Dvscale\Gm@layoutheight}%
+    \fi
+    \Gm@detiiandiii{#2}{#3}{#4}%
+%    \end{macrocode}
+%    Case |001| (=1) with |right|(|bottom|) fixed:
+%    \begin{macrocode}
+  \or
+    \ifx\Gm@mratio\@undefined
+      \if#1h
+        \Gm@defbylen{width}{\Gm@Dhscale\Gm@layoutwidth}%
+      \else
+        \Gm@defbylen{height}{\Gm@Dvscale\Gm@layoutheight}%
+      \fi
+      \setlength\@tempdimc{\@nameuse{Gm@#4}}%
+      \Gm@detiiandiii{#2}{#3}{#4}%
+      \expandafter\let\csname Gm@#2\endcsname\@undefined
+      \Gm@defbylen{#4}{\@tempdimc}%
+    \else
+      \Gm@setbyratio[f]{#1}{#4}{#3}%
+    \fi
+    \Gm@detiv{#2}{#3}{#4}{#2}%
+%    \end{macrocode}
+%    Case |010| (=2) with |width|(|height|) fixed:
+%    \begin{macrocode}
+  \or\Gm@detiiandiii{#2}{#3}{#4}%
+%    \end{macrocode}
+%    Case |011| (=3) with both |width|(|height|) and |right|(|bottom|) fixed:
+%    \begin{macrocode}
+  \or\Gm@detiv{#2}{#2}{#4}{#3}%
+%    \end{macrocode}
+%    Case |100| (=4) with |left|(|top|) fixed:
+%    \begin{macrocode}
+  \or
+    \ifx\Gm@mratio\@undefined
+      \if#1h
+        \Gm@defbylen{width}{\Gm@Dhscale\Gm@layoutwidth}%
+      \else
+        \Gm@defbylen{height}{\Gm@Dvscale\Gm@layoutheight}%
+      \fi
+      \setlength\@tempdimc{\@nameuse{Gm@#3}}%
+      \Gm@detiiandiii{#2}{#4}{#3}%
+      \expandafter\let\csname Gm@#2\endcsname\@undefined
+      \Gm@defbylen{#3}{\@tempdimc}%
+    \else
+      \Gm@setbyratio[b]{#1}{#3}{#4}%
+    \fi
+    \Gm@detiv{#2}{#3}{#4}{#2}%
+%    \end{macrocode}
+%    Case |101| (=5) with both |left|(|top|) and |right|(|bottom|) fixed:
+%    \begin{macrocode}
+  \or\Gm@detiv{#2}{#3}{#4}{#2}%
+%    \end{macrocode}
+%    Case |110| (=6) with both |left|(|top|) and |width|(|height|) fixed:
+%    \begin{macrocode}
+  \or\Gm@detiv{#2}{#2}{#3}{#4}%
+%    \end{macrocode}
+%    Case |111| (=7) with all fixed though it is over-specified:
+%    \begin{macrocode}
+  \or\Gm@warning{Over-specification in `#1'-direction.%
+                  ^^J\@spaces `#2' (\@nameuse{Gm@#2}) is ignored}%
+    \Gm@detiv{#2}{#3}{#4}{#2}%
+  \else\fi}%
+%    \end{macrocode}
+%    \end{macro}
+%
+%    \begin{macro}{\Gm@clean}
+%    The macro for setting unspecified dimensions to be \cs{@undefined}.
+%    This is used by \cs{geometry} macro.
+%    \begin{macrocode}
+\def\Gm@clean{%
+  \ifnum\Gm@cnth<4\let\Gm@lmargin\@undefined\fi
+  \ifodd\Gm@cnth\else\let\Gm@rmargin\@undefined\fi
+  \ifnum\Gm@cntv<4\let\Gm@tmargin\@undefined\fi
+  \ifodd\Gm@cntv\else\let\Gm@bmargin\@undefined\fi
+  \ifGm@hbody\else
+    \let\Gm@hscale\@undefined
+    \let\Gm@width\@undefined
+    \let\Gm@textwidth\@undefined
+  \fi
+  \ifGm@vbody\else
+    \let\Gm@vscale\@undefined
+    \let\Gm@height\@undefined
+    \let\Gm@textheight\@undefined
+  \fi
+  }%
+%    \end{macrocode}
+%    \end{macro}
+%
+%    \begin{macro}{\Gm@parse@divide}
+%    The macro parses (|h|,|v|)|divide| options.
+%    \begin{macrocode}
+\def\Gm@parse@divide#1#2#3#4{%
+  \def\Gm@star{*}%
+  \@tempcnta\z@
+  \@for\Gm@tmp:=#1\do{%
+    \expandafter\KV@@sp@def\expandafter\Gm@frag\expandafter{\Gm@tmp}%
+    \edef\Gm@value{\Gm@frag}%
+    \ifcase\@tempcnta\relax\edef\Gm@key{#2}%
+      \or\edef\Gm@key{#3}%
+      \else\edef\Gm@key{#4}%
+    \fi
+    \@nameuse{Gm@set\Gm@key false}%
+    \ifx\empty\Gm@value\else
+    \ifx\Gm@star\Gm@value\else
+      \setkeys{Gm}{\Gm@key=\Gm@value}%
+    \fi\fi
+    \advance\@tempcnta\@ne}%
+  \let\Gm@star\relax}%
+%    \end{macrocode}
+%    \end{macro}
+%
+%    \begin{macro}{\Gm@branch}
+%    The macro splits a value into the same two values.
+%    \begin{macrocode}
+\def\Gm@branch#1#2#3{%
+  \@tempcnta\z@
+  \@for\Gm@tmp:=#1\do{%
+    \KV@@sp@def\Gm@frag{\Gm@tmp}%
+    \edef\Gm@value{\Gm@frag}%
+    \ifcase\@tempcnta\relax% cnta == 0
+      \setkeys{Gm}{#2=\Gm@value}%
+    \or% cnta == 1
+      \setkeys{Gm}{#3=\Gm@value}%
+    \else\fi
+    \advance\@tempcnta\@ne}%
+  \ifnum\@tempcnta=\@ne
+    \setkeys{Gm}{#3=\Gm@value}%
+  \fi}%
+%    \end{macrocode}
+%    \end{macro}
+%
+%    \begin{macro}{\Gm@magtooffset}
+%    This macro is used to adjust offsets by \cs{mag}.
+%    \begin{macrocode}
+\def\Gm@magtooffset{%
+  \@tempdima=\mag\Gm@truedimen sp%
+  \@tempdimb=1\Gm@truedimen in%
+  \divide\@tempdimb\@tempdima
+  \multiply\@tempdimb\@m
+  \addtolength{\hoffset}{1\Gm@truedimen in}%
+  \addtolength{\voffset}{1\Gm@truedimen in}%
+  \addtolength{\hoffset}{-\the\@tempdimb}%
+  \addtolength{\voffset}{-\the\@tempdimb}}%
+%    \end{macrocode}
+%    \end{macro}
+%
+%    \begin{macro}{\Gm@setlength}
+%    This macro stores \LaTeX{} native dimensions, which are stored and 
+%    set afterwards.
+%    \begin{macrocode}
+\def\Gm@setlength#1#2{%
+  \let\Gm@len=\relax\let\Gm@td=\relax
+  \edef\addtolist{\noexpand\Gm@dimlist=%
+  {\the\Gm@dimlist \Gm@len{#1}{#2}}}\addtolist}%
+%    \end{macrocode}
+%    \end{macro}
+%    \begin{macro}{\Gm@expandlengths}
+%    This macro processes \cs{Gm@dimlist}.
+%    \begin{macrocode}
+\def\Gm@expandlengths{%
+  \def\Gm@td{\Gm@truedimen}%
+  \def\Gm@len##1##2{\setlength{##1}{##2}}%
+  \the\Gm@dimlist}%
+%    \end{macrocode}
+%    \end{macro}
+%
+%    \begin{macro}{\Gm@setsize}
+%    The macro sets |paperwidth| and |paperheight| dimensions
+%    using \cs{Gm@setlength} macro.
+%    \begin{macrocode}
+\def\Gm@setsize#1(#2,#3)#4{%
+  \let\Gm@td\relax
+  \expandafter\Gm@setlength\csname #1width\endcsname{#2\Gm@td #4}%
+  \expandafter\Gm@setlength\csname #1height\endcsname{#3\Gm@td #4}%
+  \ifGm@landscape\Gm@swap@papersizetrue\else\Gm@swap@papersizefalse\fi}%
+%    \end{macrocode}
+%    \end{macro}
+%    \begin{macro}{\Gm@setpaper@ifpre}
+%    The macro changes the paper size.
+%    \begin{macrocode}
+\def\Gm@setpaper@ifpre#1{%
+  \ifGm@preamble{#1}{\def\Gm@paper{#1}\@nameuse{Gm@#1}{paper}}}%
+%    \end{macrocode}
+%    \end{macro}
+%    Various paper size are defined here.
+%    \begin{macrocode}
+\@namedef{Gm@a0paper}#1{\Gm@setsize{#1}(841,1189){mm}}% ISO A0
+\@namedef{Gm@a1paper}#1{\Gm@setsize{#1}(594,841){mm}}% ISO A1
+\@namedef{Gm@a2paper}#1{\Gm@setsize{#1}(420,594){mm}}% ISO A2
+\@namedef{Gm@a3paper}#1{\Gm@setsize{#1}(297,420){mm}}% ISO A3
+\@namedef{Gm@a4paper}#1{\Gm@setsize{#1}(210,297){mm}}% ISO A4
+\@namedef{Gm@a5paper}#1{\Gm@setsize{#1}(148,210){mm}}% ISO A5
+\@namedef{Gm@a6paper}#1{\Gm@setsize{#1}(105,148){mm}}% ISO A6
+\@namedef{Gm@b0paper}#1{\Gm@setsize{#1}(1000,1414){mm}}% ISO B0
+\@namedef{Gm@b1paper}#1{\Gm@setsize{#1}(707,1000){mm}}% ISO B1
+\@namedef{Gm@b2paper}#1{\Gm@setsize{#1}(500,707){mm}}% ISO B2
+\@namedef{Gm@b3paper}#1{\Gm@setsize{#1}(353,500){mm}}% ISO B3
+\@namedef{Gm@b4paper}#1{\Gm@setsize{#1}(250,353){mm}}% ISO B4
+\@namedef{Gm@b5paper}#1{\Gm@setsize{#1}(176,250){mm}}% ISO B5
+\@namedef{Gm@b6paper}#1{\Gm@setsize{#1}(125,176){mm}}% ISO B6
+\@namedef{Gm@c0paper}#1{\Gm@setsize{#1}(917,1297){mm}}% ISO C0
+\@namedef{Gm@c1paper}#1{\Gm@setsize{#1}(648,917){mm}}% ISO C1
+\@namedef{Gm@c2paper}#1{\Gm@setsize{#1}(458,648){mm}}% ISO C2
+\@namedef{Gm@c3paper}#1{\Gm@setsize{#1}(324,458){mm}}% ISO C3
+\@namedef{Gm@c4paper}#1{\Gm@setsize{#1}(229,324){mm}}% ISO C4
+\@namedef{Gm@c5paper}#1{\Gm@setsize{#1}(162,229){mm}}% ISO C5
+\@namedef{Gm@c6paper}#1{\Gm@setsize{#1}(114,162){mm}}% ISO C6
+\@namedef{Gm@b0j}#1{\Gm@setsize{#1}(1030,1456){mm}}% JIS B0
+\@namedef{Gm@b1j}#1{\Gm@setsize{#1}(728,1030){mm}}% JIS B1
+\@namedef{Gm@b2j}#1{\Gm@setsize{#1}(515,728){mm}}% JIS B2
+\@namedef{Gm@b3j}#1{\Gm@setsize{#1}(364,515){mm}}% JIS B3
+\@namedef{Gm@b4j}#1{\Gm@setsize{#1}(257,364){mm}}% JIS B4
+\@namedef{Gm@b5j}#1{\Gm@setsize{#1}(182,257){mm}}% JIS B5
+\@namedef{Gm@b6j}#1{\Gm@setsize{#1}(128,182){mm}}% JIS B6
+\@namedef{Gm@ansiapaper}#1{\Gm@setsize{#1}(8.5,11){in}}%
+\@namedef{Gm@ansibpaper}#1{\Gm@setsize{#1}(11,17){in}}%
+\@namedef{Gm@ansicpaper}#1{\Gm@setsize{#1}(17,22){in}}%
+\@namedef{Gm@ansidpaper}#1{\Gm@setsize{#1}(22,34){in}}%
+\@namedef{Gm@ansiepaper}#1{\Gm@setsize{#1}(34,44){in}}%
+\@namedef{Gm@letterpaper}#1{\Gm@setsize{#1}(8.5,11){in}}%
+\@namedef{Gm@legalpaper}#1{\Gm@setsize{#1}(8.5,14){in}}%
+\@namedef{Gm@executivepaper}#1{\Gm@setsize{#1}(7.25,10.5){in}}%
+\@namedef{Gm@screen}#1{\Gm@setsize{#1}(225,180){mm}}%
+%    \end{macrocode}
+%
+%  \begin{key}{Gm}{paper}
+%    |paper| takes a paper name as its value.
+%    \begin{macrocode}
+\define@key{Gm}{paper}{\setkeys{Gm}{#1}}%
+\let\KV@Gm@papername\KV@Gm@paper
+%    \end{macrocode}
+%  \end{key}
+%  \begin{key}{Gm}{a[0-6]paper}
+%  \begin{key}{Gm}{b[0-6]paper}
+%  \begin{key}{Gm}{b[0-6]j}
+%  \begin{key}{Gm}{ansi[a-e]paper}
+%  \begin{key}{Gm}{letterpaper}
+%  \begin{key}{Gm}{legalpaper}
+%  \begin{key}{Gm}{executivepaper}
+%  \begin{key}{Gm}{screen}
+%    The following paper names are available.
+%    \begin{macrocode}
+\define@key{Gm}{a0paper}[true]{\Gm@setpaper@ifpre{a0paper}}%
+\define@key{Gm}{a1paper}[true]{\Gm@setpaper@ifpre{a1paper}}%
+\define@key{Gm}{a2paper}[true]{\Gm@setpaper@ifpre{a2paper}}%
+\define@key{Gm}{a3paper}[true]{\Gm@setpaper@ifpre{a3paper}}%
+\define@key{Gm}{a4paper}[true]{\Gm@setpaper@ifpre{a4paper}}%
+\define@key{Gm}{a5paper}[true]{\Gm@setpaper@ifpre{a5paper}}%
+\define@key{Gm}{a6paper}[true]{\Gm@setpaper@ifpre{a6paper}}%
+\define@key{Gm}{b0paper}[true]{\Gm@setpaper@ifpre{b0paper}}%
+\define@key{Gm}{b1paper}[true]{\Gm@setpaper@ifpre{b1paper}}%
+\define@key{Gm}{b2paper}[true]{\Gm@setpaper@ifpre{b2paper}}%
+\define@key{Gm}{b3paper}[true]{\Gm@setpaper@ifpre{b3paper}}%
+\define@key{Gm}{b4paper}[true]{\Gm@setpaper@ifpre{b4paper}}%
+\define@key{Gm}{b5paper}[true]{\Gm@setpaper@ifpre{b5paper}}%
+\define@key{Gm}{b6paper}[true]{\Gm@setpaper@ifpre{b6paper}}%
+\define@key{Gm}{c0paper}[true]{\Gm@setpaper@ifpre{c0paper}}%
+\define@key{Gm}{c1paper}[true]{\Gm@setpaper@ifpre{c1paper}}%
+\define@key{Gm}{c2paper}[true]{\Gm@setpaper@ifpre{c2paper}}%
+\define@key{Gm}{c3paper}[true]{\Gm@setpaper@ifpre{c3paper}}%
+\define@key{Gm}{c4paper}[true]{\Gm@setpaper@ifpre{c4paper}}%
+\define@key{Gm}{c5paper}[true]{\Gm@setpaper@ifpre{c5paper}}%
+\define@key{Gm}{c6paper}[true]{\Gm@setpaper@ifpre{c6paper}}%
+\define@key{Gm}{b0j}[true]{\Gm@setpaper@ifpre{b0j}}%
+\define@key{Gm}{b1j}[true]{\Gm@setpaper@ifpre{b1j}}%
+\define@key{Gm}{b2j}[true]{\Gm@setpaper@ifpre{b2j}}%
+\define@key{Gm}{b3j}[true]{\Gm@setpaper@ifpre{b3j}}%
+\define@key{Gm}{b4j}[true]{\Gm@setpaper@ifpre{b4j}}%
+\define@key{Gm}{b5j}[true]{\Gm@setpaper@ifpre{b5j}}%
+\define@key{Gm}{b6j}[true]{\Gm@setpaper@ifpre{b6j}}%
+\define@key{Gm}{ansiapaper}[true]{\Gm@setpaper@ifpre{ansiapaper}}%
+\define@key{Gm}{ansibpaper}[true]{\Gm@setpaper@ifpre{ansibpaper}}%
+\define@key{Gm}{ansicpaper}[true]{\Gm@setpaper@ifpre{ansicpaper}}%
+\define@key{Gm}{ansidpaper}[true]{\Gm@setpaper@ifpre{ansidpaper}}%
+\define@key{Gm}{ansiepaper}[true]{\Gm@setpaper@ifpre{ansiepaper}}%
+\define@key{Gm}{letterpaper}[true]{\Gm@setpaper@ifpre{letterpaper}}%
+\define@key{Gm}{legalpaper}[true]{\Gm@setpaper@ifpre{legalpaper}}%
+\define@key{Gm}{executivepaper}[true]{\Gm@setpaper@ifpre{executivepaper}}%
+\define@key{Gm}{screen}[true]{\Gm@setpaper@ifpre{screen}}%
+%    \end{macrocode}
+%  \end{key}\end{key}\end{key}\end{key}\end{key}
+%  \end{key}\end{key}\end{key}
+%  \begin{key}{Gm}{paperwidth}
+%  \begin{key}{Gm}{paperheight}
+%  \begin{key}{Gm}{papersize}
+%    Direct specification for paper size is also possible.
+%    \begin{macrocode}
+\define@key{Gm}{paperwidth}{\ifGm@preamble{paperwidth}{%
+  \def\Gm@paper{custom}\Gm@setlength\paperwidth{#1}}}%
+\define@key{Gm}{paperheight}{\ifGm@preamble{paperheight}{%
+  \def\Gm@paper{custom}\Gm@setlength\paperheight{#1}}}%
+\define@key{Gm}{papersize}{\ifGm@preamble{papersize}{%
+  \def\Gm@paper{custom}\Gm@branch{#1}{paperwidth}{paperheight}}}%
+%    \end{macrocode}
+%  \end{key}\end{key}\end{key}
+%  \begin{key}{Gm}{layout}
+%  \begin{key}{Gm}{layoutwidth}
+%  \begin{key}{Gm}{layoutheight}
+%  \begin{key}{Gm}{layoutsize}
+%    Direct specification for layout size is also possible.
+%    \begin{macrocode}
+\define@key{Gm}{layout}{\Gm@layouttrue\@nameuse{Gm@#1}{Gm@layout}}%
+\let\KV@Gm@layoutname\KV@Gm@layout
+\define@key{Gm}{layoutwidth}{\Gm@layouttrue\Gm@setlength\Gm@layoutwidth{#1}}%
+\define@key{Gm}{layoutheight}{\Gm@layouttrue\Gm@setlength\Gm@layoutheight{#1}}%
+\define@key{Gm}{layoutsize}{\Gm@branch{#1}{layoutwidth}{layoutheight}}%
+%    \end{macrocode}
+%  \end{key}\end{key}\end{key}\end{key}
+%  \begin{key}{Gm}{landscape}
+%  \begin{key}{Gm}{portrait}
+%    Paper orientation setting.
+%    \begin{macrocode}
+\define@key{Gm}{landscape}[true]{\ifGm@preamble{landscape}{%
+  \Gm@doifelse{landscape}{#1}%
+  {\ifGm@landscape\else\Gm@landscapetrue\Gm@reverse{swap@papersize}\fi}%
+  {\ifGm@landscape\Gm@landscapefalse\Gm@reverse{swap@papersize}\fi}}}%
+\define@key{Gm}{portrait}[true]{\ifGm@preamble{portrait}{%
+  \Gm@doifelse{portrait}{#1}%
+  {\ifGm@landscape\Gm@landscapefalse\Gm@reverse{swap@papersize}\fi}%
+  {\ifGm@landscape\else\Gm@landscapetrue\Gm@reverse{swap@papersize}\fi}}}%
+%    \end{macrocode}
+%  \end{key}\end{key}
+%  \begin{key}{Gm}{hscale}
+%  \begin{key}{Gm}{vscale}
+%  \begin{key}{Gm}{scale}
+%    These options can determine the length(s) of \gpart{total body}
+%    giving \textit{scale(s)} against the paper size.
+%    \begin{macrocode}
+\define@key{Gm}{hscale}{\Gm@hbodytrue\edef\Gm@hscale{#1}}%
+\define@key{Gm}{vscale}{\Gm@vbodytrue\edef\Gm@vscale{#1}}%
+\define@key{Gm}{scale}{\Gm@branch{#1}{hscale}{vscale}}%
+%    \end{macrocode}
+%  \end{key}\end{key}\end{key}
+%  \begin{key}{Gm}{width}
+%  \begin{key}{Gm}{height}
+%  \begin{key}{Gm}{total}
+%  \begin{key}{Gm}{totalwidth}
+%  \begin{key}{Gm}{totalheight}
+%    These options give concrete dimension(s) of \gpart{total body}.
+%    |totalwidth| and |totalheight| are aliases of |width| and |height|
+%    respectively.
+%    \begin{macrocode}
+\define@key{Gm}{width}{\Gm@hbodytrue\Gm@defbylen{width}{#1}}%
+\define@key{Gm}{height}{\Gm@vbodytrue\Gm@defbylen{height}{#1}}%
+\define@key{Gm}{total}{\Gm@branch{#1}{width}{height}}%
+\let\KV@Gm@totalwidth\KV@Gm@width
+\let\KV@Gm@totalheight\KV@Gm@height
+%    \end{macrocode}
+%  \end{key}\end{key}\end{key}\end{key}\end{key}
+%  \begin{key}{Gm}{textwidth}
+%  \begin{key}{Gm}{textheight}
+%  \begin{key}{Gm}{text}
+%  \begin{key}{Gm}{body}
+%    These options directly sets the dimensions \cs{textwidth} and
+%    \cs{textheight}. |body| is an alias of |text|.
+%    \begin{macrocode}
+\define@key{Gm}{textwidth}{\Gm@hbodytrue\Gm@defbylen{textwidth}{#1}}%
+\define@key{Gm}{textheight}{\Gm@vbodytrue\Gm@defbylen{textheight}{#1}}%
+\define@key{Gm}{text}{\Gm@branch{#1}{textwidth}{textheight}}%
+\let\KV@Gm@body\KV@Gm@text
+%    \end{macrocode}
+%  \end{key}\end{key}\end{key}\end{key}
+%  \begin{key}{Gm}{lines}
+%    The option sets \cs{textheight} with the number of lines.
+%    \begin{macrocode}
+\define@key{Gm}{lines}{\Gm@vbodytrue\Gm@defbycnt{lines}{#1}}%
+%    \end{macrocode}
+%  \end{key}
+%  \begin{key}{Gm}{includehead}
+%  \begin{key}{Gm}{includefoot}
+%  \begin{key}{Gm}{includeheadfoot}
+%  \begin{key}{Gm}{includemp}
+%  \begin{key}{Gm}{includeall}
+%    The options take the corresponding dimensions as part of
+%    \gpart{body}.
+%    \begin{macrocode}
+\define@key{Gm}{includehead}[true]{\Gm@setbool{includehead}{#1}}%
+\define@key{Gm}{includefoot}[true]{\Gm@setbool{includefoot}{#1}}%
+\define@key{Gm}{includeheadfoot}[true]{\Gm@doifelse{includeheadfoot}{#1}%
+  {\Gm@includeheadtrue\Gm@includefoottrue}%
+  {\Gm@includeheadfalse\Gm@includefootfalse}}%
+\define@key{Gm}{includemp}[true]{\Gm@setbool{includemp}{#1}}%
+\define@key{Gm}{includeall}[true]{\Gm@doifelse{includeall}{#1}%
+  {\Gm@includeheadtrue\Gm@includefoottrue\Gm@includemptrue}%
+  {\Gm@includeheadfalse\Gm@includefootfalse\Gm@includempfalse}}%
+%    \end{macrocode}
+%  \end{key}\end{key}\end{key}\end{key}\end{key}
+%  \begin{key}{Gm}{ignorehead}
+%  \begin{key}{Gm}{ignorefoot}
+%  \begin{key}{Gm}{ignoreheadfoot}
+%  \begin{key}{Gm}{ignoremp}
+%  \begin{key}{Gm}{ignoreall}
+%  These options exclude \gpart{head}, \gpart{foot}
+%  and \gpart{marginpars} when determining \gpart{body}.
+%    \begin{macrocode}
+\define@key{Gm}{ignorehead}[true]{%
+  \Gm@setboolrev[ignorehead]{includehead}{#1}}%
+\define@key{Gm}{ignorefoot}[true]{%
+  \Gm@setboolrev[ignorefoot]{includefoot}{#1}}%
+\define@key{Gm}{ignoreheadfoot}[true]{\Gm@doifelse{ignoreheadfoot}{#1}%
+  {\Gm@includeheadfalse\Gm@includefootfalse}%
+  {\Gm@includeheadtrue\Gm@includefoottrue}}%
+\define@key{Gm}{ignoremp}[true]{%
+  \Gm@setboolrev[ignoremp]{includemp}{#1}}%
+\define@key{Gm}{ignoreall}[true]{\Gm@doifelse{ignoreall}{#1}%
+  {\Gm@includeheadfalse\Gm@includefootfalse\Gm@includempfalse}%
+  {\Gm@includeheadtrue\Gm@includefoottrue\Gm@includemptrue}}%
+%    \end{macrocode}
+%  \end{key}\end{key}\end{key}\end{key}\end{key}
+%  \begin{key}{Gm}{heightrounded}
+%    The option rounds \cs{textheight} to n-times of \cs{baselineskip}
+%    plus \cs{topskip}.
+%    \begin{macrocode}
+\define@key{Gm}{heightrounded}[true]{\Gm@setbool{heightrounded}{#1}}%
+%    \end{macrocode}
+%  \end{key}
+%  \begin{key}{Gm}{hdivide}
+%  \begin{key}{Gm}{vdivide}
+%  \begin{key}{Gm}{divide}
+%    The options are useful to specify partitioning
+%    in each direction of the paper.
+%    \begin{macrocode}
+\define@key{Gm}{hdivide}{\Gm@parse@divide{#1}{lmargin}{width}{rmargin}}%
+\define@key{Gm}{vdivide}{\Gm@parse@divide{#1}{tmargin}{height}{bmargin}}%
+\define@key{Gm}{divide}{\Gm@parse@divide{#1}{lmargin}{width}{rmargin}%
+  \Gm@parse@divide{#1}{tmargin}{height}{bmargin}}%
+%    \end{macrocode}
+%  \end{key}\end{key}\end{key}
+%
+%  \begin{key}{Gm}{lmargin}
+%  \begin{key}{Gm}{rmargin}
+%  \begin{key}{Gm}{tmargin}
+%  \begin{key}{Gm}{bmargin}
+%  \begin{key}{Gm}{left}
+%  \begin{key}{Gm}{inner}
+%  \begin{key}{Gm}{innermargin}
+%  \begin{key}{Gm}{right}
+%  \begin{key}{Gm}{outer}
+%  \begin{key}{Gm}{outermargin}
+%  \begin{key}{Gm}{top}
+%  \begin{key}{Gm}{bottom}
+%    These options set \gpart{margins}.
+%    |left|, |inner|, |innermargin| are aliases of |lmargin|.
+%    |right|, |outer|, |outermargin| are aliases of |rmargin|.
+%    |top| and |bottom| are aliases of |tmargin| and |bmargin| respectively.
+%    \begin{macrocode}
+\define@key{Gm}{lmargin}{\Gm@defbylen{lmargin}{#1}}%
+\define@key{Gm}{rmargin}{\Gm@defbylen{rmargin}{#1}}%
+\let\KV@Gm@left\KV@Gm@lmargin
+\let\KV@Gm@inner\KV@Gm@lmargin
+\let\KV@Gm@innermargin\KV@Gm@lmargin
+\let\KV@Gm@right\KV@Gm@rmargin
+\let\KV@Gm@outer\KV@Gm@rmargin
+\let\KV@Gm@outermargin\KV@Gm@rmargin
+\define@key{Gm}{tmargin}{\Gm@defbylen{tmargin}{#1}}%
+\define@key{Gm}{bmargin}{\Gm@defbylen{bmargin}{#1}}%
+\let\KV@Gm@top\KV@Gm@tmargin
+\let\KV@Gm@bottom\KV@Gm@bmargin
+%    \end{macrocode}
+%  \end{key}\end{key}\end{key}\end{key}\end{key}
+%  \end{key}\end{key}\end{key}\end{key}\end{key}
+%  \end{key}\end{key}
+%  \begin{key}{Gm}{hmargin}
+%  \begin{key}{Gm}{vmargin}
+%  \begin{key}{Gm}{margin}
+%  These options are shorthands for setting \gpart{margins}.
+%    \begin{macrocode}
+\define@key{Gm}{hmargin}{\Gm@branch{#1}{lmargin}{rmargin}}%
+\define@key{Gm}{vmargin}{\Gm@branch{#1}{tmargin}{bmargin}}%
+\define@key{Gm}{margin}{\Gm@branch{#1}{lmargin}{tmargin}%
+  \Gm@branch{#1}{rmargin}{bmargin}}%
+%    \end{macrocode}
+%  \end{key}\end{key}\end{key}
+%  \begin{key}{Gm}{hmarginratio}
+%  \begin{key}{Gm}{vmarginratio}
+%  \begin{key}{Gm}{marginratio}
+%  \begin{key}{Gm}{hratio}
+%  \begin{key}{Gm}{vratio}
+%  \begin{key}{Gm}{ratio}
+%  Options specifying the margin ratios.
+%    \begin{macrocode}
+\define@key{Gm}{hmarginratio}{\edef\Gm@hmarginratio{#1}}%
+\define@key{Gm}{vmarginratio}{\edef\Gm@vmarginratio{#1}}%
+\define@key{Gm}{marginratio}{\Gm@branch{#1}{hmarginratio}{vmarginratio}}%
+\let\KV@Gm@hratio\KV@Gm@hmarginratio
+\let\KV@Gm@vratio\KV@Gm@vmarginratio
+\let\KV@Gm@ratio\KV@Gm@marginratio
+%    \end{macrocode}
+%  \end{key}\end{key}\end{key}
+%  \end{key}\end{key}\end{key}
+%  \begin{key}{Gm}{hcentering}
+%  \begin{key}{Gm}{vcentering}
+%  \begin{key}{Gm}{centering}
+%    Useful shorthands to place \gpart{body} centered.
+%    \begin{macrocode}
+\define@key{Gm}{hcentering}[true]{\Gm@doifelse{hcentering}{#1}%
+  {\def\Gm@hmarginratio{1:1}}{}}%
+\define@key{Gm}{vcentering}[true]{\Gm@doifelse{vcentering}{#1}%
+  {\def\Gm@vmarginratio{1:1}}{}}%
+\define@key{Gm}{centering}[true]{\Gm@doifelse{centering}{#1}%
+  {\def\Gm@hmarginratio{1:1}\def\Gm@vmarginratio{1:1}}{}}%
+%    \end{macrocode}
+%  \end{key}\end{key}\end{key}
+%  \begin{key}{Gm}{twoside}
+%    If |twoside=true|, \cs{@twoside} and \cs{@mparswitch} is set to |true|.
+%    \begin{macrocode}
+\define@key{Gm}{twoside}[true]{\Gm@doifelse{twoside}{#1}%
+  {\@twosidetrue\@mparswitchtrue}{\@twosidefalse\@mparswitchfalse}}%
+%    \end{macrocode}
+%  \end{key}
+%  \begin{key}{Gm}{asymmetric}
+%    |asymmetric| sets \cs{@mparswitchfalse} and \cs{@twosidetrue}
+%     A |asymmetric=false| has no effect.
+%    \begin{macrocode}
+\define@key{Gm}{asymmetric}[true]{\Gm@doifelse{asymmetric}{#1}%
+  {\@twosidetrue\@mparswitchfalse}{}}%
+%    \end{macrocode}
+%  \end{key}
+%  \begin{key}{Gm}{bindingoffset}
+%    The macro adds the specified space to the inner margin.
+%    \begin{macrocode}
+\define@key{Gm}{bindingoffset}{\Gm@setlength\Gm@bindingoffset{#1}}%
+%    \end{macrocode}
+%  \end{key}
+%  \begin{key}{Gm}{headheight}
+%  \begin{key}{Gm}{headsep}
+%  \begin{key}{Gm}{footskip}
+%  \begin{key}{Gm}{head}
+%  \begin{key}{Gm}{foot}
+%    The direct settings of \gpart{head} and/or \gpart{foot} dimensions.
+%    \begin{macrocode}
+\define@key{Gm}{headheight}{\Gm@setlength\headheight{#1}}%
+\define@key{Gm}{headsep}{\Gm@setlength\headsep{#1}}%
+\define@key{Gm}{footskip}{\Gm@setlength\footskip{#1}}%
+\let\KV@Gm@head\KV@Gm@headheight
+\let\KV@Gm@foot\KV@Gm@footskip
+%    \end{macrocode}
+%  \end{key}\end{key}\end{key}\end{key}\end{key}
+%  \begin{key}{Gm}{nohead}
+%  \begin{key}{Gm}{nofoot}
+%  \begin{key}{Gm}{noheadfoot}
+%    They are only shorthands to set \gpart{head} and/or \gpart{foot}
+%    to be |0pt|.
+%    \begin{macrocode}
+\define@key{Gm}{nohead}[true]{\Gm@doifelse{nohead}{#1}%
+  {\Gm@setlength\headheight\z@\Gm@setlength\headsep\z@}{}}%
+\define@key{Gm}{nofoot}[true]{\Gm@doifelse{nofoot}{#1}%
+  {\Gm@setlength\footskip\z@}{}}%
+\define@key{Gm}{noheadfoot}[true]{\Gm@doifelse{noheadfoot}{#1}%
+  {\Gm@setlength\headheight\z@\Gm@setlength\headsep
+  \z@\Gm@setlength\footskip\z@}{}}%
+%    \end{macrocode}
+%  \end{key}\end{key}\end{key}
+%  \begin{key}{Gm}{footnotesep}
+%    The option directly sets a native dimension \cs{footnotesep}.
+%    \begin{macrocode}
+\define@key{Gm}{footnotesep}{\Gm@setlength{\skip\footins}{#1}}%
+%    \end{macrocode}
+%  \end{key}
+%  \begin{key}{Gm}{marginparwidth}
+%  \begin{key}{Gm}{marginpar}
+%  \begin{key}{Gm}{marginparsep}
+%    They directly set native dimensions \cs{marginparwidth} and
+%    \cs{marginparsep}.
+%    \begin{macrocode}
+\define@key{Gm}{marginparwidth}{\Gm@setlength\marginparwidth{#1}}%
+\let\KV@Gm@marginpar\KV@Gm@marginparwidth
+\define@key{Gm}{marginparsep}{\Gm@setlength\marginparsep{#1}}%
+%    \end{macrocode}
+%  \end{key}\end{key}\end{key}
+%  \begin{key}{Gm}{nomarginpar}
+%    The macro is a shorthand for \cs{marginparwidth}|=0pt| and
+%    \cs{marginparsep}|=0pt|.
+%    \begin{macrocode}
+\define@key{Gm}{nomarginpar}[true]{\Gm@doifelse{nomarginpar}{#1}%
+  {\Gm@setlength\marginparwidth\z@\Gm@setlength\marginparsep\z@}{}}%
+%    \end{macrocode}
+%  \end{key}
+%  \begin{key}{Gm}{columnsep}
+%    The option sets a native dimension \cs{columnsep}.
+%    \begin{macrocode}
+\define@key{Gm}{columnsep}{\Gm@setlength\columnsep{#1}}%
+%    \end{macrocode}
+%  \end{key}
+%  \begin{key}{Gm}{hoffset}
+%  \begin{key}{Gm}{voffset}
+%  \begin{key}{Gm}{offset}
+%    The former two options set native dimensions \cs{hoffset} and
+%    \cs{voffset}. |offset| can set both of them with the same value.
+%    \begin{macrocode}
+\define@key{Gm}{hoffset}{\Gm@setlength\hoffset{#1}}%
+\define@key{Gm}{voffset}{\Gm@setlength\voffset{#1}}%
+\define@key{Gm}{offset}{\Gm@branch{#1}{hoffset}{voffset}}%
+%    \end{macrocode}
+%  \end{key}\end{key}\end{key}
+%  \begin{key}{Gm}{layouthoffset}
+%  \begin{key}{Gm}{layoutvoffset}
+%  \begin{key}{Gm}{layoutoffset}
+%    \begin{macrocode}
+\define@key{Gm}{layouthoffset}{\Gm@setlength\Gm@layouthoffset{#1}}%
+\define@key{Gm}{layoutvoffset}{\Gm@setlength\Gm@layoutvoffset{#1}}%
+\define@key{Gm}{layoutoffset}{\Gm@branch{#1}{layouthoffset}{layoutvoffset}}%
+%    \end{macrocode}
+%  \end{key}\end{key}\end{key}
+%  \begin{key}{Gm}{twocolumn}
+%    The option sets \cs{twocolumn} switch.
+%    \begin{macrocode}
+\define@key{Gm}{twocolumn}[true]{%
+  \Gm@doif{twocolumn}{#1}{\csname @twocolumn\Gm@bool\endcsname}}%
+%    \end{macrocode}
+%  \end{key}
+%  \begin{key}{Gm}{onecolumn}
+%    This option has the reverse effect of |twocolumn| option.
+%    \begin{macrocode}
+\define@key{Gm}{onecolumn}[true]{%
+  \Gm@doifelse{onecolumn}{#1}{\@twocolumnfalse}{\@twocolumntrue}}%
+%    \end{macrocode}
+%  \end{key}
+%  \begin{key}{Gm}{reversemp}
+%  \begin{key}{Gm}{reversemarginpar}
+%    The both options set \cs{reversemargin}.
+%    \begin{macrocode}
+\define@key{Gm}{reversemp}[true]{%
+  \Gm@doif{reversemp}{#1}{\csname @reversemargin\Gm@bool\endcsname}}%
+\define@key{Gm}{reversemarginpar}[true]{%
+  \Gm@doif{reversemarginpar}{#1}{\csname @reversemargin\Gm@bool\endcsname}}%
+%    \end{macrocode}
+%  \end{key}\end{key}
+%  \begin{key}{Gm}{dviver}
+%    \begin{macrocode}
+\define@key{Gm}{driver}{\ifGm@preamble{driver}{%
+  \edef\@@tempa{#1}\edef\@@auto{auto}\edef\@@none{none}%
+  \ifx\@@tempa\@empty\let\Gm@driver\relax\else
+  \ifx\@@tempa\@@none\let\Gm@driver\relax\else
+  \ifx\@@tempa\@@auto\let\Gm@driver\@empty\else
+  \setkeys{Gm}{#1}\fi\fi\fi\let\@@auto\relax\let\@@none\relax}}%
+%    \end{macrocode}
+%  \end{key}
+%  \begin{key}{Gm}{dvips}
+%  \begin{key}{Gm}{dvipdfm}
+%  \begin{key}{Gm}{pdftex}
+%  \begin{key}{Gm}{xetex}
+%  \begin{key}{Gm}{vtex}
+%    The \Gm\ package supports |dvips|, |dvipdfm|, 
+%    |pdflatex| and |vtex|. |dvipdfm| works like |dvips|.
+%    \begin{macrocode}
+\define@key{Gm}{dvips}[true]{\ifGm@preamble{dvips}{%
+  \Gm@doifelse{dvips}{#1}{\Gm@setdriver{dvips}}{\Gm@unsetdriver{dvips}}}}%
+\define@key{Gm}{dvipdfm}[true]{\ifGm@preamble{dvipdfm}{%
+  \Gm@doifelse{dvipdfm}{#1}{\Gm@setdriver{dvipdfm}}{\Gm@unsetdriver{dvipdfm}}}}%
+\define@key{Gm}{pdftex}[true]{\ifGm@preamble{pdftex}{%
+  \Gm@doifelse{pdftex}{#1}{\Gm@setdriver{pdftex}}{\Gm@unsetdriver{pdftex}}}}%
+\define@key{Gm}{xetex}[true]{\ifGm@preamble{xetex}{%
+  \Gm@doifelse{xetex}{#1}{\Gm@setdriver{xetex}}{\Gm@unsetdriver{xetex}}}}%
+\define@key{Gm}{vtex}[true]{\ifGm@preamble{vtex}{%
+  \Gm@doifelse{vtex}{#1}{\Gm@setdriver{vtex}}{\Gm@unsetdriver{vtex}}}}%
+%    \end{macrocode}
+%  \end{key}\end{key}\end{key}\end{key}\end{key}
+%  \begin{key}{Gm}{verbose}
+%    The verbose mode.
+%    \begin{macrocode}
+\define@key{Gm}{verbose}[true]{\ifGm@preamble{verbose}{\Gm@setbool{verbose}{#1}}}%
+%    \end{macrocode}
+%  \end{key}
+%  \begin{key}{Gm}{reset}
+%    The option cancels all the options specified before |reset|,
+%    except |pass|. |mag| ($\neq1000$) with |truedimen| cannot be also
+%    reset.
+%    \begin{macrocode}
+\define@key{Gm}{reset}[true]{\ifGm@preamble{reset}{%
+  \Gm@doifelse{reset}{#1}{\Gm@restore@org\Gm@initall
+  \ProcessOptionsKV[c]{Gm}\Gm@setdefaultpaper}{}}}%
+%    \end{macrocode}
+%  \end{key}
+%  \begin{key}{Gm}{resetpaper}
+%    If |resetpaper| is set to |true|, the paper size redefined in the package
+%    is discarded and the original one is restored. This option may be useful
+%    to print nonstandard sized documents with normal printers and papers.
+%    \begin{macrocode}
+\define@key{Gm}{resetpaper}[true]{\ifGm@preamble{resetpaper}{%
+  \Gm@setbool{resetpaper}{#1}}}%
+%    \end{macrocode}
+%  \end{key}
+%  \begin{key}{Gm}{mag}
+%    |mag| is expanded immediately when it is specified. So |reset| can't
+%    reset |mag| when it is set with |truedimen|.
+%    \begin{macrocode}
+\define@key{Gm}{mag}{\ifGm@preamble{mag}{\mag=#1}}%
+%    \end{macrocode}
+%  \end{key}
+%  \begin{key}{Gm}{truedimen}
+%    If |truedimen| is set to |true|, all of the internal
+%    explicit dimensions is changed to \textit{true} dimensions, 
+%    e.g., |1in| is changed to |1truein|.
+%    \begin{macrocode}
+\define@key{Gm}{truedimen}[true]{\ifGm@preamble{truedimen}{%
+  \Gm@doifelse{truedimen}{#1}{\let\Gm@truedimen\Gm@true}%
+  {\let\Gm@truedimen\@empty}}}%
+%    \end{macrocode}
+%  \end{key}
+%  \begin{key}{Gm}{pass}
+%    The option makes all the options specified ineffective except
+%    verbose switch.
+%    \begin{macrocode}
+\define@key{Gm}{pass}[true]{\ifGm@preamble{pass}{\Gm@setbool{pass}{#1}}}%
+%    \end{macrocode}
+%  \end{key}
+%  \begin{key}{Gm}{showframe}
+%    The showframe option prints page frames to help you understand
+%    what the resulting layout is like.
+%    \begin{macrocode}
+\define@key{Gm}{showframe}[true]{\Gm@setbool{showframe}{#1}}%
+%    \end{macrocode}
+%  \end{key}
+%  \begin{key}{Gm}{showcrop}
+%    The showcrop option prints crop marks at each corner of the layout area.
+%    \begin{macrocode}
+\define@key{Gm}{showcrop}[true]{\Gm@setbool{showcrop}{#1}}%
+%    \end{macrocode}
+%  \end{key}
+%    \begin{macro}{\Gm@setdefaultpaper}
+%    The macro stores paper dimensions.
+%    This macro should be called after |\ProcessOptionsKV[c]{Gm}|.
+%    If the |landscape| option in |\documentclass| is
+%    specified, the class immediately swaps the paper dimensions.
+%    \begin{macrocode}
+\def\Gm@setdefaultpaper{%
+  \ifx\Gm@paper\@undefined
+    \Gm@setsize{paper}(\strip@pt\paperwidth,\strip@pt\paperheight){pt}%
+    \Gm@setsize{Gm@layout}(\strip@pt\paperwidth,\strip@pt\paperheight){pt}%
+    \Gm@swap@papersizefalse
+  \fi}%
+%    \end{macrocode}
+%    \end{macro}
+%    \begin{macro}{\Gm@adjustpaper}
+%    The macro checks if paperwidth/height is larger than 0pt,
+%    which is used in \cs{Gm@process}.
+%    The paper dimensions can be swapped when paper orientation
+%    is changed over by |landscape| and |portrait| options.
+%    \begin{macrocode}
+\def\Gm@adjustpaper{%
+  \ifdim\paperwidth>\p@\else
+    \PackageError{geometry}{%
+    \string\paperwidth\space(\the\paperwidth) too short}{%
+    Set a paper type (e.g., `a4paper').}%
+  \fi
+  \ifdim\paperheight>\p@\else
+    \PackageError{geometry}{%
+    \string\paperheight\space(\the\paperheight) too short}{%
+    Set a paper type (e.g., `a4paper').}%
+  \fi
+  \ifGm@swap@papersize
+    \setlength\@tempdima{\paperwidth}%
+    \setlength\paperwidth{\paperheight}%
+    \setlength\paperheight{\@tempdima}%
+  \fi
+  \ifGm@layout\else
+    \setlength\Gm@layoutwidth{\paperwidth}%
+    \setlength\Gm@layoutheight{\paperheight}%
+  \fi}%
+%    \end{macrocode}
+%    \end{macro}
+%    \begin{macro}{\Gm@checkmp}
+%    The macro checks whether or not the marginpars overrun the page.
+%    \begin{macrocode}
+\def\Gm@checkmp{%
+  \ifGm@includemp\else
+    \@tempcnta\z@\@tempcntb\@ne
+    \if@twocolumn
+      \@tempcnta\@ne
+    \else
+      \if@reversemargin
+        \@tempcnta\@ne\@tempcntb\z@
+      \fi
+    \fi
+    \@tempdima\marginparwidth
+    \advance\@tempdima\marginparsep
+    \ifnum\@tempcnta=\@ne
+      \@tempdimc\@tempdima
+      \setlength\@tempdimb{\Gm@lmargin}%
+      \advance\@tempdimc-\@tempdimb
+      \ifdim\@tempdimc>\z@
+        \Gm@warning{The marginal notes overrun the paper edge.^^J
+        \@spaces Add \the\@tempdimc\space and more to the left margin}%
+      \fi
+    \fi
+    \ifnum\@tempcntb=\@ne
+      \@tempdimc\@tempdima
+      \setlength\@tempdimb{\Gm@rmargin}%
+      \advance\@tempdimc-\@tempdimb
+      \ifdim\@tempdimc>\z@
+        \Gm@warning{The marginal notes overrun the paper.^^J
+        \@spaces Add \the\@tempdimc\space and more to the right margin}%
+      \fi
+    \fi
+  \fi}%
+%    \end{macrocode}
+%    \end{macro}
+%    \begin{macro}{\Gm@adjustmp}
+%    The macro sets marginpar correction when |includemp| is set,
+%    which is used in \cs{Gm@process}. The variables \cs{Gm@wd@mp},
+%    \cs{Gm@odd@mp} and \cs{Gm@even@mp} are set here.
+%    Note that \cs{Gm@even@mp} should be used only for twoside layout.
+%    \begin{macrocode}
+\def\Gm@adjustmp{%
+  \ifGm@includemp
+    \@tempdimb\marginparwidth
+    \advance\@tempdimb\marginparsep
+    \Gm@wd@mp\@tempdimb
+    \Gm@odd@mp\z@
+    \Gm@even@mp\z@
+    \if@twocolumn
+      \Gm@wd@mp2\@tempdimb
+      \Gm@odd@mp\@tempdimb
+      \Gm@even@mp\@tempdimb
+    \else
+      \if@reversemargin
+        \Gm@odd@mp\@tempdimb
+        \if@mparswitch\else
+          \Gm@even@mp\@tempdimb
+        \fi
+      \else
+        \if@mparswitch
+          \Gm@even@mp\@tempdimb
+        \fi
+      \fi
+    \fi
+  \fi}%
+%    \end{macrocode}
+%    \end{macro}
+%    \begin{macro}{\Gm@adjustbody}
+%    If the horizontal dimension of \gpart{body} is specified by user,
+%    \cs{Gm@width} is set properly here.
+%    \begin{macrocode}
+\def\Gm@adjustbody{
+  \ifGm@hbody
+    \ifx\Gm@width\@undefined
+      \ifx\Gm@hscale\@undefined
+        \Gm@defbylen{width}{\Gm@Dhscale\Gm@layoutwidth}%
+      \else
+        \Gm@defbylen{width}{\Gm@hscale\Gm@layoutwidth}%
+      \fi
+    \fi
+    \ifx\Gm@textwidth\@undefined\else
+      \setlength\@tempdima{\Gm@textwidth}%
+      \ifGm@includemp
+        \advance\@tempdima\Gm@wd@mp
+      \fi
+      \edef\Gm@width{\the\@tempdima}%
+    \fi
+  \fi
+%    \end{macrocode}
+%    If the vertical dimension of \gpart{body} is specified by user,
+%    \cs{Gm@height} is set properly here.
+%    \begin{macrocode}
+  \ifGm@vbody
+    \ifx\Gm@height\@undefined
+      \ifx\Gm@vscale\@undefined
+        \Gm@defbylen{height}{\Gm@Dvscale\Gm@layoutheight}%
+      \else
+        \Gm@defbylen{height}{\Gm@vscale\Gm@layoutheight}%
+      \fi
+    \fi
+    \ifx\Gm@lines\@undefined\else
+%    \end{macrocode}
+%    \cs{topskip} has to be adjusted so that the formula
+%    ``$\cs{textheight} = (lines - 1) \times \cs{baselineskip} + \cs{topskip}$''
+%    to be correct even if large font sizes are specified by users.
+%    If \cs{topskip} is smaller than \cs{ht}\cs{strutbox}, then \cs{topskip}
+%    is set to \cs{ht}\cs{strutbox}.
+%    \begin{macrocode}
+      \ifdim\topskip<\ht\strutbox
+        \setlength\@tempdima{\topskip}%
+        \setlength\topskip{\ht\strutbox}%
+        \Gm@warning{\noexpand\topskip was changed from \the\@tempdima\space
+        to \the\topskip}%
+      \fi
+      \setlength\@tempdima{\baselineskip}%
+      \multiply\@tempdima\Gm@lines
+      \addtolength\@tempdima{\topskip}%
+      \addtolength\@tempdima{-\baselineskip}%
+      \edef\Gm@textheight{\the\@tempdima}%
+    \fi
+    \ifx\Gm@textheight\@undefined\else
+      \setlength\@tempdima{\Gm@textheight}%
+      \ifGm@includehead
+        \addtolength\@tempdima{\headheight}%
+        \addtolength\@tempdima{\headsep}%
+      \fi
+      \ifGm@includefoot
+        \addtolength\@tempdima{\footskip}%
+      \fi
+      \edef\Gm@height{\the\@tempdima}%
+    \fi
+  \fi}%
+%    \end{macrocode}
+%    \end{macro}
+%    \begin{macro}{\Gm@process}
+%    The main macro processing the specified dimensions is defined.
+%    \begin{macrocode}
+\def\Gm@process{%
+%    \end{macrocode}
+%    If |pass| is set, the original dimensions and switches are restored
+%    and process is ended here.
+%    \begin{macrocode}
+  \ifGm@pass
+    \Gm@restore@org
+  \else
+    \Gm@@process
+  \fi}%
+%    \end{macrocode}
+%    The main processing macro.
+%    \begin{macrocode}
+\def\Gm@@process{%
+  \Gm@expandlengths
+  \Gm@adjustpaper
+  \addtolength\Gm@layoutwidth{-\Gm@bindingoffset}%
+  \Gm@adjustmp
+  \Gm@adjustbody
+  \Gm@detall{h}{width}{lmargin}{rmargin}%
+  \Gm@detall{v}{height}{tmargin}{bmargin}%
+%    \end{macrocode}
+%    The real dimensions are set properly according to the result
+%    of the auto-completion calculation.
+%    \begin{macrocode}
+  \setlength\textwidth{\Gm@width}%
+  \setlength\textheight{\Gm@height}%
+  \setlength\topmargin{\Gm@tmargin}%
+  \setlength\oddsidemargin{\Gm@lmargin}%
+  \addtolength\oddsidemargin{-1\Gm@truedimen in}%
+%    \end{macrocode}
+%    If |includemp| is set to |true|, \cs{textwidth} and \cs{oddsidemargin}
+%    are adjusted. 
+%    \begin{macrocode}
+  \ifGm@includemp
+    \advance\textwidth-\Gm@wd@mp
+    \advance\oddsidemargin\Gm@odd@mp
+  \fi
+%    \end{macrocode}
+%    Determining \cs{evensidemargin}.
+%    In the twoside page layout, the right margin value \cs{Gm@rmargin} is used.
+%    If the marginal note width is included,
+%    \cs{evensidemargin} should be corrected by \cs{Gm@even@mp}.
+%    \begin{macrocode}
+  \if@mparswitch
+    \setlength\evensidemargin{\Gm@rmargin}%
+    \addtolength\evensidemargin{-1\Gm@truedimen in}%
+    \ifGm@includemp
+      \advance\evensidemargin\Gm@even@mp
+    \fi
+  \else
+    \evensidemargin\oddsidemargin
+  \fi
+%    \end{macrocode}
+%    The bindingoffset correction for \cs{oddsidemargin}.
+%    \begin{macrocode}
+  \advance\oddsidemargin\Gm@bindingoffset
+  \addtolength\topmargin{-1\Gm@truedimen in}%
+%    \end{macrocode}
+%    If the head of the page is included in \gpart{total body}, 
+%    \cs{headheight} and \cs{headsep} are removed from \cs{textheight},
+%    otherwise from \cs{topmargin}.
+%    \begin{macrocode}
+  \ifGm@includehead
+    \addtolength\textheight{-\headheight}%
+    \addtolength\textheight{-\headsep}%
+  \else
+    \addtolength\topmargin{-\headheight}%
+    \addtolength\topmargin{-\headsep}%
+  \fi
+%    \end{macrocode}
+%    If the foot of the page is included in \gpart{total body},
+%    \cs{footskip} is removed from \cs{textheight}.
+%    \begin{macrocode}
+  \ifGm@includefoot
+    \addtolength\textheight{-\footskip}%
+  \fi
+%    \end{macrocode}
+%    If |heightrounded| is set, \cs{textheight} is rounded.
+%    \begin{macrocode}
+  \ifGm@heightrounded
+    \setlength\@tempdima{\textheight}%
+    \addtolength\@tempdima{-\topskip}%
+    \@tempcnta\@tempdima
+    \@tempcntb\baselineskip
+    \divide\@tempcnta\@tempcntb
+    \setlength\@tempdimb{\baselineskip}%
+    \multiply\@tempdimb\@tempcnta
+    \advance\@tempdima-\@tempdimb
+    \multiply\@tempdima\tw@
+    \ifdim\@tempdima>\baselineskip
+      \addtolength\@tempdimb{\baselineskip}%
+    \fi
+    \addtolength\@tempdimb{\topskip}%
+    \textheight\@tempdimb
+  \fi
+%    \end{macrocode}
+%    The paper width is set back by adding \cs{Gm@bindingoffset}.
+%    \begin{macrocode}
+  \advance\oddsidemargin\Gm@layouthoffset%
+  \advance\evensidemargin\Gm@layouthoffset%
+  \advance\topmargin\Gm@layoutvoffset%
+  \addtolength\Gm@layoutwidth{\Gm@bindingoffset}%
+  }% end of \Gm@@process
+%    \end{macrocode}
+%    \end{macro}
+%    
+%    \begin{macro}{\Gm@detectdriver}
+%    The macro checks the typeset environment and changes the driver option
+%    if necessary. To make the engine detection more robust, the macro is
+%    rewritten with packages \textsf{ifpdf}, \textsf{ifvtex} and 
+%    \textsf{ifxetex}.
+%    \begin{macrocode}
+\def\Gm@detectdriver{%
+%    \end{macrocode} 
+%    If the driver option is not specified explicitly, then driver
+%    auto-detection works.
+%    \begin{macrocode} 
+  \ifx\Gm@driver\@empty
+    \typeout{*geometry* driver: auto-detecting}%
+%    \end{macrocode} 
+%    \cs{ifpdf} is defined in \textsf{ifpdf} package in `oberdiek' bundle.
+%    \begin{macrocode} 
+    \ifpdf
+      \Gm@setdriver{pdftex}%
+    \else
+      \Gm@setdriver{dvips}%
+    \fi
+%    \end{macrocode} 
+%    \cs{ifvtex} is defined in \textsf{ifvtex} package in `oberdiek'
+%    bundle. 
+%    \begin{macrocode} 
+    \ifvtex
+      \Gm@setdriver{vtex}%
+    \fi
+%    \end{macrocode}
+%    \cs{ifxetex} is defined in \textsf{ifxetex} package written by
+%    Will Robertson.
+%    \begin{macrocode} 
+    \ifxetex
+      \Gm@setdriver{xetex}
+    \fi
+%    \end{macrocode}
+%    When the driver option is set by the user, check if it is valid or not. 
+%    \begin{macrocode} 
+  \else
+    \ifx\Gm@driver\Gm@xetex %%
+      \ifxetex\else
+        \Gm@warning{Wrong driver setting: `xetex'; trying `pdftex' driver}%
+        \Gm@setdriver{pdftex}
+      \fi
+    \fi
+    \ifx\Gm@driver\Gm@vtex
+      \ifvtex\else
+        \Gm@warning{Wrong driver setting: `vtex'; trying `dvips' driver}%
+        \Gm@setdriver{dvips}%
+      \fi
+    \fi
+  \fi
+  \ifx\Gm@driver\relax
+    \typeout{*geometry* detected driver: <none>}%
+  \else
+    \typeout{*geometry* detected driver: \Gm@driver}%
+  \fi}%
+%    \end{macrocode}
+%    \end{macro}
+%    \begin{macro}{\Gm@showparams}
+%    Prints the resulted parammeters and dimensions to STDOUT
+%    if |verbose| is true.
+%    |\Gm@width| and |\Gm@height| are expanded to get the real size.
+%    \begin{macrocode}
+\def\Gm@showparams#1{%
+  \ifGm@verbose\expandafter\typeout\else\expandafter\wlog\fi
+  {\Gm@logcontent{#1}}}%
+\def\Gm@showdim#1{* \string#1=\the#1^^J}%
+\def\Gm@showbool#1{\@nameuse{ifGm@#1}#1\space\fi}%
+%    \end{macrocode}
+%    \end{macro}
+%    \begin{macro}{\Gm@logcontent}
+%    The content of geometry paramenters and native dimensions for the
+%    page layout.
+%    \begin{macrocode}
+\def\Gm@logcontent#1{%
+  *geometry* verbose mode - [ #1 ] result:^^J%
+  \ifGm@pass * pass: disregarded the geometry package!^^J%
+  \else
+  * driver: \if\Gm@driver<none>\else\Gm@driver\fi^^J%
+  * paper: \ifx\Gm@paper\@undefined<default>\else\Gm@paper\fi^^J%
+  * layout: \ifGm@layout<custom>\else<same size as paper>\fi^^J%
+  \ifGm@layout
+  * layout(width,height): (\the\Gm@layoutwidth,\the\Gm@layoutheight)^^J%
+  \fi 
+  * layoutoffset:(h,v)=(\the\Gm@layouthoffset,\the\Gm@layoutvoffset)^^J%
+  \@ifundefined{Gm@lines}{}{* lines: \Gm@lines^^J}%
+  \@ifundefined{Gm@hmarginratio}{}{* hratio: \Gm@hmarginratio^^J}%
+  \@ifundefined{Gm@vmarginratio}{}{* vratio: \Gm@vmarginratio^^J}%
+  \ifdim\Gm@bindingoffset=\z@\else
+  * bindingoffset: \the\Gm@bindingoffset^^J\fi
+  * modes: %
+   \Gm@showbool{landscape}%
+   \Gm@showbool{includehead}%
+   \Gm@showbool{includefoot}%
+   \Gm@showbool{includemp}%
+   \if@twoside twoside\space\fi%
+   \if@mparswitch\else\if@twoside asymmetric\space\fi\fi%
+   \Gm@showbool{heightrounded}%
+   \ifx\Gm@truedimen\@empty\else truedimen\space\fi%
+   \Gm@showbool{showframe}%
+   \Gm@showbool{showcrop}%
+  ^^J%
+  * h-part:(L,W,R)=(\Gm@lmargin, \Gm@width, \Gm@rmargin)^^J%
+  * v-part:(T,H,B)=(\Gm@tmargin, \Gm@height, \Gm@bmargin)^^J%
+  \fi
+  \Gm@showdim{\paperwidth}%
+  \Gm@showdim{\paperheight}%
+  \Gm@showdim{\textwidth}%
+  \Gm@showdim{\textheight}%
+  \Gm@showdim{\oddsidemargin}%
+  \Gm@showdim{\evensidemargin}%
+  \Gm@showdim{\topmargin}%
+  \Gm@showdim{\headheight}%
+  \Gm@showdim{\headsep}%
+  \Gm@showdim{\topskip}%
+  \Gm@showdim{\footskip}%
+  \Gm@showdim{\marginparwidth}%
+  \Gm@showdim{\marginparsep}%
+  \Gm@showdim{\columnsep}%
+  * \string\skip\string\footins=\the\skip\footins^^J%
+  \Gm@showdim{\hoffset}%
+  \Gm@showdim{\voffset}%
+  \Gm@showdim{\mag}%
+  * \string\@twocolumn\if@twocolumn true\else false\fi^^J%
+  * \string\@twoside\if@twoside true\else false\fi^^J%
+  * \string\@mparswitch\if@mparswitch true\else false\fi^^J%
+  * \string\@reversemargin\if@reversemargin true\else false\fi^^J%
+  * (1in=72.27pt=25.4mm, 1cm=28.453pt)^^J}%
+%    \end{macrocode}
+%    \end{macro}
+%
+%    Macros for the page frames and cropmarks.
+%    \begin{macrocode}
+\def\Gm@cropmark(#1,#2,#3,#4){%
+  \begin{picture}(0,0)
+    \setlength\unitlength{1truemm}%
+    \linethickness{0.25pt}%
+    \put(#3,0){\line(#1,0){17}}%
+    \put(0,#4){\line(0,#2){17}}%
+  \end{picture}}%
+\providecommand*\vb@xt@{\vbox to}%
+\def\Gm@vrule{\vrule width 0.2pt height\textheight depth\z@}%
+\def\Gm@hrule{\hrule height 0.2pt depth\z@ width\textwidth}%
+\def\Gm@hruled{\hrule height\z@ depth0.2pt width\textwidth}%
+\newcommand*{\Gm@vrules@mpi}{%
+  \hb@xt@\@tempdima{\llap{\Gm@vrule}\ignorespaces
+  \hskip \textwidth\Gm@vrule\hskip \marginparsep
+  \llap{\Gm@vrule}\hfil\Gm@vrule}}%
+\newcommand*{\Gm@vrules@mpii}{%
+  \hb@xt@\@tempdima{\hskip-\marginparwidth\hskip-\marginparsep
+  \llap{\Gm@vrule}\ignorespaces
+  \hskip \marginparwidth\rlap{\Gm@vrule}\hskip \marginparsep
+  \llap{\Gm@vrule}\hskip\textwidth\rlap{\Gm@vrule}\hss}}%
+\newcommand*{\Gm@pageframes}{%
+  \vb@xt@\z@{%
+   \ifGm@showcrop
+    \vb@xt@\z@{\vskip-1\Gm@truedimen in\vskip\Gm@layoutvoffset%
+     \hb@xt@\z@{\hskip-1\Gm@truedimen in\hskip\Gm@layouthoffset%
+      \vb@xt@\Gm@layoutheight{%
+       \let\protect\relax
+       \hb@xt@\Gm@layoutwidth{\Gm@cropmark(-1,1,-3,3)\hfil\Gm@cropmark(1,1,3,3)}%
+       \vfil
+       \hb@xt@\Gm@layoutwidth{\Gm@cropmark(-1,-1,-3,-3)\hfil\Gm@cropmark(1,-1,3,-3)}}%
+     \hss}%
+    \vss}%
+   \fi%
+   \ifGm@showframe
+    \if@twoside
+     \ifodd\count\z@
+       \let\@themargin\oddsidemargin
+     \else
+       \let\@themargin\evensidemargin
+     \fi
+    \fi
+    \moveright\@themargin%
+    \vb@xt@\z@{%
+     \vskip\topmargin\vb@xt@\z@{\vss\Gm@hrule}%
+     \vskip\headheight\vb@xt@\z@{\vss\Gm@hruled}%
+     \vskip\headsep\vb@xt@\z@{\vss\Gm@hrule}%
+     \@tempdima\textwidth
+     \advance\@tempdima by \marginparsep
+     \advance\@tempdima by \marginparwidth
+     \if@mparswitch
+      \ifodd\count\z@
+       \Gm@vrules@mpi
+      \else
+       \Gm@vrules@mpii
+      \fi
+     \else
+      \Gm@vrules@mpi
+     \fi
+     \vb@xt@\z@{\vss\Gm@hrule}%
+     \vskip\footskip\vb@xt@\z@{\vss\Gm@hruled}%
+     \vss}%
+    \fi%
+  }}%
+%    \end{macrocode}
+%
+%    \begin{macro}{\ProcessOptionsKV}
+%    This macro can process class and package options using `key=value'
+%    scheme. Only class options are processed with an optional argument
+%    `|c|', package options with `|p|' , and both of them by default.
+%    \begin{macrocode}
+\def\ProcessOptionsKV{\@ifnextchar[%]
+  {\@ProcessOptionsKV}{\@ProcessOptionsKV[]}}%
+\def\@ProcessOptionsKV[#1]#2{%
+  \let\@tempa\@empty
+  \@tempcnta\z@
+  \if#1p\@tempcnta\@ne\else\if#1c\@tempcnta\tw@\fi\fi
+  \ifodd\@tempcnta
+   \edef\@tempa{\@ptionlist{\@currname.\@currext}}%
+  \else
+    \@for\CurrentOption:=\@classoptionslist\do{%
+      \@ifundefined{KV@#2@\CurrentOption}%
+      {}{\edef\@tempa{\@tempa,\CurrentOption,}}}%
+    \ifnum\@tempcnta=\z@
+      \edef\@tempa{\@tempa,\@ptionlist{\@currname.\@currext}}%
+    \fi
+  \fi
+  \edef\@tempa{\noexpand\setkeys{#2}{\@tempa}}%
+  \@tempa
+  \AtEndOfPackage{\let\@unprocessedoptions\relax}}%
+%    \end{macrocode}
+%    \end{macro}
+%    \begin{macrocode}
+\def\Gm@setkeys{\setkeys{Gm}}%
+%    \end{macrocode}
+%    \begin{macro}{\Gm@processconf}
+%    \cs{ExecuteOptions} is replaced with \cs{Gm@setkey} to make it
+%    possible to deal with '\meta{key}=\meta{value}' as its argument.
+%    \begin{macrocode}
+\def\Gm@processconfig{%
+  \let\Gm@origExecuteOptions\ExecuteOptions
+  \let\ExecuteOptions\Gm@setkeys
+  \InputIfFileExists{geometry.cfg}{}{}
+  \let\ExecuteOptions\Gm@origExecuteOptions}%
+%    \end{macrocode}
+%    \end{macro}
+%
+%  The original page layout before loading \Gm\ is saved here.
+%  |\Gm@restore@org| is defined here for |reset| option.
+%    \begin{macrocode}
+\Gm@save
+\edef\Gm@restore@org{\Gm@restore}%
+\Gm@initall
+%    \end{macrocode}
+%    Processing config file.
+%    \begin{macrocode}
+\Gm@processconfig
+%    \end{macrocode}
+%    The optional arguments to \cs{documentclass} are processed here.
+%    \begin{macrocode}
+\ProcessOptionsKV[c]{Gm}%
+%    \end{macrocode}
+%    Paper dimensions given by class default are stored.
+%    \begin{macrocode}
+\Gm@setdefaultpaper
+%    \end{macrocode}
+%    The optional arguments to \cs{usepackage} are processed here.
+%    \begin{macrocode}
+\ProcessOptionsKV[p]{Gm}%
+%    \end{macrocode}
+%    Actual settings and calculation for layout dimensions are processed.
+%    \begin{macrocode}
+\Gm@process
+%    \end{macrocode}
+%
+%    \begin{macro}{\AtBeginDocument}
+%   The processes for |verbose|, |showframe| and drivers are added to
+%   |\AtBeginDocument|.
+%   |\Gm@restore@org| is redefined here with the paper size specified
+%   in the preamble for |\newgeometry| to use it. This should be done
+%   before magnifying the paper size with |\mag| because the layout
+%   calculation would be affected by changing the paper size.
+%    \begin{macrocode}
+\AtBeginDocument{%
+  \Gm@savelength{paperwidth}%
+  \Gm@savelength{paperheight}%
+  \edef\Gm@restore@org{\Gm@restore}%
+%    \end{macrocode}
+%    The original paper size is used if |resetpaper|.
+%    \begin{macrocode}
+  \ifGm@resetpaper
+    \edef\Gm@pw{\Gm@orgpw}%
+    \edef\Gm@ph{\Gm@orgph}%
+  \else
+    \edef\Gm@pw{\the\paperwidth}%
+    \edef\Gm@ph{\the\paperheight}%
+  \fi
+%    \end{macrocode}
+%    If |pass| is not set, the paper size is multiplied
+%    according to the specified |mag|.
+%    \begin{macrocode}
+  \ifGm@pass\else
+    \ifnum\mag=\@m\else
+      \Gm@magtooffset
+      \divide\paperwidth\@m
+      \multiply\paperwidth\the\mag
+      \divide\paperheight\@m
+      \multiply\paperheight\the\mag
+    \fi
+  \fi
+%    \end{macrocode}
+%    Checking the driver options.
+%    \begin{macrocode}
+  \Gm@detectdriver
+%    \end{macrocode}
+%    If |xetex| and |\pdfpagewidth| is defined,
+%    |\pdfpagewidth| and |\pdfpageheight| would be set.
+%    \begin{macrocode}
+  \ifx\Gm@driver\Gm@xetex
+    \@ifundefined{pdfpagewidth}{}{%
+      \setlength\pdfpagewidth{\Gm@pw}%
+      \setlength\pdfpageheight{\Gm@ph}}%
+    \ifnum\mag=\@m\else
+      \ifx\Gm@truedimen\Gm@true
+        \setlength\paperwidth{\Gm@pw}%
+        \setlength\paperheight{\Gm@ph}%
+      \fi
+    \fi
+  \fi
+%    \end{macrocode}
+%    If |pdftex| is set to |true|, pdf-commands are set properly.
+%    To avoid |pdftex| magnification problem, \cs{pdfhorigin} and
+%    \cs{pdfvorigin} are adjusted for \cs{mag}.
+%    \begin{macrocode}
+  \ifx\Gm@driver\Gm@pdftex
+    \@ifundefined{pdfpagewidth}{}{%
+      \setlength\pdfpagewidth{\Gm@pw}%
+      \setlength\pdfpageheight{\Gm@ph}}%
+    \ifnum\mag=\@m\else
+      \@tempdima=\mag sp%
+      \@ifundefined{pdfhorigin}{}{%
+        \divide\pdfhorigin\@tempdima
+        \multiply\pdfhorigin\@m
+        \divide\pdfvorigin\@tempdima
+        \multiply\pdfvorigin\@m}%
+      \ifx\Gm@truedimen\Gm@true
+        \setlength\paperwidth{\Gm@pw}%
+        \setlength\paperheight{\Gm@ph}%
+      \fi
+    \fi
+  \fi
+%    \end{macrocode}
+%    With V\TeX{} environment, V\TeX{} variables are set here.
+%    \begin{macrocode}
+  \ifx\Gm@driver\Gm@vtex
+    \@ifundefined{mediawidth}{}{%
+      \mediawidth=\paperwidth
+      \mediaheight=\paperheight}%
+    \ifvtexdvi
+      \AtBeginDvi{\special{papersize=\the\paperwidth,\the\paperheight}}%
+    \fi
+  \fi
+%    \end{macrocode}
+%    If |dvips| or |dvipdfm| is specified, paper size is embedded in dvi
+%    file with \cs{special}. For dvips, a landscape correction is added
+%    because a landscape document converted by dvips is upside-down in
+%    PostScript viewers.
+%    \begin{macrocode}
+  \ifx\Gm@driver\Gm@dvips
+    \AtBeginDvi{\special{papersize=\the\paperwidth,\the\paperheight}}%
+    \ifx\Gm@driver\Gm@dvips\ifGm@landscape
+      \AtBeginDvi{\special{! /landplus90 true store}}%
+    \fi\fi
+%    \end{macrocode}
+%    If |dvipdfm| is specified and \textsf{atbegshi} package in
+%    `oberdiek' bundle is loaded, \cs{AtBeginShipoutFirst} is used
+%    instead of \cs{AtBeginDvi} for compatibility with \textsf{hyperref}
+%    and |dvipdfm| program.
+%    \begin{macrocode}
+  \else\ifx\Gm@driver\Gm@dvipdfm
+    \ifcase\ifx\AtBeginShipoutFirst\relax\@ne\else
+        \ifx\AtBeginShipoutFirst\@undefined\@ne\else\z@\fi\fi
+      \AtBeginShipoutFirst{\special{papersize=\the\paperwidth,\the\paperheight}}%
+    \or 
+      \AtBeginDvi{\special{papersize=\the\paperwidth,\the\paperheight}}%
+    \fi
+  \fi\fi
+%    \end{macrocode}
+%    Page frames are shipped out when |showframe=true|, cropmarks for |showcrop=true|
+%    on each page. The \textsf{atbegshi} package is used for overloading |\shipout|.
+%    \begin{macrocode}
+  \@tempswafalse
+  \ifGm@showframe
+    \@tempswatrue
+  \else\ifGm@showcrop
+    \@tempswatrue
+  \fi\fi
+  \if@tempswa
+    \RequirePackage{atbegshi}%
+      \AtBeginShipout{\setbox\AtBeginShipoutBox=\vbox{%
+        \baselineskip\z@skip\lineskip\z@skip\lineskiplimit\z@
+        \Gm@pageframes\box\AtBeginShipoutBox}}%
+  \fi
+%    \end{macrocode}
+%    The layout dimensions for \cs{restoregeometry} are saved 
+%    at the end of the \cs{AtBeginDocument}.
+%    \begin{macrocode}
+  \Gm@save
+  \edef\Gm@restore@pkg{\Gm@restore}%
+%    \end{macrocode}
+%    The package checks whether or not the marginpars overrun the page,
+%    if |verbose| and unless |pass|.
+%    \begin{macrocode}
+  \ifGm@verbose\ifGm@pass\else\Gm@checkmp\fi\fi
+%    \end{macrocode}
+%   |\Gm@showparams| puts the resulting parameters and dimensions
+%   into the log file. With |verbose|, they are shown on the terminal
+%   as well.
+%    \begin{macrocode}
+  \Gm@showparams{preamble}%
+%    \end{macrocode}
+%   The following lines free the memories no longer needed.
+%    \begin{macrocode}
+  \let\Gm@pw\relax
+  \let\Gm@ph\relax
+  }% end of \AtBeginDocument
+%    \end{macrocode}
+%    \end{macro}
+%
+%    \begin{macro}{\geometry}
+%    The macro \cs{geometry} can be called multiple times
+%    in the preamble (before |\begin{document}|).
+%    \begin{macrocode}
+\newcommand{\geometry}[1]{%
+  \Gm@clean
+  \setkeys{Gm}{#1}%
+  \Gm@process}%
+\@onlypreamble\geometry
+%    \end{macrocode}
+%    \end{macro}
+%    \begin{macro}{\Gm@changelayout}
+%   The macro, which can be called from |\newgeometry|,
+%   |\restoregeometry| and |\loadgeometry|, changes the layout
+%   in the middle of the document.
+%    \begin{macrocode}
+\DeclareRobustCommand\Gm@changelayout{%
+  \setlength{\@colht}{\textheight}
+  \setlength{\@colroom}{\textheight}%
+  \setlength{\vsize}{\textheight}
+  \setlength{\columnwidth}{\textwidth}%
+  \if@twocolumn%
+    \advance\columnwidth-\columnsep
+    \divide\columnwidth\tw@%
+    \@firstcolumntrue%
+  \fi%
+  \setlength{\hsize}{\columnwidth}%
+  \setlength{\linewidth}{\hsize}}%
+%    \end{macrocode}
+%    \end{macro}
+%    \begin{macro}{\newgeometry}
+%    The macro |\newgeometry|, which changes the layout, 
+%    can be used only in the document.
+%    It would reset the options specified in the preamble except for
+%    paper size options and |\mag|.
+%    \begin{macrocode}
+\newcommand{\newgeometry}[1]{%
+  \clearpage
+  \Gm@restore@org
+  \Gm@initnewgm
+  \Gm@newgmtrue
+  \setkeys{Gm}{#1}%
+  \Gm@newgmfalse
+  \Gm@process
+  \ifnum\mag=\@m\else\Gm@magtooffset\fi
+  \Gm@changelayout
+  \Gm@showparams{newgeometry}}%
+%    \end{macrocode}
+%    \end{macro}
+%    \begin{macro}{\restoregeometry}
+%    The macro restores the resulting layout specified in the preamble,
+%    namely the first-page layout right after |\begin{document}|.
+%    \begin{macrocode}
+\newcommand{\restoregeometry}{%
+  \clearpage
+  \Gm@restore@pkg
+  \Gm@changelayout}%
+%    \end{macrocode}
+%    \end{macro}
+%    \begin{macro}{\savegeometry}
+%    The macro saves the layout with the name specified
+%    with the argument. The saved layout can be loaded
+%    with |\loadgeometry{|\meta{name}|}|.
+%    \begin{macrocode}
+\newcommand*{\savegeometry}[1]{%
+  \Gm@save
+  \expandafter\edef\csname Gm@restore@@#1\endcsname{\Gm@restore}}%
+%    \end{macrocode}
+%    \end{macro}
+%    \begin{macro}{\loadgeometry}
+%    The macro loads the layout saved with |\savegeometry{|\meta{name}|}|.
+%    If the name is not found, the macro would warn it and
+%    do nothing for the layout.
+%    \begin{macrocode}
+\newcommand*{\loadgeometry}[1]{%
+  \clearpage
+  \@ifundefined{Gm@restore@@#1}{%
+    \PackageError{geometry}{%
+    \string\loadgeometry : name `#1' undefined}{%
+    The name `#1' should be predefined with \string\savegeometry}%
+  }{\@nameuse{Gm@restore@@#1}%
+  \Gm@changelayout}}%
+%</package>
+%    \end{macrocode}
+%    \end{macro}
+%
+% \section{Config file}
+%    In the configuration file |geometry.cfg|, one can use
+%    \cs{ExecuteOptions} to set the site or user default settings.
+%    \begin{macrocode}
+%<*config>
+%<<SAVE_INTACT
+
+%  Uncomment and edit the line below to set default options.
+%\ExecuteOptions{a4paper}
+
+%SAVE_INTACT
+%</config>
+%    \end{macrocode}
+%
+% \section{Sample file}
+%    Here is a sample document for the \Gm\ package.
+%    \begin{macrocode}
+%<*samples>
+%<<SAVE_INTACT
+\documentclass[12pt]{article}% uses letterpaper by default
+% \documentclass[12pt,a4paper]{article}% for A4 paper
+%---------------------------------------------------------------
+% Edit and uncomment one of the settings below
+%---------------------------------------------------------------
+% \usepackage{geometry}
+% \usepackage[centering]{geometry}
+% \usepackage[width=10cm,vscale=.7]{geometry}
+% \usepackage[margin=1cm, papersize={12cm,19cm}, resetpaper]{geometry}
+% \usepackage[margin=1cm,includeheadfoot]{geometry}
+\usepackage[margin=1cm,includeheadfoot,includemp]{geometry}
+% \usepackage[margin=1cm,bindingoffset=1cm,twoside]{geometry}
+% \usepackage[hmarginratio=2:1, vmargin=2cm]{geometry}
+% \usepackage[hscale=0.5,twoside]{geometry}
+% \usepackage[hscale=0.5,asymmetric]{geometry}
+% \usepackage[hscale=0.5,heightrounded]{geometry}
+% \usepackage[left=1cm,right=4cm,top=2cm,includefoot]{geometry}
+% \usepackage[lines=20,left=2cm,right=6cm,top=2cm,twoside]{geometry}
+% \usepackage[width=15cm, marginparwidth=3cm, includemp]{geometry}
+% \usepackage[hdivide={1cm,,2cm}, vdivide={3cm,8in,}, nohead]{geometry}
+% \usepackage[headsep=20pt, head=40pt,foot=20pt,includeheadfoot]{geometry}
+% \usepackage[text={6in,8in}, top=2cm, left=2cm]{geometry}
+% \usepackage[centering,includemp,twoside,landscape]{geometry}
+% \usepackage[mag=1414,margin=2cm]{geometry}
+% \usepackage[mag=1414,margin=2truecm,truedimen]{geometry}
+% \usepackage[a5paper, landscape, twocolumn, twoside,
+%    left=2cm, hmarginratio=2:1, includemp, marginparwidth=43pt,
+%    bottom=1cm, foot=.7cm, includefoot, textheight=11cm, heightrounded,
+%    columnsep=1cm,verbose]{geometry}
+%---------------------------------------------------------------
+% No need to change below
+%---------------------------------------------------------------
+\geometry{verbose,showframe}% the options appended.
+\usepackage{lipsum}% for dummy text of 150 paragraphs
+\newcommand\mynote{\marginpar[\raggedright
+A sample margin note in the left side.]%
+{\raggedright A sample margin note.}}%
+\newcommand\myfootnote{\footnote{This is a sample footnote text.}}
+\begin{document}
+\lipsum[1-2]\mynote\lipsum[3-4]\mynote
+\lipsum[5-11]\mynote\lipsum[12]\myfootnote
+\lipsum[13-22]\mynote\lipsum[23-32]
+\end{document}
+%SAVE_INTACT
+%</samples>
+%    \end{macrocode}
+%
+% \Finale
+%
+\endinput
