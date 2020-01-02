@@ -1,3 +1,7 @@
+2020-01-02 Release 5.9
+  * Include German translation (previously distributed as geometry-de on ctan)
+  * Use iftex versions of \ifxetex, \ifpdf
+
 2018-04-16 Release 5.8
   * Documentation fixes.
   * (x)dvipdfmx alias for dvipdfm otion.
