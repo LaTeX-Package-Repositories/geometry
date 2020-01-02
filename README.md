@@ -4,7 +4,7 @@ Flexible and complete interface to document dimensions.
 
 Copyright (C) 1996-2010
 by Hideo Umeki <latexgeometry@gmail.com>
-Copyright (C) 2018-202
+Copyright (C) 2018-2020
 Hideo Umeki and David Carlisle https://github.com/davidcarlisle/geometry
 
 Abstract:
