@@ -1,10 +1,10 @@
-LaTeX Package: Geometry 2010/09/12 v5.6
+LaTeX Package: Geometry 2020/01/02 v5.9
 ----------------------------------------
 Flexible and complete interface to document dimensions.
 
 Copyright (C) 1996-2010
 by Hideo Umeki <latexgeometry@gmail.com>
-Copyright (C) 2018
+Copyright (C) 2018-202
 Hideo Umeki and David Carlisle https://github.com/davidcarlisle/geometry
 
 Abstract:
@@ -18,6 +18,10 @@ CTAN: macros/latex/contrib/geometry
 
 Recent changes:
 
+[Release 5.9]
+Do not load ifxetex and ifpdf packages (use combined iftex package)
+Include German translation of the documentation.
+
 [Release 5.8]
 Add xdvipdfmx and dvipdfmx alias for dvipdfm option.
 
@@ -28,9 +32,11 @@ Add support for luatex (with new comand names introduced in luatex 0.85)
 
 Files:
   * README.md         -  this file
-  * changes.txt    -  history of changes
-  * geometry.dtx   -  including sources and documentation
-  * geometry.pdf   -  print-ready documentation
+  * changes.txt       -  history of changes
+  * geometry.dtx      -  including sources and documentation
+  * geometry.pdf      -  print-ready documentation
+  * geometry-de.dtx   -  German translation
+  * geometry-de.pdf   -  German translation
 
 Installation: 
 [manual installation]
