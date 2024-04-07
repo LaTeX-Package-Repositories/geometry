@@ -26,7 +26,7 @@ Include German translation of the documentation.
 Add xdvipdfmx and dvipdfmx alias for dvipdfm option.
 
 [Release 5.7]
-Add support for luatex (with new comand names introduced in luatex 0.85)
+Add support for luatex (with new command names introduced in luatex 0.85)
 
 (changes.txt for more history)
 

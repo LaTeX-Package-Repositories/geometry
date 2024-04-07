@@ -4,7 +4,7 @@
 
 2018-04-16 Release 5.8
   * Documentation fixes.
-  * (x)dvipdfmx alias for dvipdfm otion.
+  * (x)dvipdfmx alias for dvipdfm option.
 
 2018-03-24 Release 5.7
   * add support for luatex 0.85+
@@ -42,7 +42,7 @@
 
 2010-03-01 Release 5.2
   * Fixed a bug that the papersize setting explicitly specified
-    with \geometry or \usepackage in the preample didn't come to
+    with \geometry or \usepackage in the preamble didn't come to
     \newgeometry.
   * Added \mag offset adjustment for \newgeometry.
   * Added 'onecolumn' option as a shorthand for 'twocolumn=false'.
@@ -275,7 +275,7 @@
 2002-04-25 Release 3.0 beta
   * Added 'screen' option as a new papersize (papersize={225mm,180mm}).
     To make presentation with PC and video projector, geometry option
-    "screen,centering" with 'slide' documentclass must be the best choise.
+    "screen,centering" with 'slide' documentclass must be the best choice.
   * Added 'pass' option, which disables geometry's auto-layout.
   * Added 'ratio' option equivalent to 'marginratio'.
   * Added 'centering', a shortcut for 'marginratio=1:1'.
