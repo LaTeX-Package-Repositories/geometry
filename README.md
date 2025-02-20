@@ -2,30 +2,29 @@ LaTeX Package: Geometry 2020/01/02 v5.9
 ----------------------------------------
 Flexible and complete interface to document dimensions.
 
-Copyright (C) 1996-2010
-by Hideo Umeki <latexgeometry@gmail.com>
-Copyright (C) 2018-2020
-Hideo Umeki and David Carlisle https://github.com/davidcarlisle/geometry
+Copyright (C) 1996-2010 by Hideo Umeki <latexgeometry@gmail.com>  
+Copyright (C) 2018-2020 Hideo Umeki and David Carlisle  
+<https://github.com/LaTeX-Package-Repositories/geometry>
 
-Abstract:
+Abstract:  
   This package provides a flexible and easy interface to page dimensions.
   You can set the page layout with intuitive parameters. For instance,
   if you want to set a margin to 2cm from each edge of the paper,
-  you can go \usepackage[margin=2cm]{geometry}. With \newgeometry command
-  you can change the layout anywhere in the document.
+  you can go `\usepackage[margin=2cm]{geometry}`. With the `\newgeometry`
+  command you can change the layout anywhere in the document.
 
 CTAN: macros/latex/contrib/geometry
 
 Recent changes:
 
-[Release 5.9]
-Do not load ifxetex and ifpdf packages (use combined iftex package)
+[Release 5.9]  
+Do not load ifxetex and ifpdf packages (use combined iftex package)  
 Include German translation of the documentation.
 
-[Release 5.8]
+[Release 5.8]  
 Add xdvipdfmx and dvipdfmx alias for dvipdfm option.
 
-[Release 5.7]
+[Release 5.7]  
 Add support for luatex (with new command names introduced in luatex 0.85)
 
 (changes.txt for more history)
@@ -38,12 +37,13 @@ Files:
   * geometry-de.dtx   -  German translation
   * geometry-de.pdf   -  German translation
 
-Installation: 
+Installation:
+
 [manual installation]
-  * To get geometry.sty out of geometry.dtx
-        $ tex geometry.dtx 
+  * To get geometry.sty out of geometry.dtx  
+        $ tex geometry.dtx  
     or  $ (la)tex geometry.ins (after first extraction)
-  * To build documentation
+  * To build documentation  
         $ latex geometry.dtx  
     or  $ latex geometry.drv (after first extraction)
   * Put the derived files in the proper directories:
@@ -52,15 +52,15 @@ Installation:
       -  source/latex/geometry/geometry.dtx
 
 [TeXLive]
-  * Use 'tlmgr' command
-        $ tlmgr show geometry          -- to check the package info
-        $ sudo tlmgr update geometry   -- to update the package
+  * Use 'tlmgr' command  
+        $ tlmgr show geometry          -- to check the package info  
+        $ sudo tlmgr update geometry   -- to update the package  
   * You can use 'TeX Live Utility' instead of 'tlmgr', if on MacOSX.
 
 [MikTeX]
   * Use the MikTeX Update Wizard to update geometry package.
 
-License:
+License:  
   This work may be distributed and/or modified under the conditions
   of the LaTeX Project Public License, either version 1.3c of this
   license or (at your option) any later version. The latest version
@@ -68,8 +68,8 @@ License:
   and version 1.3c or later is part of all distributions of LaTeX
   version 2005/12/01 or later.
 
---
-Happy TeXing!
+---
+Happy TeXing!  
 Hideo Umeki
  
 EOF
