@@ -5,7 +5,7 @@ Flexible and complete interface to document dimensions.
 Copyright (C) 1996-2010
 by Hideo Umeki <latexgeometry@gmail.com>
 Copyright (C) 2018-2020
-Hideo Umeki and David Carlisle https://github.com/davidcarlisle/geometry
+Hideo Umeki and David Carlisle https://github.com/LaTeX-Package-Repositories/geometry
 
 Abstract:
   This package provides a flexible and easy interface to page dimensions.
