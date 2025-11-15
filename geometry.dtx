@@ -3396,7 +3396,7 @@ the derived files: geometry.{sty,ins,drv}, geometry-samples.tex.
 %    Macros for the page frames and cropmarks.
 %    \begin{macrocode}
 \def\Gm@cropmark(#1,#2,#3,#4){%
-  \begin{picture}(0,0)
+  \begin{picture}[artifact](0,0)
     \setlength\unitlength{1truemm}%
     \linethickness{0.25pt}%
     \put(#3,0){\line(#1,0){17}}%
