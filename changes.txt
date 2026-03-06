@@ -1,3 +1,7 @@
+2025-11-16 
+  * tag cropmarks are artifacts, see https://github.com/latex3/tagging-project/issues/1064
+  
+  
 2020-01-02 Release 5.9
   * Include German translation (previously distributed as geometry-de on ctan)
   * Use iftex versions of \ifxetex, \ifpdf
