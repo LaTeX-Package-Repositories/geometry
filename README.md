@@ -1,9 +1,9 @@
-LaTeX Package: Geometry 2020/01/02 v5.9
+LaTeX Package: Geometry 2026-03-07 v6.0
 ----------------------------------------
 Flexible and complete interface to document dimensions.
 
 Copyright (C) 1996-2010 by Hideo Umeki <latexgeometry@gmail.com>  
-Copyright (C) 2018-2020 Hideo Umeki and David Carlisle  
+Copyright (C) 2018-2026 Hideo Umeki and David Carlisle  
 <https://github.com/LaTeX-Package-Repositories/geometry>
 
 Abstract:  
@@ -16,6 +16,9 @@ Abstract:
 CTAN: macros/latex/contrib/geometry
 
 Recent changes:
+
+[Release 6.0]  
+Improve support for tagging. Cropmarks are tagged as artifacts.
 
 [Release 5.9]  
 Do not load ifxetex and ifpdf packages (use combined iftex package)  
