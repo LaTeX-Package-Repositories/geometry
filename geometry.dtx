@@ -15,7 +15,7 @@
 % version 2005/12/01 or later.
 %
 % This work is "maintained" (as per the LPPL maintenance status)
-% by David Carlisle
+% by David Carlisle.
 %
 % This work consists of the files geometry.dtx and
 % the derived files: geometry.{sty,ins,drv}, geometry-samples.tex.
@@ -30,7 +30,7 @@
 %    CTAN: macros/latex/contrib/geometry/geometry-de.pdf
 %
 % * See README for installation.
-%        
+%
 %<*ignore>
 \begingroup
   \def\x{LaTeX2e}
@@ -42,12 +42,12 @@
 %</ignore>
 %<package|driver>\NeedsTeXFormat{LaTeX2e}
 %<package>\ProvidesPackage{geometry}
-%<package>  [2026/03/07 v6.0 Page Geometry]
+%<package>  [2026/10/27 v6.1 Page Geometry]
 %<*install>
 \input docstrip.tex
 \Msg{************************************************************************}
 \Msg{* Installation}
-\Msg{* Package: geometry 2026/03/07 v6.0 Page Geometry}
+\Msg{* Package: geometry 2026/10/27 v6.1 Page Geometry}
 \Msg{************************************************************************}
 
 \keepsilent
@@ -108,7 +108,7 @@ the derived files: geometry.{sty,ins,drv}, geometry-samples.tex.
 \documentclass{ltxdoc}
 \usepackage[colorlinks, linkcolor=blue]{hyperref}
 \usepackage{graphicx}
-\usepackage[a4paper, hmargin=2.5cm, vmargin=1cm, 
+\usepackage[a4paper, hmargin=2.5cm, vmargin=1cm,
         includeheadfoot]{geometry}
 \DeclareRobustCommand\XeTeX{%
       X\lower.5ex\hbox{\kern-.07em\reflectbox{E}}%
@@ -127,7 +127,9 @@ the derived files: geometry.{sty,ins,drv}, geometry-samples.tex.
 %
 % \title{The \textsf{geometry} package}
 % \date{\filedate\ \fileversion}
-% \author{Hideo Umeki\\\url{https://github.com/LaTeX-Package-Repositories/geometry}}
+% \author{Hideo Umeki\\
+%   \normalsize
+%   \url{https://github.com/LaTeX-Package-Repositories/geometry}}
 %
 % \MakeShortVerb{|}
 %
@@ -173,10 +175,24 @@ the derived files: geometry.{sty,ins,drv}, geometry-samples.tex.
 % This package provides a flexible and easy interface to page dimensions.
 % You can change the page layout with intuitive parameters. For instance,
 % if you want to set a margin to 2cm from each edge of the paper,
-% you can type just |\usepackage[margin=2cm]{geometry}|. 
+% you can type just |\usepackage[margin=2cm]{geometry}|.
 % The page layout can be changed in the middle of the document
-% with |\newgeometry| command.  
+% with |\newgeometry| command.
 % \end{abstract}
+%
+% \section{Preface to version 6}
+%
+% \begin{itemize}
+%  \item \textbf{Compatibility with tagging code}
+%
+%   The package is now fully compatible with the tagging code enabled with
+%   \cs{DocumentMetadata}. Crop marks enabled with the |showcrop| option are tagged as
+%   artifacts.
+%  \item \textbf{New paper sizes for ISO and JIS}
+%
+%   Additional ISO and JIS paper sizes have been added: \texttt{(a\textbar b\textbar c)7paper} through
+%   \texttt{(a\textbar b\textbar c)10paper}, |dlpaper|, |e4paper|, and |b7j| through |b12j|.
+% \end{itemize}
 %
 % \section{Preface to version 5}
 %
@@ -184,14 +200,14 @@ the derived files: geometry.{sty,ins,drv}, geometry-samples.tex.
 %  \item \textbf{Changing page layout mid-document.}\par
 %   The new commands \cs{newgeometry\{$\cdots$\}} and
 %   \cs{restoregeometry} allow users to change page dimensions in the
-%   middle of the document. \cs{newgeometry} is almost similar to 
+%   middle of the document. \cs{newgeometry} is almost similar to
 %   \cs{geometry} except that \cs{newgeometry} disables all the options
 %   specified in the preamble and skips the papersize-related options:
 %    |landscape|, |portrait| and paper size options (such as
 %    |papersize|, |paper=a4paper| and so forth).
 %  \item \textbf{A new set of options to specify the layout area.}\par
 %   The options specified for the area, in which the page dimensions
-%   are calculated, are added: \textsf{layout}, \textsf{layoutsize}, 
+%   are calculated, are added: \textsf{layout}, \textsf{layoutsize},
 %   \textsf{layoutwidth}, \textsf{layoutheight} and so forth.
 %   These options would help to print the specified
 %   layout to a different sized paper.  For example, with |a4paper|
@@ -214,7 +230,7 @@ the derived files: geometry.{sty,ins,drv}, geometry-samples.tex.
 %   the margin ratio (1:1 by default for the vertical dimensions)
 %   and got |top=1cm| in this case.
 %   The version 5 sets the text-body size with the default |scale|
-%   ($=0.7$) and determine the unspecified margin. (See Section~\ref{sec:rules}) 
+%   ($=0.7$) and determine the unspecified margin. (See Section~\ref{sec:rules})
 %  \item \textbf{The option |showframe| and |showcrop| works on every page.}\par
 %   With |showframe| option, the page frames are shown on every page.
 %   In addition, a new option |showcrop| prints crop marks at each
@@ -231,15 +247,15 @@ the derived files: geometry.{sty,ins,drv}, geometry-samples.tex.
 %    into |\documentclass| as well as |\usepackage| and |\geometry|.
 %  \item \textbf{Deleted options: |compat2| and |twosideshift|.}
 %    The version 5 has no longer compatibility with the previous ones.
-%    |compat2| and |twosideshift| are gone for simplicity. 
+%    |compat2| and |twosideshift| are gone for simplicity.
 % \end{itemize}
 %
 % \section{Introduction}
 %
-% To set dimensions for page layout in \LaTeX\ is not straightforward. 
+% To set dimensions for page layout in \LaTeX\ is not straightforward.
 % You need to adjust several \LaTeX{} native dimensions to place a text area
 % where you want.
-% If you want to center the text area in the paper you use, for example, 
+% If you want to center the text area in the paper you use, for example,
 % you have to specify native dimensions as follows:
 % \begin{quote}
 %    |\usepackage{calc}|\\
@@ -249,18 +265,18 @@ the derived files: geometry.{sty,ins,drv}, geometry-samples.tex.
 %    |\setlength\topmargin{(\paperheight-\textheight|\\
 %    |                      -\headheight-\headsep-\footskip)/2 - 1in}|.
 % \end{quote}
-% Without package \textsl{calc}, the above example would need
+% Without package \textsf{calc}, the above example would need
 % more tedious settings. Package \Gm\ provides an easy
 % way to set page layout parameters. In this case, what you have to do
 % is just
 % \begin{quote}
-%    |\usepackage[text={7in,10in},centering]{geometry}|. 
+%    |\usepackage[text={7in,10in},centering]{geometry}|.
 % \end{quote}
 % Besides centering problem, setting margins from each edge of the paper is
 % also troublesome. But \Gm\ also make it easy.
 % If you want to set each margin to 1.5in, you can type
 % \begin{quote}
-%    |\usepackage[margin=1.5in]{geometry}| 
+%    |\usepackage[margin=1.5in]{geometry}|
 % \end{quote}
 % Thus, the geometry package has an auto-completion mechanism, in which
 % unspecified dimensions are automatically determined.
@@ -269,7 +285,7 @@ the derived files: geometry.{sty,ins,drv}, geometry-samples.tex.
 % \begin{quote}\slshape
 %   The total allowable width of the text area is $6.5$ inches wide by $8.75$
 %   inches high. The top margin on each page should be $1.2$ inches from
-%   the top edge of the page. The left margin should be $0.9$ inch from 
+%   the top edge of the page. The left margin should be $0.9$ inch from
 %   the left edge. The footer with page number should be at the bottom
 %   of the text area.
 % \end{quote}
@@ -280,7 +296,7 @@ the derived files: geometry.{sty,ins,drv}, geometry-samples.tex.
 % \end{quote}
 %
 % Setting a text area on the paper in document preparation system has some
-% analogy to placing a window on the background in the window system. 
+% analogy to placing a window on the background in the window system.
 % The name `geometry' comes from the |-geometry| option used for specifying
 % a size and location of a window in X Window System.
 %
@@ -288,7 +304,7 @@ the derived files: geometry.{sty,ins,drv}, geometry-samples.tex.
 %
 % Figure~\ref{fig:layout} shows the page layout dimensions defined
 % in the \Gm\ package.
-% The page layout contains a \gpart{total body} (printable area) and \gpart{margins}. 
+% The page layout contains a \gpart{total body} (printable area) and \gpart{margins}.
 % The \gpart{total body} consists of a \gpart{body} (text area) with an
 % optional \gpart{header}, \gpart{footer} and marginal notes (marginpar).
 % There are four margins: \gpart{left}, \gpart{right}, \gpart{top} and
@@ -300,17 +316,17 @@ the derived files: geometry.{sty,ins,drv}, geometry-samples.tex.
 %   \gpart{margins}\\
 %   \gpart{total body}&:&\gpart{body} (text area)\quad
 %             (optional \gpart{head}, \gpart{foot} and \gpart{marginpar})\\
-%   \gpart{margins}&:&\gpart{left} (\gpart{inner}), 
+%   \gpart{margins}&:&\gpart{left} (\gpart{inner}),
 %      \gpart{right} (\gpart{outer}), \gpart{top} and \gpart{bottom}
 %   \end{tabular}
 % \end{quote}
-% Each margin is measured from the corresponding edge of a paper. 
+% Each margin is measured from the corresponding edge of a paper.
 % For example, left margin (inner margin) means a horizontal distance
 % between the left (inner) edge of the paper and that of the total body.
 % Therefore the left and top margins defined in \Gm\ are different
 % from the native dimensions \cs{leftmargin} and \cs{topmargin}.
 % The size of a body (text area) can be modified by \cs{textwidth} and
-% \cs{textheight}. 
+% \cs{textheight}.
 % The dimensions for paper, total body and margins have the following
 % relations.
 % \begin{eqnarray}
@@ -375,7 +391,7 @@ the derived files: geometry.{sty,ins,drv}, geometry-samples.tex.
 %  \begin{minipage}[t]{.8\textwidth}\raggedright\small
 %  Dimension names used in the \Gm\ package.
 %  |width| $=$ |textwidth| and |height| $=$ |textheight| by default.
-%  |left|, |right|, |top| and |bottom| are margins. 
+%  |left|, |right|, |top| and |bottom| are margins.
 %  If margins on verso pages are swapped by |twoside| option,
 %  margins specified by |left| and |right| options
 %  are used for the inside and outside margins respectively.
@@ -392,13 +408,13 @@ the derived files: geometry.{sty,ins,drv}, geometry-samples.tex.
 %  |height| &:=& |textheight| \quad(+\> |headheight| + |headsep| + |footskip| )
 %  \label{eq:height}
 % \end{eqnarray}
-% In Equation (\ref{eq:width}) |width:=textwidth| by default, 
+% In Equation (\ref{eq:width}) |width:=textwidth| by default,
 % while |marginparsep| and |marginparwidth| are included in |width|
-% if |includemp| option is set |true|. 
-% In Equation (\ref{eq:height}), |height:=textheight| by default. 
+% if |includemp| option is set |true|.
+% In Equation (\ref{eq:height}), |height:=textheight| by default.
 % If |includehead| is set to |true|, |headheight| and |headsep| are
 % considered as a part of |height|.
-% In the same way, |includefoot| takes |footskip| into |height|. 
+% In the same way, |includefoot| takes |footskip| into |height|.
 % Figure~\ref{fig:includes} shows how these options
 % work in the vertical direction.
 % \begin{figure}
@@ -451,7 +467,7 @@ the derived files: geometry.{sty,ins,drv}, geometry-samples.tex.
 %  \begin{minipage}[t]{.8\textwidth}\raggedright\small
 %    |includehead| and |includefoot| include the head and foot respectively
 %    into \gpart{total body}. \textbf{(a)} |height| $=$ |textheight| (default).
-%    \textbf{(b)} |height| $=$ |textheight| $+$ |headheight| $+$ |headsep| $+$ 
+%    \textbf{(b)} |height| $=$ |textheight| $+$ |headheight| $+$ |headsep| $+$
 %    |footskip| if |includehead| and |includefoot|. If the top and bottom
 %    margins are specified, |includehead| and |includefoot| result in
 %    shorter |textheight|.
@@ -462,7 +478,7 @@ the derived files: geometry.{sty,ins,drv}, geometry-samples.tex.
 % Thus, the page layout consists of three parts (lengths) in each
 % direction: one body and two margins. If the two of them are explicitly
 % specified, the other length is obvious and no need to be specified.
-% Figure~\ref{fig:Labc} shows a simple model of page dimensions. 
+% Figure~\ref{fig:Labc} shows a simple model of page dimensions.
 % When a length |L| is given and is partitioned into the body |b|, the
 % margins |a| and |c|, it's obvious that
 % \begin{equation}
@@ -524,7 +540,7 @@ the derived files: geometry.{sty,ins,drv}, geometry-samples.tex.
 % changes the page layout according to the options specified in the
 % argument. This command, if any, should be placed only in the
 % preamble (before |\begin{document}|).
-% 
+%
 % The \Gm\ package may be used as part of a class or another package
 % you use in your document. The command \cs{geometry} can overwrite
 % some of the settings in the preamble. Multiple use of \cs{geometry}
@@ -537,7 +553,7 @@ the derived files: geometry.{sty,ins,drv}, geometry-samples.tex.
 % changes the page layout mid-document. \cs{newgeometry} is almost
 % similar to \cs{geometry} except that \cs{newgeometry} disables all
 % the options specified by \cs{usepackage} and \cs{geometry} in
-% the preamble and skips papersize-related options. 
+% the preamble and skips papersize-related options.
 % \cs{restoregeometry}
 % restores the page layout specified in the preamble. This command
 % has no arguments. See Section~\ref{sec:midchange} for details.
@@ -555,7 +571,7 @@ the derived files: geometry.{sty,ins,drv}, geometry-samples.tex.
 % The \Gm\ package adopts \textsf{keyval} interface
 % `\meta{key}=\meta{value}' for the optional argument to
 % \cs{usepackage}, \cs{geometry} and \cs{newgeometry}.
-% 
+%
 % The argument includes a list of comma-separated \textsf{keyval}
 % options and has basic rules as follows:
 % \begin{itemize}\setlength{\itemsep}{-.5\parsep}
@@ -570,7 +586,7 @@ the derived files: geometry.{sty,ins,drv}, geometry-samples.tex.
 % |                .8in } , height|\\
 % |         =  10in ]{geometry}|
 % \end{quote}
-% is equivalent to 
+% is equivalent to
 % \begin{quote}
 %   |\usepackage[height=10in,a5paper,hmargin={3cm,0.8in}]{geometry}|
 % \end{quote}
@@ -581,7 +597,7 @@ the derived files: geometry.{sty,ins,drv}, geometry-samples.tex.
 %   |\usepackage{geometry}|\\
 %   |\geometry{height=10in,a5paper,hmargin={3cm,0.8in}}|
 % \end{quote}
-% or 
+% or
 % \begin{quote}
 %   |\usepackage[a5paper]{geometry}|\\
 %   |\geometry{hmargin={3cm,0.8in},height=8in}|\\
@@ -589,8 +605,8 @@ the derived files: geometry.{sty,ins,drv}, geometry-samples.tex.
 % \end{quote}
 % Thus, multiple use of \cs{geometry} just appends options.
 %
-% \Gm\ supports package 
-% \textsl{calc}\footnote{CTAN:~\texttt{macros/latex/required/tools}}.
+% \Gm\ supports package
+% \textsf{calc}\footnote{CTAN:~\texttt{macros/latex/required/tools}}.
 % For example,
 % \begin{quote}
 %   |\usepackage{calc}|\\
@@ -607,10 +623,10 @@ the derived files: geometry.{sty,ins,drv}, geometry-samples.tex.
 %    |true| is set by default.
 %    \begin{quote}
 %       \meta{key}|=true|\OR|false|.\\
-%       \meta{key} with no value is equivalent to 
+%       \meta{key} with no value is equivalent to
 %       \meta{key}|=true|.
 %    \end{quote}
-%    \textit{Examples:}~ |verbose=true|, |includehead|, 
+%    \textit{Examples:}~ |verbose=true|, |includehead|,
 %    |twoside=false|.\\
 %    Paper name is the exception. The preferred paper name should be set
 %    with no values. Whatever value is given, it is ignored. For
@@ -631,7 +647,7 @@ the derived files: geometry.{sty,ins,drv}, geometry-samples.tex.
 %    be shortened to one value if they are identical.
 %    \begin{quote}
 %    \meta{key}|=|\argii{value1}{value2}.\\
-%    \meta{key}|=|\meta{value} is equivalent to 
+%    \meta{key}|=|\meta{value} is equivalent to
 %              \meta{key}|=|\argii{value}{value}.
 %    \end{quote}
 %    \textit{Examples:}~ |hmargin={1.5in,1in}|, |scale=0.8|,
@@ -644,9 +660,9 @@ the derived files: geometry.{sty,ins,drv}, geometry-samples.tex.
 %    \meta{key}|=|\argiii{value1}{value2}{value3}
 %    \end{quote}
 %    Each value must be a dimension or null. When you give an empty value
-%    or `|*|', it means null and leaves the appropriate value 
+%    or `|*|', it means null and leaves the appropriate value
 %    to the auto-completion mechanism. You need to specify at least one
-%    dimension, typically two dimensions. You can set nulls for all the 
+%    dimension, typically two dimensions. You can set nulls for all the
 %    values, but it makes no sense.
 %    \textit{Examples:}\\
 %    \hspace*{2em} |hdivide={2cm,*,1cm}|, |vdivide={3cm,19cm, }|,
@@ -656,38 +672,42 @@ the derived files: geometry.{sty,ins,drv}, geometry-samples.tex.
 % \section{Option details}
 %
 % This section describes all options available in \Gm.
-% Options with a dagger $^\dagger$ are not available 
+% Options with a dagger $^\dagger$ are not available
 % as arguments of \cs{newgeometry} (See Section~\ref{sec:midchange}).
 %
 % \subsection{Paper size}\label{sec:paper}
-% 
+%
 % The options below set paper/media size and orientation.
 % \begin{Options}
-% \item[\onlypre paper\OR papername] ~\\ 
+% \item[\onlypre paper\OR papername] ~\\
 %  specifies the paper size by name. |paper=|\meta{paper-name}.
 %  For convenience, you can specify the paper name without |paper=|.
 %  For example, |a4paper| is equivalent to |paper=a4paper|.
 % \item[\onlypre \vtop{
-%  \hbox{a0paper, a1paper, a2paper, a3paper, a4paper, a5paper, a6paper, a7paper, a8paper, a9paper, a10paper,}
-%  \hbox{b0paper, b1paper, b2paper, b3paper, b4paper, b5paper, b6paper, b7paper, b8paper, b9paper, b10paper,}
-%  \hbox{c0paper, c1paper, c2paper, c3paper, c4paper, c5paper, c6paper, c7paper, c8paper, c9paper, c10paper,}
-%  \hbox{b0j, b1j, b2j, b3j, b4j, b5j, b6j,}
+%  \hbox{a0paper, a1paper, a2paper, a3paper, a4paper, a5paper, a6paper,}
+%  \hbox{\hspace{15pt}a7paper, a8paper, a9paper, a10paper,}
+%  \hbox{b0paper, b1paper, b2paper, b3paper, b4paper, b5paper, b6paper,}
+%  \hbox{\hspace{15pt}b7paper, b8paper, b9paper, b10paper,}
+%  \hbox{c0paper, c1paper, c2paper, c3paper, c4paper, c5paper, c6paper,}
+%  \hbox{\hspace{15pt}c6/c5paper, c7paper, c7/c6paper, c8paper, c9paper, c10paper,}
+%  \hbox{dlpaper, e4paper,}
+%  \hbox{b0j, b1j, b2j, b3j, b4j, b5j, b6j, b7j, b8j, b9j, b10j, b11j, b12j,}
 %  \hbox{ansiapaper, ansibpaper, ansicpaper, ansidpaper, ansiepaper,}
-%  \hbox{letterpaper, executivepaper, legalpaper}}]~\\[1ex] 
+%  \hbox{letterpaper, executivepaper, legalpaper}}]~\\[1ex]
 %    specifies paper name.  The value part is ignored even if any.
 %    For example, the following have the same effect:
 %    |a5paper|, |a5paper=true|, |a5paper=false| and so forth.
-%   |a[0-6]paper|, |b[0-6]paper| and |c[0-6]paper| are ISO A, B and C
+%   |a[0-10]paper|, |b[0-10]paper| and |c[0-10]paper| are ISO A, B and C
 %   series of paper sizes respectively.
 %   The JIS (Japanese Industrial Standards) A-series is identical to the
 %   ISO A-series, but the JIS B-series is different from the ISO B-series.
-%   |b[0-6]j| should be used for the JIS B-series. 
+%   |b[0-12]j| should be used for the JIS B-series.
 % \item[\onlypre screen] a special paper size with (W,H) = (225mm,180mm).
 %    For presentation with PC and video projector, ``|screen,centering|''
 %    with `slide' documentclass would be useful.
 % \item[\onlypre paperwidth] width of the paper. |paperwidth=|\meta{length}.
 % \item[\onlypre paperheight] height of the paper. |paperheight=|\meta{length}.
-% \item[\onlypre papersize] width and height of the paper. 
+% \item[\onlypre papersize] width and height of the paper.
 %    |papersize=|\argii{width}{height} or |papersize=|\meta{length}.
 % \item[\onlypre landscape] switches the paper orientation to landscape mode.
 % \item[\onlypre portrait] switches the paper orientation to portrait mode.
@@ -695,8 +715,8 @@ the derived files: geometry.{sty,ins,drv}, geometry-samples.tex.
 % \end{Options}
 %
 % The options for paper names (e.g., |a4paper|) and orientation
-% (|portrait| and |landscape|) can be set as document class options. 
-% For example, you can set |\documentclass[a4paper,landscape]{article}|, 
+% (|portrait| and |landscape|) can be set as document class options.
+% For example, you can set |\documentclass[a4paper,landscape]{article}|,
 % then |a4paper| and |landscape| are processed in \Gm\ as well.
 % This is also the case for |twoside| and |twocolumn|
 % (see also Section~\ref{sec:dimension}).
@@ -726,7 +746,7 @@ the derived files: geometry.{sty,ins,drv}, geometry-samples.tex.
 % the paper. |layouthoffset=|\meta{length}.
 % \item[layoutvoffset] specifies the vertical offset from the top edge of
 % the paper. |layoutvoffset=|\meta{length}.
-% \item[layoutoffset] specifies both horizontal and vertical offsets. 
+% \item[layoutoffset] specifies both horizontal and vertical offsets.
 %  |layoutoffset=|\argii{hoffset}{voffset} or |layoutoffset=|\meta{length}.
 % \end{Options}
 % \begin{figure}
@@ -771,7 +791,7 @@ the derived files: geometry.{sty,ins,drv}, geometry-samples.tex.
 %  \end{minipage}}
 %  \label{fig:layoutandpaper}
 % \end{figure}
-% 
+%
 % \subsection{Body size}\label{sec:body}
 %
 % The options specifying the size of \gpart{total body} are described in this
@@ -779,7 +799,7 @@ the derived files: geometry.{sty,ins,drv}, geometry-samples.tex.
 %
 % \begin{Options}
 % \item[hscale]
-%    ratio of width of \gpart{total body} to \cs{paperwidth}. 
+%    ratio of width of \gpart{total body} to \cs{paperwidth}.
 %    |hscale=|\meta{h-scale}, e.g., |hscale=0.8| is equivalent to
 %    |width=0.8|\cs{paperwidth}. (|0.7| by default)
 % \item[vscale]
@@ -792,9 +812,9 @@ the derived files: geometry.{sty,ins,drv}, geometry-samples.tex.
 % \item[width\OR totalwidth] ~\\
 %    width of \gpart{total body}. |width=|\meta{length} or
 %    |totalwidth=|\meta{length}. This dimension defaults to |textwidth|,
-%    but if |includemp| is set to |true|, |width| $\ge$ |textwidth| 
+%    but if |includemp| is set to |true|, |width| $\ge$ |textwidth|
 %    because |width| includes the width of the marginal notes.
-%    If |textwidth| and |width| are specified at the same time, 
+%    If |textwidth| and |width| are specified at the same time,
 %    |textwidth| takes priority over |width|.
 % \item[height\OR totalheight] ~\\
 %    height of \gpart{total body}, excluding header and footer by default.
@@ -804,7 +824,7 @@ the derived files: geometry.{sty,ins,drv}, geometry-samples.tex.
 %    |textheight| and |height| are specified, |height| will be ignored.
 % \item[total] width and height of \gpart{total body}.\\
 %    |total=|\argii{width}{height} or |total=|\meta{length}.
-% \item[textwidth] specifies \cs{textwidth}, the width of \gpart{body} 
+% \item[textwidth] specifies \cs{textwidth}, the width of \gpart{body}
 %    (the text area). |textwidth=|\meta{length}.
 % \item[textheight] specifies \cs{textheight}, the height of
 %    \gpart{body} (the text area). |textheight=|\meta{length}.
@@ -821,7 +841,7 @@ the derived files: geometry.{sty,ins,drv}, geometry-samples.tex.
 %    into \gpart{total body}. It is opposite to |ignorefoot|.
 %    It is |false| by default. See Figure~\ref{fig:includes} and
 %    Figure~\ref{fig:modes}.
-% \item[includeheadfoot]~\\ 
+% \item[includeheadfoot]~\\
 %    sets both |includehead| and |includefoot| to |true|, which is opposite
 %    to |ignoreheadfoot|. See Figure~\ref{fig:includes} and
 %    Figure~\ref{fig:modes}.
@@ -843,16 +863,16 @@ the derived files: geometry.{sty,ins,drv}, geometry-samples.tex.
 %    horizontal margins (defaults to |true|). If marginal notes overrun
 %    the page, the warning message will be displayed when |verbose=true|.
 %    See also |includemp| and Figure~\ref{fig:modes}.
-% \item[ignoreall] sets both |ignoreheadfoot| and |ignoremp| to |true|. 
+% \item[ignoreall] sets both |ignoreheadfoot| and |ignoremp| to |true|.
 %    See also |includeall|.
 % \item[heightrounded]~\\
 %    This option rounds \cs{textheight} to \textit{n}-times (\textit{n}:
-%    an integer) of \cs{baselineskip} plus \cs{topskip} to avoid 
+%    an integer) of \cs{baselineskip} plus \cs{topskip} to avoid
 %    ``underfull vbox'' in some cases. For example, if \cs{textheight} is
 %    486pt with \cs{baselineskip} 12pt and \cs{topskip} 10pt, then
 %    \begin{quote}
 %      $(39\times12\textrm{pt}+10\textrm{pt}=)\: 478\textrm{pt}
-%       < 486\textrm{pt} < 
+%       < 486\textrm{pt} <
 %      490\textrm{pt} \:(=40\times12\textrm{pt}+10\textrm{pt})$,
 %    \end{quote}
 %    as a result \cs{textheight} is rounded to 490pt. |heightrounded=false|
@@ -928,12 +948,12 @@ the derived files: geometry.{sty,ins,drv}, geometry-samples.tex.
 %  \put(355,22){\makebox(0,0)[bl]{|marginparwidth|}}
 %  \put(345, 5){\makebox(0,0)[bl]{|marginparsep|}}
 %  \end{picture}}
-%  \caption[Sample layouts for \gpart{total body} with different 
+%  \caption[Sample layouts for \gpart{total body} with different
 %     layout modes]{%
 %  \begin{minipage}[t]{.8\textwidth}\small
 %    Sample layouts for \gpart{total body} with different switches.
 %    (a) |includeheadfoot|, (b) |includeall|, (c) |includefoot|
-%     and (d) |includefoot,includemp|. 
+%     and (d) |includefoot,includemp|.
 %    If |reversemp| is set to |true|, the location of the
 %    marginal notes are swapped on every page.
 %    Option |twoside| swaps both margins and marginal notes on verso pages.
@@ -948,15 +968,15 @@ the derived files: geometry.{sty,ins,drv}, geometry-samples.tex.
 %
 % \begin{Options}
 % \item[hdivide] horizontal partitions (left,width,right).
-%   |hdivide=|\argiii{left margin}{width}{right margin}. 
+%   |hdivide=|\argiii{left margin}{width}{right margin}.
 %   Note that you should not specify all of the three parameters.
-%   The best way of using this option is to specify two of three and 
+%   The best way of using this option is to specify two of three and
 %   leave the rest with null(nothing) or `|*|'. For example, when you set
 %   |hdivide={2cm,15cm, }|, the margin from the right-side edge of page
 %   will be determined calculating |paperwidth-2cm-15cm|.
 % \item[vdivide] vertical partitions (top,height,bottom).
 %   |vdivide=|\argiii{top margin}{height}{bottom margin}.
-% \item[divide] |divide=|\vargiii{$A$}{$B$}{$C$} is interpreted  as 
+% \item[divide] |divide=|\vargiii{$A$}{$B$}{$C$} is interpreted  as
 %   |hdivide=|\vargiii{$A$}{$B$}{$C$} and |vdivide=|\vargiii{$A$}{$B$}{$C$}.
 % \end{Options}
 %
@@ -966,27 +986,27 @@ the derived files: geometry.{sty,ins,drv}, geometry-samples.tex.
 %
 % \begin{Options}
 % \item[left\OR lmargin\OR inner]~\\
-%    left margin (for oneside) or inner margin (for twoside) of 
+%    left margin (for oneside) or inner margin (for twoside) of
 %    \gpart{total body}. In other words, the distance between the left (inner)
 %    edge of the paper and that of \gpart{total body}. |left=|\meta{length}.
 %    |inner| has no special meaning, just an alias of |left| and |lmargin|.
-% \item[right\OR rmargin\OR outer]~\\ 
+% \item[right\OR rmargin\OR outer]~\\
 %    right or outer margin of \gpart{total body}. |right=|\meta{length}.
 % \item[top\OR tmargin] top margin of the page. |top=|\meta{length}.
 %    Note this option has nothing to do with the native dimension
 %    \cs{topmargin}.
-% \item[bottom\OR bmargin]~\\ 
+% \item[bottom\OR bmargin]~\\
 %    bottom margin of the page. |bottom=|\meta{length}.
 % \item[hmargin] left and right margin.
 %   |hmargin=|\argii{left margin}{right margin} or |hmargin=|\meta{length}.
 % \item[vmargin] top and bottom margin.
 %   |vmargin=|\argii{top margin}{bottom margin} or |vmargin=|\meta{length}.
-% \item[margin] |margin=|\vargii{$A$}{$B$} is equivalent to 
+% \item[margin] |margin=|\vargii{$A$}{$B$} is equivalent to
 %   |hmargin=|$A$ and |vmargin=|$B$.
 %   |margin=|$A$ is automatically expanded to |hmargin=|$A$ and |vmargin=|$A$.
 % \item[hmarginratio]
-%   horizontal margin ratio of |left| (inner) to |right| (outer). 
-%   The value of \meta{ratio} should be specified with colon-separated 
+%   horizontal margin ratio of |left| (inner) to |right| (outer).
+%   The value of \meta{ratio} should be specified with colon-separated
 %   two values. Each value should be a positive integer less than 100
 %   to prevent arithmetic overflow, e.g., |2:3| instead of |1:1.5|.
 %   The default ratio is |1:1| for oneside, |2:3| for twoside.
@@ -1006,16 +1026,16 @@ the derived files: geometry.{sty,ins,drv}, geometry-samples.tex.
 %   |marginratio=1:1|. See also |marginratio|. The default is |false|.
 %   See also |marginratio|.
 % \item[twoside] switches on twoside mode with left and right margins swapped
-%   on verso pages. The option sets \cs{@twoside} and \cs{@mparswitch} 
+%   on verso pages. The option sets \cs{@twoside} and \cs{@mparswitch}
 %   switches. See also |asymmetric|.
 % \item[asymmetric] implements a twosided layout in which margins are
-%   not swapped on alternate pages (by setting \cs{oddsidemargin} to 
+%   not swapped on alternate pages (by setting \cs{oddsidemargin} to
 %   \cs{evensidemargin} |+| |bindingoffset|) and in which the marginal notes
 %   stay always on the same side. This option can be used as an alternative
 %   to the twoside option. See also |twoside|.
-% \item[bindingoffset]~\\ removes a specified space 
+% \item[bindingoffset]~\\ removes a specified space
 %   from the lefthand-side of the page for oneside or the inner-side for
-%   twoside. |bindingoffset=|\meta{length}. This is useful if pages 
+%   twoside. |bindingoffset=|\meta{length}. This is useful if pages
 %   are bound by a press binding (glued, stitched, stapled \ldots).
 %   See Figure~\ref{fig:bindingoffset}.
 % \item[hdivide] See description in Section~\ref{sec:body}.
@@ -1087,7 +1107,7 @@ the derived files: geometry.{sty,ins,drv}, geometry-samples.tex.
 %    \cs{headheight}, \cs{headsep} and \cs{footskip} are all set to |0pt|.
 % \item[footnotesep] changes the dimension \cs{skip}\cs{footins}, separation
 %    between the bottom of text body and the top of footnote text.
-% \item[marginparwidth\OR marginpar]~\\ 
+% \item[marginparwidth\OR marginpar]~\\
 %    modifies \cs{marginparwidth}, width of the marginal notes.
 %    |marginparwidth=|\meta{length}.
 % \item[marginparsep] modifies \cs{marginparsep}, separation between
@@ -1105,7 +1125,7 @@ the derived files: geometry.{sty,ins,drv}, geometry-samples.tex.
 %   Instead of |twocolumn=false|, you can specify |onecolumn| (which
 %   defaults to |true|)
 % \item[onecolumn] works as |twocolumn=false|. On the other hand,
-%   |onecolumn=false| is equivalent to |twocolumn|. 
+%   |onecolumn=false| is equivalent to |twocolumn|.
 % \item[twoside] sets both \cs{@twosidetrue} and \cs{@mparswitchtrue}.
 %   See Section~\ref{sec:margin}.
 % \item[textwidth] sets \cs{textwidth} directly. See Section~\ref{sec:body}.
@@ -1117,7 +1137,7 @@ the derived files: geometry.{sty,ins,drv}, geometry-samples.tex.
 % \end{Options}
 %
 % \subsection{Drivers}\label{sec:drivers}
-% 
+%
 % The package supports drivers |dvips|, |dvipdfm|, |pdftex|, |luatex|,
 % |xetex| and |vtex|. You can also set |dvipdfm| for \textsf{dvipdfmx} and
 % \textsf{xdvipdfmx} The options |dvipdfmx| and |xdvipdfmx| are also supported
@@ -1131,11 +1151,11 @@ the derived files: geometry.{sty,ins,drv}, geometry-samples.tex.
 % However, if you want to use |dvipdfm|, you should specify it explicitly.
 %
 % \begin{Options}
-% \item[\onlypre driver] specifies the driver with |driver=|\meta{driver name}. 
+% \item[\onlypre driver] specifies the driver with |driver=|\meta{driver name}.
 % |dvips|, |dvipdfm|, |pdftex|, |luatex|, |vtex|, |xetex|, |auto| and |none| are
 % available as a driver name. The names except for |auto| and |none| can
 % be specified directly with the name without |driver=|.
-% |driver=auto| makes the auto-detection work whatever the previous setting is. 
+% |driver=auto| makes the auto-detection work whatever the previous setting is.
 % |driver=none| disables the auto-detection and sets no driver, which
 % may be useful when you want to let other package work out the driver
 % setting. For example, if you want to use \textsf{crop} package with \Gm,
@@ -1145,7 +1165,7 @@ the derived files: geometry.{sty,ins,drv}, geometry-samples.tex.
 %     macro. If you use \textsl{dvips} as a DVI-to-PS driver,
 %     for example, to print a document with |\geometry{a3paper,landscape}|
 %     on A3 paper in landscape orientation, you don't need options
-%     ``|-t a3 -t landscape|'' to \textsl{dvips}. 
+%     ``|-t a3 -t landscape|'' to \textsl{dvips}.
 % \item[\onlypre dvipdfm] works like |dvips| except for landscape correction.
 %      You can set this option when using \textsf{dvipdfmx} and
 %      \textsf{xdvipdfmx} to process the dvi output.
@@ -1176,7 +1196,7 @@ the derived files: geometry.{sty,ins,drv}, geometry-samples.tex.
 % \item[\onlypre verbose] displays the parameter results on the terminal.
 %   |verbose=false| (default) still puts them into the log file.
 % \item[\onlypre reset] sets back the layout dimensions and switches to the
-%   settings before \Gm\ is loaded. Options given in 
+%   settings before \Gm\ is loaded. Options given in
 %   |geometry.cfg| are also cleared.
 %   Note that this cannot reset |pass| and |mag| with |truedimen|.
 %   |reset=false| has no effect and cannot cancel the previous
@@ -1188,7 +1208,7 @@ the derived files: geometry.{sty,ins,drv}, geometry-samples.tex.
 %   with |\ExecuteOptions{scale=0.9}| in |geometry.cfg|,
 %   then as a result, |landscape| and |left=2cm| remain effective,
 %   and |scale=0.9| and |twoside| are ineffective.
-% \item[\onlypre mag] sets magnification value (\cs{mag}) and automatically modifies 
+% \item[\onlypre mag] sets magnification value (\cs{mag}) and automatically modifies
 %   \cs{hoffset} and \cs{voffset} according to the magnification.
 %   |mag=|\meta{value}. Note that \meta{value} should be an integer value
 %   with 1000 as a normal size. For example, |mag=1414| with |a4paper|
@@ -1197,7 +1217,7 @@ the derived files: geometry.{sty,ins,drv}, geometry-samples.tex.
 %   disk space. \textbf{Note that setting |mag| should precede any other
 %   settings with `true' dimensions, such as  |1.5truein|, |2truecm|
 %   and so on.} See also |truedimen| option.
-% \item[\onlypre truedimen] changes all internal explicit dimension values into 
+% \item[\onlypre truedimen] changes all internal explicit dimension values into
 %   \textit{true} dimensions, e.g., |1in| is changed to |1truein|.
 %   Typically this option will be used together with |mag| option. Note that
 %   this is ineffective against externally specified dimensions. For example,
@@ -1215,7 +1235,7 @@ the derived files: geometry.{sty,ins,drv}, geometry-samples.tex.
 % \end{Options}
 %
 % \section{Processing options}\label{sec:process}
-% 
+%
 % \subsection{Order of loading}\label{sec:loadorder}
 %
 % If there's |geometry.cfg| somewhere \TeX{} can find it, \Gm\ loads
@@ -1223,7 +1243,7 @@ the derived files: geometry.{sty,ins,drv}, geometry-samples.tex.
 % |\ExecuteOptions{a4paper}|, which specifies A4 paper as the default
 % paper. Basically you can use all the options defined in \Gm\ with
 % |\ExecuteOptions{}|.
-% 
+%
 % The order of loading in the preamble of your document is as follows:
 % \begin{enumerate}
 %  \item |geometry.cfg| if it exists.
@@ -1239,18 +1259,18 @@ the derived files: geometry.{sty,ins,drv}, geometry-samples.tex.
 %
 % The specification of \Gm\ options is order-independent,
 % and overwrites the previous one for the same setting.
-% For example, 
+% For example,
 % \begin{center}
-% |[left=2cm, right=3cm]| is equivalent to 
+% |[left=2cm, right=3cm]| is equivalent to
 % |[right=3cm, left=2cm]|.
 % \end{center}
 % The options called multiple times overwrite the previous
-% settings. For example, 
+% settings. For example,
 % \begin{center}
-%  |[verbose=true, verbose=false]| results in |verbose=false|. 
+%  |[verbose=true, verbose=false]| results in |verbose=false|.
 % \end{center}
-% |[hmargin={3cm,2cm}, left=1cm]| is the same as |hmargin={1cm,2cm}|, 
-% where the left (or inner) margin is overwritten by |left=1cm|. 
+% |[hmargin={3cm,2cm}, left=1cm]| is the same as |hmargin={1cm,2cm}|,
+% where the left (or inner) margin is overwritten by |left=1cm|.
 %
 % |reset| and |mag| are exceptions.
 % The |reset| option removes all the geometry options (except |pass|)
@@ -1260,7 +1280,7 @@ the derived files: geometry.{sty,ins,drv}, geometry-samples.tex.
 % |\usepackage[margin=1cm,twoside]{geometry}|\\
 % |\geometry{a5paper, reset, left=2cm}|
 % \end{quote}
-% then |margin=1cm|, |twoside| and |a5paper| are removed, and 
+% then |margin=1cm|, |twoside| and |a5paper| are removed, and
 % is eventually equivalent to
 % \begin{quote}
 % |\documentclass[landscape]{article}|\\
@@ -1272,7 +1292,7 @@ the derived files: geometry.{sty,ins,drv}, geometry-samples.tex.
 % The |\mag| primitive can be set before this package is called.
 %
 % \subsection{Priority}\label{sec:priority}
-%  
+%
 % There are several ways to set dimensions of the \gpart{body}:
 % |scale|, |total|, |text| and |lines|. The \Gm\ package gives higher
 % priority to the more concrete specification. Here is the priority
@@ -1287,7 +1307,7 @@ the derived files: geometry.{sty,ins,drv}, geometry-samples.tex.
 % \left\{\begin{array}{l}|textwidth|\\|textheight|
 %         \\|text|\end{array}\right\} < |lines|.
 % \end{array}\]
-% For example, 
+% For example,
 % \begin{quote}
 %  |\usepackage[hscale=0.8, textwidth=7in, width=18cm]{geometry}|
 % \end{quote}
@@ -1301,7 +1321,7 @@ the derived files: geometry.{sty,ins,drv}, geometry-samples.tex.
 %
 % This section sums up the default settings for the auto-completion
 % described later.
-% 
+%
 % The default vertical margin ratio is $2/3$, namely,
 % \begin{equation}
 %  |top| : |bottom| = 2 : 3 \qquad\textit{default}.
@@ -1309,7 +1329,7 @@ the derived files: geometry.{sty,ins,drv}, geometry-samples.tex.
 % As for the horizontal margin ratio, the default value depends on
 % whether the document is onesided or twosided,
 % \begin{equation}
-%  |left|\;(|inner|) : |right|\;(|outer|) 
+%  |left|\;(|inner|) : |right|\;(|outer|)
 %       = \left\{ \begin{array}{ll}
 %              1 : 1 \qquad\textit{default for oneside},\\
 %              2 : 3 \qquad\textit{default for twoside}.
@@ -1329,7 +1349,7 @@ the derived files: geometry.{sty,ins,drv}, geometry-samples.tex.
 % setting is the same as \textit{onesided} except that the horizontal
 % margin ratio is set to |2:3| as well.
 %
-% Additional options overwrite the previous specified dimensions. 
+% Additional options overwrite the previous specified dimensions.
 %
 % \subsection{Auto-completion} \label{sec:rules}
 %
@@ -1341,8 +1361,8 @@ the derived files: geometry.{sty,ins,drv}, geometry-samples.tex.
 %
 % For example, the specification |width=14cm, left=3cm| is categorized
 % into \Ss(1,1), which is an adequate specification. If you add
-% |right=4cm|, it would be in \Ss(2,1) and overspecified. 
-% If only |width=14cm| is given, it's in \Ss(0,1), underspecified. 
+% |right=4cm|, it would be in \Ss(2,1) and overspecified.
+% If only |width=14cm| is given, it's in \Ss(0,1), underspecified.
 %
 % The \Gm\ package has the auto-completion mechanism, in which
 % if the layout parameters are underspecified or overspecified,
@@ -1401,7 +1421,7 @@ the derived files: geometry.{sty,ins,drv}, geometry-samples.tex.
 %  Specifications \Ss(0,0) to \Ss(2,1) and the completion rules
 %  (arrows). Column and row numbers denote the number of explicitly
 %  specified lengths for margin and body respectively. \Ss($m$,$b$) denote a
-%  specification with a set of the numbers $(\gpart{margin},\gpart{body})=(m,b)$. 
+%  specification with a set of the numbers $(\gpart{margin},\gpart{body})=(m,b)$.
 %  \end{minipage}}
 %  \label{fig:specrule}
 % \end{figure}
@@ -1410,7 +1430,7 @@ the derived files: geometry.{sty,ins,drv}, geometry-samples.tex.
 % \item[\Ss(0,0)]
 % Nothing is specified. The \Gm\ package sets \gpart{body} with the
 % default |scale| ($=0.7$). \\ For example, |width| is set to be
-% $|0.7|\times|layoutwidth|$. Note that by default |layoutwidth| 
+% $|0.7|\times|layoutwidth|$. Note that by default |layoutwidth|
 % and |layoutheight| will be equal to |\paperwidth| and |\paperheight|
 % respectively.
 % Thus \Ss(0,0) goes to \Ss(0,1). See \Ss(0,1).
@@ -1428,13 +1448,13 @@ the derived files: geometry.{sty,ins,drv}, geometry-samples.tex.
 % As for the horizontal margin ratio, the default value depends on
 % whether the document is onesided or twosided,
 % \begin{equation}
-%  |left|\;(|inner|) : |right|\;(|outer|) 
+%  |left|\;(|inner|) : |right|\;(|outer|)
 %       = \left\{ \begin{array}{ll}
 %              1 : 1 \qquad\textit{default for oneside},\\
 %              2 : 3 \qquad\textit{default for twoside}.
 %         \end{array}\right.
 % \end{equation}
-% For example, if |height=22cm| is specified on A4 paper, 
+% For example, if |height=22cm| is specified on A4 paper,
 % \Gm\ calculates |top| margin as follows:
 % \begin{equation}
 %   \begin{array}{ll}
@@ -1453,10 +1473,10 @@ the derived files: geometry.{sty,ins,drv}, geometry-samples.tex.
 %
 % \begin{itemize}
 % \item \textbf{If the margin ratio is \textit{not} specified}, \Gm\ sets
-% \gpart{body} with the default |scale| ($=0.7$). 
+% \gpart{body} with the default |scale| ($=0.7$).
 % For example, if |top=2.4cm| is specified, \Gm\ sets
 % \begin{center}
-%     $|height|= |0.7|\times|layoutheight|$ 
+%     $|height|= |0.7|\times|layoutheight|$
 %            ~~($=|0.7\paperheight|$ by default),
 % \end{center}
 % then \Ss(1,0) goes to \Ss(1,1), in which |bottom| is calculated
@@ -1477,7 +1497,7 @@ the derived files: geometry.{sty,ins,drv}, geometry-samples.tex.
 % Note that the version 4 or earlier used to set the other margin
 % with the margin ratio. In the version 5, therefore, with the
 % same specification, the result will be different from the one in the
-% version 4. For example, if only |top=2.4cm| is specified, 
+% version 4. For example, if only |top=2.4cm| is specified,
 % you got |bottom=2.4cm| in the version 4 or earlier, but you will get
 % |bottom=6.51cm| in the version 5.
 % \bigskip
@@ -1504,7 +1524,7 @@ the derived files: geometry.{sty,ins,drv}, geometry-samples.tex.
 % resets all the options ever specified except for the
 % papersize-related options: |landscape|, |portrait|, and paper size
 % options (such as |papersize|, |paper=a4paper| and so forth), which
-% can't be changed with \cs{newgeometry}. 
+% can't be changed with \cs{newgeometry}.
 %
 % The command \cs{restoregeometry} restores the page layout specified
 % in the preamble (before |\begin{document}|) with the options to
@@ -1517,7 +1537,7 @@ the derived files: geometry.{sty,ins,drv}, geometry-samples.tex.
 % specified with |hmargin=3cm| (|left| and |right| margins are |3cm|
 % long) is changed to L2 with |left=3cm|, |right=1cm| and
 % |bottom=0.1cm|. The layout L1 is restored with
-% \cs{restoregeometry}. 
+% \cs{restoregeometry}.
 % \begin{center}
 % \begin{minipage}{.8\textwidth}
 % |\usepackage[hmargin=3cm]{geometry}|\\
@@ -1585,7 +1605,7 @@ the derived files: geometry.{sty,ins,drv}, geometry-samples.tex.
 % A set of commands |\savegeometry{|\meta{name}|}| and
 % |\loadgeometry{|\meta{name}|}| is handy if you want to
 % reuse more different layouts in your document.
-% For example, 
+% For example,
 % \begin{center}
 % \begin{verbatim}
 %     \usepackage[hmargin=3cm]{geometry}
@@ -1622,7 +1642,7 @@ the derived files: geometry.{sty,ins,drv}, geometry-samples.tex.
 % \end{itemize}
 % In this case, |textwidth| is shorter than that of the default twosided
 % document by $0.7\times|1cm|$ ($=|0.7cm|$) because the default width of
-% \gpart{body} is set with |scale=0.7|, which means 
+% \gpart{body} is set with |scale=0.7|, which means
 % $|width|=|0.7|\times|layoutwidth|$ ($=|0.7\paperwidth|$ by default).
 %
 % \item A layout with the left, right, and top margin |3cm|, |2cm| and
@@ -1640,13 +1660,13 @@ the derived files: geometry.{sty,ins,drv}, geometry-samples.tex.
 % \begin{itemize}
 %     \item |vdivide={*, 10in, 2cm}|
 %     \item |bmargin=2cm, height=10in|
-%     \item |bottom=2cm, textheight=10in| 
+%     \item |bottom=2cm, textheight=10in|
 % \end{itemize}
 % Note that dimensions for \gpart{head} and \gpart{foot} are excluded from
 % |height| of \gpart{total body}. An additional |includefoot| makes
 % \cs{footskip} included in |totalheight|. Therefore, in the two cases below,
 % |textheight| in the former layout is shorter than the latter
-% (with 10in exactly) by \cs{footskip}. In other words, 
+% (with 10in exactly) by \cs{footskip}. In other words,
 % |height| = |textheight| + |footskip| when |includefoot=true| in this case.
 % \begin{itemize}
 %     \item |bmargin=2cm, height=10in, includefoot|
@@ -1725,7 +1745,7 @@ the derived files: geometry.{sty,ins,drv}, geometry-samples.tex.
 % \item A complex page layout.
 % \begin{verbatim}
 %  \usepackage[a5paper, landscape, twocolumn, twoside,
-%      left=2cm, hmarginratio=2:1, includemp, marginparwidth=43pt, 
+%      left=2cm, hmarginratio=2:1, includemp, marginparwidth=43pt,
 %      bottom=1cm, foot=.7cm, includefoot, textheight=11cm, heightrounded,
 %      columnsep=1cm, dvips,  verbose]{geometry}\end{verbatim}
 % Try typesetting it and checking out the result yourself. |:-)|
@@ -1738,7 +1758,7 @@ the derived files: geometry.{sty,ins,drv}, geometry-samples.tex.
 %  from the real size of the resulted PDF. The PDF itself is correct anyway.
 %
 %  \item With |mag| $\neq 1000$, \textit{no} |truedimen|
-%  and \textsf{hyperref}, \textsf{hyperref} should be loaded before \Gm. 
+%  and \textsf{hyperref}, \textsf{hyperref} should be loaded before \Gm.
 %  Otherwise the resulted PDF size will become wrong.
 %
 %  \item With \textsf{crop} package and |mag| $\neq 1000$,
@@ -1749,7 +1769,7 @@ the derived files: geometry.{sty,ins,drv}, geometry-samples.tex.
 % \section{Acknowledgments}
 %  The author appreciates helpful suggestions and comments from many
 %  people including (in alphabetical order of family name):
-%  Jean-Bernard Addor, 
+%  Jean-Bernard Addor,
 %  Frank Bennett,
 %  Alexis Dimitriadis,
 %  Friedrich Flender,
@@ -1766,12 +1786,12 @@ the derived files: geometry.{sty,ins,drv}, geometry-samples.tex.
 %  Rolf Niepraschk,
 %  Hans Fr.~Nordhaug,
 %  Heiko Oberdiek,
-%  Keith Reckdahl, 
+%  Keith Reckdahl,
 %  Peter Riocreux,
 %  Will Robertson,
 %  Pablo Rodriguez,
 %  Nico Schl\"{o}emer,
-%  Perry C.~Stearns, 
+%  Perry C.~Stearns,
 %  Frank Stengel,
 %  Plamen Tanovski,
 %  Petr Uher,
@@ -1781,7 +1801,7 @@ the derived files: geometry.{sty,ins,drv}, geometry-samples.tex.
 %
 % \StopEventually{%
 % }
-% 
+%
 % \newgeometry{hmargin={4.2cm,1.5cm},vmargin={1cm,1cm},
 %              includeheadfoot, marginpar=3.8cm}
 % \section{Implementation}
@@ -1794,7 +1814,7 @@ the derived files: geometry.{sty,ins,drv}, geometry-samples.tex.
 \RequirePackage{keyval}%
 \RequirePackage{ifvtex}%
 %    \end{macrocode}
-% 
+%
 %    Internal switches are declared here.
 %    \begin{macrocode}
 \newif\ifGm@verbose
@@ -1836,7 +1856,7 @@ the derived files: geometry.{sty,ins,drv}, geometry-samples.tex.
 %    \begin{macro}{\Gm@wd@mp}
 %    \begin{macro}{\Gm@odd@mp}
 %    \begin{macro}{\Gm@even@mp}
-%    Correction lengths for \cs{textwidth}, \cs{oddsidemargin} and 
+%    Correction lengths for \cs{textwidth}, \cs{oddsidemargin} and
 %    \cs{evensidemargin} in |includemp| mode.
 %    \begin{macrocode}
 \newdimen\Gm@wd@mp
@@ -1872,7 +1892,7 @@ the derived files: geometry.{sty,ins,drv}, geometry-samples.tex.
 %    The macro executes the option given as an argument
 %    only if it's specified in the preamble, as the options of
 %    |\usepackage| and/or the argument of |\geometry|. Otherwise,
-%    the macro would print the warning message and ignores 
+%    the macro would print the warning message and ignores
 %    the option setting.
 %    \begin{macrocode}
 \def\ifGm@preamble#1{%
@@ -1886,7 +1906,7 @@ the derived files: geometry.{sty,ins,drv}, geometry-samples.tex.
 %    \begin{macro}{\Gm@Dhratio}
 %    \begin{macro}{\Gm@Dhratiotwo}
 %    \begin{macro}{\Gm@Dvratio}
-%    The default values for the horizontal and vertical 
+%    The default values for the horizontal and vertical
 %    \textsl{marginalratio} are defined. \cs{Gm@Dhratiotwo} denotes the
 %    default value of horizontal \textsl{marginratio} for twoside
 %    page layout with left and right margins swapped on verso pages,
@@ -2194,7 +2214,7 @@ the derived files: geometry.{sty,ins,drv}, geometry-samples.tex.
       \Gm@warning{margin ratio a:b should be non-zero; default used}%
       \expandafter\Gm@sep@ratio\Gm@Dmratio\relax
     \fi
-  \fi 
+  \fi
   \@tempdimb=\@tempdima
   \advance\@tempcntb\@tempcnta
   \divide\@tempdima\@tempcntb
@@ -2205,10 +2225,10 @@ the derived files: geometry.{sty,ins,drv}, geometry-samples.tex.
 %    \end{macrocode}
 %    \end{macro}
 %
-%    \begin{macro}{\Gm@detall} 
+%    \begin{macro}{\Gm@detall}
 %    This macro determines partition of each direction.
 %    The first argument (|#1|) should be |h| or |v|, the second (|#2|)
-%    |width| or |height|, the third (|#3|) |lmargin| or |top|, and 
+%    |width| or |height|, the third (|#3|) |lmargin| or |top|, and
 %    the last (|#4|) |rmargin| or |bottom|.
 %    \begin{macrocode}
 \def\Gm@detall#1#2#3#4{%
@@ -2390,7 +2410,7 @@ the derived files: geometry.{sty,ins,drv}, geometry-samples.tex.
 %    \end{macro}
 %
 %    \begin{macro}{\Gm@setlength}
-%    This macro stores \LaTeX{} native dimensions, which are stored and 
+%    This macro stores \LaTeX{} native dimensions, which are stored and
 %    set afterwards.
 %    \begin{macrocode}
 \def\Gm@setlength#1#2{%
@@ -2457,11 +2477,15 @@ the derived files: geometry.{sty,ins,drv}, geometry-samples.tex.
 \@namedef{Gm@c3paper}#1{\Gm@setsize{#1}(324,458){mm}}% ISO C3
 \@namedef{Gm@c4paper}#1{\Gm@setsize{#1}(229,324){mm}}% ISO C4
 \@namedef{Gm@c5paper}#1{\Gm@setsize{#1}(162,229){mm}}% ISO C5
+\@namedef{Gm@c6/c5paper}#1{\Gm@setsize{#1}(114,229){mm}}% ISO C6/C5
 \@namedef{Gm@c6paper}#1{\Gm@setsize{#1}(114,162){mm}}% ISO C6
+\@namedef{Gm@c7/c6paper}#1{\Gm@setsize{#1}(81,162){mm}}% ISO C7/C6
 \@namedef{Gm@c7paper}#1{\Gm@setsize{#1}(81,114){mm}}% ISO C7
 \@namedef{Gm@c8paper}#1{\Gm@setsize{#1}(57,81){mm}}% ISO C8
 \@namedef{Gm@c9paper}#1{\Gm@setsize{#1}(40,57){mm}}% ISO C9
 \@namedef{Gm@c10paper}#1{\Gm@setsize{#1}(28,40){mm}}% ISO C10
+\@namedef{Gm@dlpaper}#1{\Gm@setsize{#1}(110,220){mm}}% ISO DL
+\@namedef{Gm@e4paper}#1{\Gm@setsize{#1}(280,400){mm}}% ISO E4
 \@namedef{Gm@b0j}#1{\Gm@setsize{#1}(1030,1456){mm}}% JIS B0
 \@namedef{Gm@b1j}#1{\Gm@setsize{#1}(728,1030){mm}}% JIS B1
 \@namedef{Gm@b2j}#1{\Gm@setsize{#1}(515,728){mm}}% JIS B2
@@ -2469,6 +2493,12 @@ the derived files: geometry.{sty,ins,drv}, geometry-samples.tex.
 \@namedef{Gm@b4j}#1{\Gm@setsize{#1}(257,364){mm}}% JIS B4
 \@namedef{Gm@b5j}#1{\Gm@setsize{#1}(182,257){mm}}% JIS B5
 \@namedef{Gm@b6j}#1{\Gm@setsize{#1}(128,182){mm}}% JIS B6
+\@namedef{Gm@b7j}#1{\Gm@setsize{#1}(91,128){mm}}% JIS B7
+\@namedef{Gm@b8j}#1{\Gm@setsize{#1}(64,91){mm}}% JIS B8
+\@namedef{Gm@b9j}#1{\Gm@setsize{#1}(45,64){mm}}% JIS B9
+\@namedef{Gm@b10j}#1{\Gm@setsize{#1}(32,45){mm}}% JIS B10
+\@namedef{Gm@b11j}#1{\Gm@setsize{#1}(22,32){mm}}% JIS B11
+\@namedef{Gm@b12j}#1{\Gm@setsize{#1}(16,22){mm}}% JIS B12
 \@namedef{Gm@ansiapaper}#1{\Gm@setsize{#1}(8.5,11){in}}%
 \@namedef{Gm@ansibpaper}#1{\Gm@setsize{#1}(11,17){in}}%
 \@namedef{Gm@ansicpaper}#1{\Gm@setsize{#1}(17,22){in}}%
@@ -2487,9 +2517,12 @@ the derived files: geometry.{sty,ins,drv}, geometry-samples.tex.
 \let\KV@Gm@papername\KV@Gm@paper
 %    \end{macrocode}
 %  \end{key}
-%  \begin{key}{Gm}{a[0-6]paper}
-%  \begin{key}{Gm}{b[0-6]paper}
-%  \begin{key}{Gm}{b[0-6]j}
+%  \begin{key}{Gm}{a[0-10]paper}
+%  \begin{key}{Gm}{b[0-10]paper}
+%  \begin{key}{Gm}{c[0-10]paper}
+%  \begin{key}{Gm}{dlpaper}
+%  \begin{key}{Gm}{e4paper}
+%  \begin{key}{Gm}{b[0-12]j}
 %  \begin{key}{Gm}{ansi[a-e]paper}
 %  \begin{key}{Gm}{letterpaper}
 %  \begin{key}{Gm}{legalpaper}
@@ -2504,6 +2537,10 @@ the derived files: geometry.{sty,ins,drv}, geometry-samples.tex.
 \define@key{Gm}{a4paper}[true]{\Gm@setpaper@ifpre{a4paper}}%
 \define@key{Gm}{a5paper}[true]{\Gm@setpaper@ifpre{a5paper}}%
 \define@key{Gm}{a6paper}[true]{\Gm@setpaper@ifpre{a6paper}}%
+\define@key{Gm}{a7paper}[true]{\Gm@setpaper@ifpre{a7paper}}%
+\define@key{Gm}{a8paper}[true]{\Gm@setpaper@ifpre{a8paper}}%
+\define@key{Gm}{a9paper}[true]{\Gm@setpaper@ifpre{a9paper}}%
+\define@key{Gm}{a10paper}[true]{\Gm@setpaper@ifpre{a10paper}}%
 \define@key{Gm}{b0paper}[true]{\Gm@setpaper@ifpre{b0paper}}%
 \define@key{Gm}{b1paper}[true]{\Gm@setpaper@ifpre{b1paper}}%
 \define@key{Gm}{b2paper}[true]{\Gm@setpaper@ifpre{b2paper}}%
@@ -2511,13 +2548,25 @@ the derived files: geometry.{sty,ins,drv}, geometry-samples.tex.
 \define@key{Gm}{b4paper}[true]{\Gm@setpaper@ifpre{b4paper}}%
 \define@key{Gm}{b5paper}[true]{\Gm@setpaper@ifpre{b5paper}}%
 \define@key{Gm}{b6paper}[true]{\Gm@setpaper@ifpre{b6paper}}%
+\define@key{Gm}{b7paper}[true]{\Gm@setpaper@ifpre{b7paper}}%
+\define@key{Gm}{b8paper}[true]{\Gm@setpaper@ifpre{b8paper}}%
+\define@key{Gm}{b9paper}[true]{\Gm@setpaper@ifpre{b9paper}}%
+\define@key{Gm}{b10paper}[true]{\Gm@setpaper@ifpre{b10paper}}%
 \define@key{Gm}{c0paper}[true]{\Gm@setpaper@ifpre{c0paper}}%
 \define@key{Gm}{c1paper}[true]{\Gm@setpaper@ifpre{c1paper}}%
 \define@key{Gm}{c2paper}[true]{\Gm@setpaper@ifpre{c2paper}}%
 \define@key{Gm}{c3paper}[true]{\Gm@setpaper@ifpre{c3paper}}%
 \define@key{Gm}{c4paper}[true]{\Gm@setpaper@ifpre{c4paper}}%
 \define@key{Gm}{c5paper}[true]{\Gm@setpaper@ifpre{c5paper}}%
+\define@key{Gm}{c6/c5paper}[true]{\Gm@setpaper@ifpre{c6/c5paper}}%
 \define@key{Gm}{c6paper}[true]{\Gm@setpaper@ifpre{c6paper}}%
+\define@key{Gm}{c7/c6paper}[true]{\Gm@setpaper@ifpre{c7/c6paper}}%
+\define@key{Gm}{c7paper}[true]{\Gm@setpaper@ifpre{c7paper}}%
+\define@key{Gm}{c8paper}[true]{\Gm@setpaper@ifpre{c8paper}}%
+\define@key{Gm}{c9paper}[true]{\Gm@setpaper@ifpre{c9paper}}%
+\define@key{Gm}{c10paper}[true]{\Gm@setpaper@ifpre{c10paper}}%
+\define@key{Gm}{dlpaper}[true]{\Gm@setpaper@ifpre{dlpaper}}%
+\define@key{Gm}{e4paper}[true]{\Gm@setpaper@ifpre{e4paper}}%
 \define@key{Gm}{b0j}[true]{\Gm@setpaper@ifpre{b0j}}%
 \define@key{Gm}{b1j}[true]{\Gm@setpaper@ifpre{b1j}}%
 \define@key{Gm}{b2j}[true]{\Gm@setpaper@ifpre{b2j}}%
@@ -2525,6 +2574,12 @@ the derived files: geometry.{sty,ins,drv}, geometry-samples.tex.
 \define@key{Gm}{b4j}[true]{\Gm@setpaper@ifpre{b4j}}%
 \define@key{Gm}{b5j}[true]{\Gm@setpaper@ifpre{b5j}}%
 \define@key{Gm}{b6j}[true]{\Gm@setpaper@ifpre{b6j}}%
+\define@key{Gm}{b7j}[true]{\Gm@setpaper@ifpre{b7j}}%
+\define@key{Gm}{b8j}[true]{\Gm@setpaper@ifpre{b8j}}%
+\define@key{Gm}{b9j}[true]{\Gm@setpaper@ifpre{b9j}}%
+\define@key{Gm}{b10j}[true]{\Gm@setpaper@ifpre{b10j}}%
+\define@key{Gm}{b11j}[true]{\Gm@setpaper@ifpre{b11j}}%
+\define@key{Gm}{b12j}[true]{\Gm@setpaper@ifpre{b12j}}%
 \define@key{Gm}{ansiapaper}[true]{\Gm@setpaper@ifpre{ansiapaper}}%
 \define@key{Gm}{ansibpaper}[true]{\Gm@setpaper@ifpre{ansibpaper}}%
 \define@key{Gm}{ansicpaper}[true]{\Gm@setpaper@ifpre{ansicpaper}}%
@@ -2535,8 +2590,8 @@ the derived files: geometry.{sty,ins,drv}, geometry-samples.tex.
 \define@key{Gm}{executivepaper}[true]{\Gm@setpaper@ifpre{executivepaper}}%
 \define@key{Gm}{screen}[true]{\Gm@setpaper@ifpre{screen}}%
 %    \end{macrocode}
+%  \end{key}\end{key}\end{key}\end{key}\end{key}\end{key}
 %  \end{key}\end{key}\end{key}\end{key}\end{key}
-%  \end{key}\end{key}\end{key}
 %  \begin{key}{Gm}{paperwidth}
 %  \begin{key}{Gm}{paperheight}
 %  \begin{key}{Gm}{papersize}
@@ -2899,7 +2954,7 @@ the derived files: geometry.{sty,ins,drv}, geometry-samples.tex.
 %  \begin{key}{Gm}{luatex}
 %  \begin{key}{Gm}{xetex}
 %  \begin{key}{Gm}{vtex}
-%    The \Gm\ package supports |dvips|, |dvipdfm|, 
+%    The \Gm\ package supports |dvips|, |dvipdfm|,
 %    |pdflatex|, |luatex| and |vtex|. |dvipdfm| works like |dvips|.
 %    \begin{macrocode}
 \define@key{Gm}{dvips}[true]{\ifGm@preamble{dvips}{%
@@ -2954,7 +3009,7 @@ the derived files: geometry.{sty,ins,drv}, geometry-samples.tex.
 %  \end{key}
 %  \begin{key}{Gm}{truedimen}
 %    If |truedimen| is set to |true|, all of the internal
-%    explicit dimensions is changed to \textit{true} dimensions, 
+%    explicit dimensions is changed to \textit{true} dimensions,
 %    e.g., |1in| is changed to |1truein|.
 %    \begin{macrocode}
 \define@key{Gm}{truedimen}[true]{\ifGm@preamble{truedimen}{%
@@ -3194,7 +3249,7 @@ the derived files: geometry.{sty,ins,drv}, geometry-samples.tex.
   \addtolength\oddsidemargin{-1\Gm@truedimen in}%
 %    \end{macrocode}
 %    If |includemp| is set to |true|, \cs{textwidth} and \cs{oddsidemargin}
-%    are adjusted. 
+%    are adjusted.
 %    \begin{macrocode}
   \ifGm@includemp
     \advance\textwidth-\Gm@wd@mp
@@ -3221,7 +3276,7 @@ the derived files: geometry.{sty,ins,drv}, geometry-samples.tex.
   \advance\oddsidemargin\Gm@bindingoffset
   \addtolength\topmargin{-1\Gm@truedimen in}%
 %    \end{macrocode}
-%    If the head of the page is included in \gpart{total body}, 
+%    If the head of the page is included in \gpart{total body},
 %    \cs{headheight} and \cs{headsep} are removed from \cs{textheight},
 %    otherwise from \cs{topmargin}.
 %    \begin{macrocode}
@@ -3268,23 +3323,23 @@ the derived files: geometry.{sty,ins,drv}, geometry-samples.tex.
   }% end of \Gm@@process
 %    \end{macrocode}
 %    \end{macro}
-%    
+%
 %    \begin{macro}{\Gm@detectdriver}
 %    The macro checks the typeset environment and changes the driver option
 %    if necessary. To make the engine detection more robust, the macro is
-%    rewritten with packages \textsf{ifpdf}, \textsf{ifvtex} and 
+%    rewritten with packages \textsf{ifpdf}, \textsf{ifvtex} and
 %    \textsf{ifxetex}.
 %    \begin{macrocode}
 \def\Gm@detectdriver{%
-%    \end{macrocode} 
+%    \end{macrocode}
 %    If the driver option is not specified explicitly, then driver
 %    auto-detection works.
-%    \begin{macrocode} 
+%    \begin{macrocode}
   \ifx\Gm@driver\@empty
     \typeout{*geometry* driver: auto-detecting}%
-%    \end{macrocode} 
+%    \end{macrocode}
 %    \cs{ifpdf} is defined in \textsf{ifpdf} package in `oberdiek' bundle.
-%    \begin{macrocode} 
+%    \begin{macrocode}
     \ifpdf
       \ifx\pdfextension\@undefined
         \Gm@setdriver{pdftex}%
@@ -3294,23 +3349,23 @@ the derived files: geometry.{sty,ins,drv}, geometry-samples.tex.
     \else
       \Gm@setdriver{dvips}%
     \fi
-%    \end{macrocode} 
+%    \end{macrocode}
 %    \cs{ifvtex} is defined in \textsf{ifvtex} package in `oberdiek'
-%    bundle. 
-%    \begin{macrocode} 
+%    bundle.
+%    \begin{macrocode}
     \ifvtex
       \Gm@setdriver{vtex}%
     \fi
 %    \end{macrocode}
 %    \cs{ifxetex} is defined in \textsf{ifxetex} package written by
 %    Will Robertson.
-%    \begin{macrocode} 
+%    \begin{macrocode}
     \ifxetex
       \Gm@setdriver{xetex}
     \fi
 %    \end{macrocode}
-%    When the driver option is set by the user, check if it is valid or not. 
-%    \begin{macrocode} 
+%    When the driver option is set by the user, check if it is valid or not.
+%    \begin{macrocode}
   \else
     \ifx\Gm@driver\Gm@xetex %%
       \ifxetex\else
@@ -3357,7 +3412,7 @@ the derived files: geometry.{sty,ins,drv}, geometry-samples.tex.
   * layout: \ifGm@layout<custom>\else<same size as paper>\fi^^J%
   \ifGm@layout
   * layout(width,height): (\the\Gm@layoutwidth,\the\Gm@layoutheight)^^J%
-  \fi 
+  \fi
   * layoutoffset:(h,v)=(\the\Gm@layouthoffset,\the\Gm@layoutvoffset)^^J%
   \@ifundefined{Gm@lines}{}{* lines: \Gm@lines^^J}%
   \@ifundefined{Gm@hmarginratio}{}{* hratio: \Gm@hmarginratio^^J}%
@@ -3416,7 +3471,7 @@ the derived files: geometry.{sty,ins,drv}, geometry-samples.tex.
        \put(#3,0){\line(#1,0){17}}%
        \put(0,#4){\line(0,#2){17}}%
      \end{picture}}%
- }  
+ }
  {
     \def\Gm@cropmark(#1,#2,#3,#4){%
      \begin{picture}(0,0)
@@ -3424,8 +3479,8 @@ the derived files: geometry.{sty,ins,drv}, geometry-samples.tex.
        \linethickness{0.25pt}%
        \put(#3,0){\line(#1,0){17}}%
        \put(0,#4){\line(0,#2){17}}%
-     \end{picture}}% 
- }  
+     \end{picture}}%
+ }
 \providecommand*\vb@xt@{\vbox to}%
 \def\Gm@vrule{\vrule width 0.2pt height\textheight depth\z@}%
 \def\Gm@hrule{\hrule height 0.2pt depth\z@ width\textwidth}%
@@ -3683,7 +3738,7 @@ the derived files: geometry.{sty,ins,drv}, geometry-samples.tex.
     \ifcase\ifx\AtBeginShipoutFirst\relax\@ne\else
         \ifx\AtBeginShipoutFirst\@undefined\@ne\else\z@\fi\fi
       \AtBeginShipoutFirst{\special{papersize=\the\paperwidth,\the\paperheight}}%
-    \or 
+    \or
       \AtBeginDvi{\special{papersize=\the\paperwidth,\the\paperheight}}%
     \fi
   \fi\fi
@@ -3704,7 +3759,7 @@ the derived files: geometry.{sty,ins,drv}, geometry-samples.tex.
         \Gm@pageframes\box\AtBeginShipoutBox}}%
   \fi
 %    \end{macrocode}
-%    The layout dimensions for \cs{restoregeometry} are saved 
+%    The layout dimensions for \cs{restoregeometry} are saved
 %    at the end of the \cs{AtBeginDocument}.
 %    \begin{macrocode}
   \Gm@save
@@ -3760,7 +3815,7 @@ the derived files: geometry.{sty,ins,drv}, geometry-samples.tex.
 %    \end{macrocode}
 %    \end{macro}
 %    \begin{macro}{\newgeometry}
-%    The macro |\newgeometry|, which changes the layout, 
+%    The macro |\newgeometry|, which changes the layout,
 %    can be used only in the document.
 %    It would reset the options specified in the preamble except for
 %    paper size options and |\mag|.
