@@ -1,4 +1,4 @@
-LaTeX Package: Geometry 2026-10-27 v6.1
+LaTeX Package: Geometry 2026-11-03 v6.1
 ----------------------------------------
 Flexible and complete interface to document dimensions.
 
