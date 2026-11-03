@@ -37,8 +37,6 @@ Files:
   * changes.txt       -  history of changes
   * geometry.dtx      -  including sources and documentation
   * geometry.pdf      -  print-ready documentation
-  * geometry-de.dtx   -  German translation
-  * geometry-de.pdf   -  German translation
 
 Installation:
 
