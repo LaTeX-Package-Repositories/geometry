@@ -1,7 +1,9 @@
-2025-11-16 
+2026-10-27 Release 6.1
+ * Add additional ISO and JIS paper sizes
+
+2025-11-16  Release 6.0
   * tag cropmarks are artifacts, see https://github.com/latex3/tagging-project/issues/1064
-  
-  
+
 2020-01-02 Release 5.9
   * Include German translation (previously distributed as geometry-de on ctan)
   * Use iftex versions of \ifxetex, \ifpdf
