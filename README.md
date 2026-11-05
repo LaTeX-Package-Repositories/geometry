@@ -1,4 +1,4 @@
-LaTeX Package: Geometry 2026-10-27 v6.1
+LaTeX Package: Geometry 2026-11-03 v6.1
 ----------------------------------------
 Flexible and complete interface to document dimensions.
 
@@ -40,8 +40,6 @@ Files:
   * changes.txt       -  history of changes
   * geometry.dtx      -  including sources and documentation
   * geometry.pdf      -  print-ready documentation
-  * geometry-de.dtx   -  German translation
-  * geometry-de.pdf   -  German translation
 
 Installation:
 
