@@ -21,6 +21,7 @@ CTAN: macros/latex/contrib/geometry
 #### Release 6.2
 * Remove atbegshi dependency for the `showframe` and `showcrop` options.
 * Fix `showframe` option when `reversemarginpar` is active ([#17](https://github.com/LaTeX-Package-Repositories/geometry/issues/17)).
+* Fix spurious 'unused global options' ([#9](https://github.com/LaTeX-Package-Repositories/geometry/issues/9)).
 
 #### Release 6.1
 * Add additional ISO and JIS paper sizes ([#2](https://github.com/LaTeX-Package-Repositories/geometry/issues/2), [#23](https://github.com/LaTeX-Package-Repositories/geometry/issues/23)).

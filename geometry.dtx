@@ -3568,7 +3568,12 @@ the derived files: geometry.{sty,ins,drv}, geometry-samples.tex.
   \else
     \@for\CurrentOption:=\@classoptionslist\do{%
       \@ifundefined{KV@#2@\CurrentOption}%
-      {}{\edef\@tempa{\@tempa,\CurrentOption,}}}%
+       {}%
+       {\edef\@tempa{\@tempa,\CurrentOption,}%
+        \@expandtwoargs\@removeelement{\expandafter\@remove@eq@value\CurrentOption=\@nil}%
+        \@unusedoptionlist\@unusedoptionlist
+       }%
+      }%
     \ifnum\@tempcnta=\z@
       \edef\@tempa{\@tempa,\@ptionlist{\@currname.\@currext}}%
     \fi
