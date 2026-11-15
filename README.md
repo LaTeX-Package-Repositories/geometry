@@ -19,7 +19,7 @@ CTAN: macros/latex/contrib/geometry
 ## Recent changes
 
 #### Release 6.1
-* Add additional ISO and JIS paper sizes.
+* Add additional ISO and JIS paper sizes (#2,#23).
 * Remove German translation geometry-de.(dtx|pdf) from CTAN; move to `unmaintained-german-translation` directory on GitHub.
 
 #### Release 6.0
