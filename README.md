@@ -1,4 +1,4 @@
-# LaTeX Package: Geometry 2026-11-03 v6.1
+# LaTeX Package: Geometry 2026/11/15 v6.2
 
 Flexible and complete interface to document dimensions.
 
@@ -17,6 +17,10 @@ Copyright (C) 2018-2026 Hideo Umeki and David Carlisle
 CTAN: macros/latex/contrib/geometry
 
 ## Recent changes
+
+#### Release 6.2
+* Remove atbegshi dependency for the `showframe` and `showcrop` options.
+* Fix `showframe` option when `reversemarginpar` is active ([#17](https://github.com/LaTeX-Package-Repositories/geometry/issues/17)).
 
 #### Release 6.1
 * Add additional ISO and JIS paper sizes ([#2](https://github.com/LaTeX-Package-Repositories/geometry/issues/2), [#23](https://github.com/LaTeX-Package-Repositories/geometry/issues/23)).
