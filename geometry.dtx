@@ -40,12 +40,12 @@
 %</ignore>
 %<package|driver>\NeedsTeXFormat{LaTeX2e}
 %<package>\ProvidesPackage{geometry}
-%<package>  [2026/11/03 v6.1 Page Geometry]
+%<package>  [2026/11/15 v6.2 Page Geometry]
 %<*install>
 \input docstrip.tex
 \Msg{************************************************************************}
 \Msg{* Installation}
-\Msg{* Package: geometry 2026/11/03 v6.1 Page Geometry}
+\Msg{* Package: geometry 2026/11/15 v6.2 Page Geometry}
 \Msg{************************************************************************}
 
 \keepsilent
@@ -190,6 +190,9 @@ the derived files: geometry.{sty,ins,drv}, geometry-samples.tex.
 %
 %   Additional ISO and JIS paper sizes have been added: \texttt{(a\textbar b\textbar c)7paper} through
 %   \texttt{(a\textbar b\textbar c)10paper}, |dlpaper|, |e4paper|, and |b7j| through |b12j|.
+%
+%  \item The \textsf{atbegshi} package is no longer required for the |showframe|
+%   and |showcrop| options.
 % \end{itemize}
 %
 % \section{Preface to version 5}
@@ -236,7 +239,7 @@ the derived files: geometry.{sty,ins,drv}, geometry-samples.tex.
 %   invisible without specifying the layout size smaller than paper size.
 %   Version 5.4 introduced a new |\shipout| overloading process using
 %   \textsf{atbegshi} package, so the \textsf{atbegshi} package
-%   is required when showframe or showcrop option is specified.
+%   is required when |showframe| or |showcrop| option is specified.
 %  \item \textbf{Loading geometry.cfg precedes processing class options.}\par
 %    The previous version loaded \textsf{geometry.cfg} after
 %    processing the document class options.  Now that the config file is
@@ -3522,13 +3525,25 @@ the derived files: geometry.{sty,ins,drv}, geometry-samples.tex.
      \advance\@tempdima by \marginparsep
      \advance\@tempdima by \marginparwidth
      \if@mparswitch
-      \ifodd\count\z@
-       \Gm@vrules@mpi
+      \if@reversemargin
+       \ifodd\count\z@
+        \Gm@vrules@mpii
+       \else
+        \Gm@vrules@mpi
+       \fi
       \else
-       \Gm@vrules@mpii
+       \ifodd\count\z@
+        \Gm@vrules@mpi
+       \else
+        \Gm@vrules@mpii
+       \fi
       \fi
      \else
-      \Gm@vrules@mpi
+      \if@reversemargin
+       \Gm@vrules@mpii
+      \else
+       \Gm@vrules@mpi
+      \fi
      \fi
      \vb@xt@\z@{\vss\Gm@hrule}%
      \vskip\footskip\vb@xt@\z@{\vss\Gm@hruled}%
@@ -3742,7 +3757,7 @@ the derived files: geometry.{sty,ins,drv}, geometry-samples.tex.
   \fi\fi
 %    \end{macrocode}
 %    Page frames are shipped out when |showframe=true|, cropmarks for |showcrop=true|
-%    on each page. The \textsf{atbegshi} package is used for overloading |\shipout|.
+%    on each page.
 %    \begin{macrocode}
   \@tempswafalse
   \ifGm@showframe
@@ -3751,10 +3766,9 @@ the derived files: geometry.{sty,ins,drv}, geometry-samples.tex.
     \@tempswatrue
   \fi\fi
   \if@tempswa
-    \RequirePackage{atbegshi}%
-      \AtBeginShipout{\setbox\AtBeginShipoutBox=\vbox{%
+      \AddToHook{shipout/before}{\setbox\ShipoutBox=\vbox{%
         \baselineskip\z@skip\lineskip\z@skip\lineskiplimit\z@
-        \Gm@pageframes\box\AtBeginShipoutBox}}%
+        \Gm@pageframes\box\ShipoutBox}}%
   \fi
 %    \end{macrocode}
 %    The layout dimensions for \cs{restoregeometry} are saved

@@ -1,4 +1,4 @@
-LaTeX Package: Geometry 2026-11-03 v6.1
+LaTeX Package: Geometry 2026/11/15 v6.2
 ----------------------------------------
 Flexible and complete interface to document dimensions.
 
@@ -17,21 +17,27 @@ CTAN: macros/latex/contrib/geometry
 
 Recent changes:
 
+[Release 6.2]
+Remove atbegshi dependency for the `showframe` and `showcrop` options
+Fix `showframe` option when `reversemarginpar` is active (gh/17)
+
 [Release 6.1]
 Add additional ISO and JIS paper sizes.
+Remove German translation geometry-de.(dtx|pdf) from CTAN;
+move to `unmaintained-german-translation` directory on GitHub.
 
 [Release 6.0]
 Improve support for tagging. Cropmarks are tagged as artifacts.
 
 [Release 5.9]
-Do not load ifxetex and ifpdf packages (use combined iftex package)
+Do not load ifxetex and ifpdf packages (use combined iftex package).
 Include German translation of the documentation.
 
 [Release 5.8]
 Add xdvipdfmx and dvipdfmx alias for dvipdfm option.
 
 [Release 5.7]
-Add support for luatex (with new command names introduced in luatex 0.85)
+Add support for luatex (with new command names introduced in luatex 0.85).
 
 (changes.txt for more history)
 
