@@ -1,4 +1,4 @@
-# LaTeX Package: Geometry 2026/11/15 v6.2
+# LaTeX Package: Geometry 2026/11/16 v6.3
 
 Flexible and complete interface to document dimensions.
 
@@ -17,6 +17,10 @@ Copyright (C) 2018-2026 Hideo Umeki and David Carlisle
 CTAN: macros/latex/contrib/geometry
 
 ## Recent changes
+
+#### Release 6.3
+* Add `logunit` option to specify units for printing dimensions to the log or terminal ([#21](https://github.com/LaTeX-Package-Repositories/geometry/issues/21)).
+* Tag the documentation
 
 #### Release 6.2
 * Remove atbegshi dependency for the `showframe` and `showcrop` options.
@@ -53,7 +57,7 @@ CTAN: macros/latex/contrib/geometry
 
 ### Manual installation
   * To get geometry.sty out of geometry.dtx
-    
+
     ```tex
     tex geometry.dtx
     ```
@@ -79,7 +83,7 @@ CTAN: macros/latex/contrib/geometry
 
 ### TeXLive
   * Use `tlmgr` command
-    
+
     ```
     tlmgr show geometry          -- to check the package info
     ```

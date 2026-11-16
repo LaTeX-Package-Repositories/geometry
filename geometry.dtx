@@ -40,12 +40,12 @@
 %</ignore>
 %<package|driver>\NeedsTeXFormat{LaTeX2e}
 %<package>\ProvidesPackage{geometry}
-%<package>  [2026/11/15 v6.2 Page Geometry]
+%<package>  [2026/11/16 v6.3 Page Geometry]
 %<*install>
 \input docstrip.tex
 \Msg{************************************************************************}
 \Msg{* Installation}
-\Msg{* Package: geometry 2026/11/15 v6.2 Page Geometry}
+\Msg{* Package: geometry 2026/11/16 v6.3 Page Geometry}
 \Msg{************************************************************************}
 
 \keepsilent
@@ -103,17 +103,14 @@ the derived files: geometry.{sty,ins,drv}, geometry-samples.tex.
 %</ignore>
 %<*driver>
 \ProvidesFile{geometry.drv}
-\documentclass{ltxdoc}
-\usepackage[colorlinks, linkcolor=blue]{hyperref}
+\PassOptionsToPackage{colorlinks, linkcolor=blue}{hyperref}
+\DocumentMetadata{tagging=on,pdfstandard={ua-2,a-4f}}
+\documentclass{l3in2edoc}
 \usepackage{graphicx}
 \usepackage[a4paper, hmargin=2.5cm, vmargin=1cm,
         includeheadfoot]{geometry}
-\DeclareRobustCommand\XeTeX{%
-      X\lower.5ex\hbox{\kern-.07em\reflectbox{E}}%
-      \kern-.15em\TeX}
-\DeclareRobustCommand\XeLaTeX{%
-      X\lower.5ex\hbox{\kern-.07em\reflectbox{E}}%
-      \kern-.15em\LaTeX}
+\usepackage{hologo}
+\usepackage{lua-unicode-math}
 \begin{document}
  \DocInput{geometry.dtx}
 \end{document}
@@ -142,9 +139,15 @@ the derived files: geometry.{sty,ins,drv}, geometry-samples.tex.
 % \newcommand\OR{\ \strut\vrule width .4pt\ }
 % \newcommand\gpart[1]{\textsf{\textsl{\color[rgb]{.0,.45,.7}#1}}}%
 % \newcommand\glen[1]{\textsf{#1}}
-% \newenvironment{key}[2]{\expandafter\macro\expandafter{`#2'}}{\endmacro}
+% \NewDocElement[
+%   macrolike = false,
+%   toplevel = false,
+%   idxtype = key,
+%   idxgroup = Package keys,
+%   printtype = \textit{key},
+%   ]{Key}{key}
 % \newenvironment{Options}%
-%  {\begin{list}{}{%
+%  {\begin{list}[label-align=left]{}{%
 %   \renewcommand{\makelabel}[1]{\texttt{##1}\hfil}%
 %   \setlength{\itemsep}{-.5\parsep}
 %   \settowidth{\labelwidth}{\texttt{xxxxxxxxxxx\space}}%
@@ -165,7 +168,7 @@ the derived files: geometry.{sty,ins,drv}, geometry-samples.tex.
 %  {\end{list}}
 % \def\Ss(#1,#2){\textsf{S(#1,#2)}}%
 % \def\Sp(#1,#2,#3){\mbox{|(#1,#2,#3)|}}%
-% \def\onlypre{\llap{$^{\dagger\:}$}}%
+% \def\onlypre{\llap{\textsuperscript{\textdagger\:}}}%
 %
 % \maketitle
 %
@@ -192,9 +195,13 @@ the derived files: geometry.{sty,ins,drv}, geometry-samples.tex.
 %   \texttt{(a\textbar b\textbar c)10paper}, |dlpaper|, |e4paper|, and |b7j| through |b12j|.
 %
 %  \item \textbf{\textsf{atbegshi} dependecy removed.}
-%   
+%
 %   The \textsf{atbegshi} package is no longer required for the |showframe|
 %   and |showcrop| options.
+%  \item \textbf{New option \texttt{logunit}.}
+%
+%   The |logunit| option allows the user to specify the units used when printing
+%   dimensions to the log or (with |verbose=true|) the terminal.
 % \end{itemize}
 %
 % \section{Preface to version 5}
@@ -210,8 +217,8 @@ the derived files: geometry.{sty,ins,drv}, geometry-samples.tex.
 %    |papersize|, |paper=a4paper| and so forth).
 %  \item \textbf{A new set of options to specify the layout area.}\par
 %   The options specified for the area, in which the page dimensions
-%   are calculated, are added: \textsf{layout}, \textsf{layoutsize},
-%   \textsf{layoutwidth}, \textsf{layoutheight} and so forth.
+%   are calculated, are added: \texttt{layout}, \texttt{layoutsize},
+%   \texttt{layoutwidth}, \texttt{layoutheight} and so forth.
 %   These options would help to print the specified
 %   layout to a different sized paper.  For example, with |a4paper|
 %   and |layout=a5paper|, the \Gm\ package uses `A5' layout to
@@ -222,7 +229,7 @@ the derived files: geometry.{sty,ins,drv}, geometry-samples.tex.
 %   control sequences. Note that `geometry.cfg' in \TeX{} Live, which
 %   disables the auto-detection routine and sets |pdftex|, is no
 %   longer necessary and has no problem even though it still exists.
-%   To set |xetex| is strongly recommended with \XeLaTeX{}.
+%   To set |xetex| is strongly recommended with \hologo{XeLaTeX}.
 %  \item \textbf{New paper size presets for JIS B-series and ISO C-series.}\par
 %   The papersize presets |b0j| to |b6j| for JIS (Japanese Industrial
 %   Standards) B-series and |c0paper| to |c6paper| for ISO C-series
@@ -342,7 +349,9 @@ the derived files: geometry.{sty,ins,drv}, geometry-samples.tex.
 % \begin{figure}
 %  \centering\small
 %  {\unitlength=.65pt
-%  \begin{picture}(450,250)(0,-10)
+%  \begin{picture}[
+%    alt=Diagram displaying the dimension names used in the geometry package
+%    ](450,250)(0,-10)
 %  \put(20,0){\framebox(170,230){}}
 %  \put(20,235){\makebox(170,230)[br]{\gpart{paper}}}
 %  \begingroup\thicklines
@@ -407,8 +416,8 @@ the derived files: geometry.{sty,ins,drv}, geometry-samples.tex.
 % The total body |width| and |height| would be defined:
 % \begin{eqnarray}
 %  \label{eq:width}
-%  |width| &:=& |textwidth| \quad( +\>  |marginparsep| + |marginparwidth| )\\
-%  |height| &:=& |textheight| \quad(+\> |headheight| + |headsep| + |footskip| )
+%  |width| &\coloneq & |textwidth| \quad( +\>  |marginparsep| + |marginparwidth| )\\
+%  |height| &\coloneq & |textheight| \quad(+\> |headheight| + |headsep| + |footskip| )
 %  \label{eq:height}
 % \end{eqnarray}
 % In Equation (\ref{eq:width}) |width:=textwidth| by default,
@@ -423,7 +432,9 @@ the derived files: geometry.{sty,ins,drv}, geometry-samples.tex.
 % \begin{figure}
 %  \centering\small
 %  {\unitlength=.65pt
-%  \begin{picture}(490,280)(0,-10)
+%  \begin{picture}[
+%    alt=Diagram displaying the effect of includehead and includefoot
+%    ](490,280)(0,-10)
 %  \put(60,250){\makebox(120,0)[bl]{\textbf{(a)}~\textit{default}}}%
 %  \put(20,0){\framebox(170,230){}}
 %  \put(20,230){\makebox(170,15)[r]{\gpart{paper}}}
@@ -497,7 +508,7 @@ the derived files: geometry.{sty,ins,drv}, geometry-samples.tex.
 % \begin{figure}
 %  \centering
 %  {\unitlength=0.8pt
-%  \begin{picture}(300,60)(0,-5)
+%  \begin{picture}[alt=A simple model of page dimensions](300,60)(0,-5)
 %  \begingroup\linethickness{5pt}
 %  \put(0,5){\textcolor{green}{\line(1,0){60}}}
 %  \put(60,5){\textcolor{black}{\line(1,0){160}}}
@@ -675,7 +686,7 @@ the derived files: geometry.{sty,ins,drv}, geometry-samples.tex.
 % \section{Option details}
 %
 % This section describes all options available in \Gm.
-% Options with a dagger $^\dagger$ are not available
+% Options with a dagger $\textsuperscript{\textdagger}$ are not available
 % as arguments of \cs{newgeometry} (See Section~\ref{sec:midchange}).
 %
 % \subsection{Paper size}\label{sec:paper}
@@ -755,7 +766,9 @@ the derived files: geometry.{sty,ins,drv}, geometry-samples.tex.
 % \begin{figure}
 %  \centering\small
 %  {\unitlength=.6pt
-%  \begin{picture}(450,250)(0,-10)
+%  \begin{picture}[
+%    alt=Diagram displaying the relationship between paper size and layout size
+%    ](450,250)(0,-10)
 %  \put(20,0){\makebox(168,12)[r]{\gpart{paper}}}
 %  \put(20,0){\framebox(170,230){}}
 %  \put(21,40){\dashbox{3}(140,189){}}
@@ -890,7 +903,10 @@ the derived files: geometry.{sty,ins,drv}, geometry-samples.tex.
 % \begin{figure}
 %  \centering\small
 %  {\unitlength=.65pt
-%  \begin{picture}(460,525)(0,0)
+%  \begin{picture}[
+%    alt=Sample layouts for 'total body' with different
+%     layout modes
+%    ](460,525)(0,0)
 %  \put( 20,310){\framebox(120,170){}}
 %  \put( 20,507){\makebox(120,0)[bl]%
 %  {\textbf{(a)}~|includeheadfoot|}}
@@ -1048,7 +1064,9 @@ the derived files: geometry.{sty,ins,drv}, geometry-samples.tex.
 % \begin{figure}
 %  \centering\small
 %  {\unitlength=.65pt
-%  \begin{picture}(500,270)(0,0)
+%  \begin{picture}[
+%    alt=Diagram displaying the binding offset with both oneside and twoside documents
+%    ](500,270)(0,0)
 %  \put(20,0){\framebox(170,230){}}
 %  \put(20,255){\makebox(80,20)[l]{\textbf{a)}~every page for oneside or}}
 %  \put(20,240){\makebox(80,20)[l]{\hspace{3ex}odd pages for twoside}}
@@ -1161,7 +1179,7 @@ the derived files: geometry.{sty,ins,drv}, geometry-samples.tex.
 % |driver=auto| makes the auto-detection work whatever the previous setting is.
 % |driver=none| disables the auto-detection and sets no driver, which
 % may be useful when you want to let other package work out the driver
-% setting. For example, if you want to use \textsf{crop} package with \Gm,
+% setting. For example, if you want to use the \textsf{crop} package with \Gm,
 % you should call |\usepackage[driver=none]{geometry}| before
 % the \textsf{crop} package.
 % \item[\onlypre dvips] writes the paper size in dvi output with the \cs{special}
@@ -1176,12 +1194,12 @@ the derived files: geometry.{sty,ins,drv}, geometry-samples.tex.
 %      internally.
 % \item[\onlypre luatex] sets \cs{pagewidth} and \cs{pageheight} internally.
 % \item[\onlypre xetex] is the same as |pdftex| except for ignoring
-%     |\pdf{h,v}origin| undefined in \XeLaTeX{}. This option is introduced in
+%     |\pdf{h,v}origin| undefined in \hologo{XeLaTeX}. This option is introduced in
 %     the version 5. Note that `geometry.cfg' in \TeX{} Live, which disables the
 %     auto-detection routine and sets |pdftex|, is no longer necessary,
 %     but has no problem even though it's left undeleted.
-%     Instead of |xetex|, you can specify |dvipdfm| with \XeLaTeX{}
-%     if you want to use specials of dvipdfm \XeTeX{} supports.
+%     Instead of |xetex|, you can specify |dvipdfm| with \hologo{XeLaTeX}
+%     if you want to use specials of dvipdfm \hologo{XeTeX} supports.
 % \item[\onlypre vtex] sets dimensions \cs{mediawidth} and \cs{mediaheight}
 %     for V\TeX. When this driver is selected (explicitly or
 %     automatically), \Gm\ will auto-detect which output mode
@@ -1198,6 +1216,8 @@ the derived files: geometry.{sty,ins,drv}, geometry-samples.tex.
 % \begin{Options}
 % \item[\onlypre verbose] displays the parameter results on the terminal.
 %   |verbose=false| (default) still puts them into the log file.
+% \item[\onlypre logunit] sets the unit for dimensions displayed in the log and
+%   (with |verbose=true|) the terminal. Can be one of |em|, |ex|, |in|, |pt|, |pc|, |cm|, |mm|, |dd|, |cc|, |nd|, |nc|, |bp|, or |sp|. The default is |pt|.
 % \item[\onlypre reset] sets back the layout dimensions and switches to the
 %   settings before \Gm\ is loaded. Options given in
 %   |geometry.cfg| are also cleared.
@@ -1375,7 +1395,9 @@ the derived files: geometry.{sty,ins,drv}, geometry-samples.tex.
 % \begin{figure}
 %  \centering
 %  {\unitlength=1pt
-%  \begin{picture}(400,150)(40,0)
+%  \begin{picture}[
+%    alt=Specifications and completion rules
+%    ](400,150)(40,0)
 %  \put(1,49){\makebox(90,49)[r]{\large 0}}
 %  \put(1,1){\makebox(70,99)[r]{\large \gpart{body}}}
 %  \put(1,1){\makebox(90,49)[r]{\large 1}}
@@ -1479,8 +1501,8 @@ the derived files: geometry.{sty,ins,drv}, geometry-samples.tex.
 % \gpart{body} with the default |scale| ($=0.7$).
 % For example, if |top=2.4cm| is specified, \Gm\ sets
 % \begin{center}
-%     $|height|= |0.7|\times|layoutheight|$
-%            ~~($=|0.7\paperheight|$ by default),
+%     $\texttt{height}= \texttt{0.7}\times\texttt{layoutheight}$
+%            ~~($=\texttt{0.7\bslash paperheight}$ by default),
 % \end{center}
 % then \Ss(1,0) goes to \Ss(1,1), in which |bottom| is calculated
 % with $|layoutheight|-(|height|+|top|)$ and results in 6.51cm on A4
@@ -1566,7 +1588,9 @@ the derived files: geometry.{sty,ins,drv}, geometry-samples.tex.
 % \begin{center}
 %  \centering\small
 %  {\unitlength=.8pt
-%  \begin{picture}(450,180)(0,0)
+%  \begin{picture}[
+%    alt=Diagram displaying the effect of the geometry commands above
+%    ](450,180)(0,0)
 %  \put(0,165){\makebox(95,12){(saved)}}
 %  \put(15,135){\framebox(65,10){\gpart{head}}}
 %  \put(15,60){\framebox(65,70){\gpart{body}}}
@@ -1610,6 +1634,7 @@ the derived files: geometry.{sty,ins,drv}, geometry-samples.tex.
 % reuse more different layouts in your document.
 % For example,
 % \begin{center}
+% \mbox{}\vspace{-1.5\baselineskip}^^A https://github.com/latex3/tagging-project/issues/1714
 % \begin{verbatim}
 %     \usepackage[hmargin=3cm]{geometry}
 %     \begin{document}
@@ -1646,7 +1671,7 @@ the derived files: geometry.{sty,ins,drv}, geometry-samples.tex.
 % In this case, |textwidth| is shorter than that of the default twosided
 % document by $0.7\times|1cm|$ ($=|0.7cm|$) because the default width of
 % \gpart{body} is set with |scale=0.7|, which means
-% $|width|=|0.7|\times|layoutwidth|$ ($=|0.7\paperwidth|$ by default).
+% $\texttt{width}=\texttt{0.7}\times\texttt{layoutwidth}$ ($=\texttt{0.7 \bslash paperwidth}$ by default).
 %
 % \item A layout with the left, right, and top margin |3cm|, |2cm| and
 % |2.5in| respectively, with textheight of 40 lines, and with the head and
@@ -1836,29 +1861,29 @@ the derived files: geometry.{sty,ins,drv}, geometry-samples.tex.
 \newif\ifGm@layout
 \newif\ifGm@newgm
 %    \end{macrocode}
-%    \begin{macro}{\Gm@cnth}
-%    \begin{macro}{\Gm@cntv}
+%    \begin{macro}[int]{\Gm@cnth}
+%    \begin{macro}[int]{\Gm@cntv}
 %    The counters for horizontal and vertical partitioning patterns.
 %    \begin{macrocode}
 \newcount\Gm@cnth
 \newcount\Gm@cntv
 %    \end{macrocode}
 %    \end{macro}\end{macro}
-%    \begin{macro}{\c@Gm@tempcnt}
+%    \begin{macro}[int]{\c@Gm@tempcnt}
 %    The counter is used to set number with \textsf{calc}.
 %    \begin{macrocode}
 \newcount\c@Gm@tempcnt
 %    \end{macrocode}
 %    \end{macro}
-%    \begin{macro}{\Gm@bindingoffset}
+%    \begin{macro}[int]{\Gm@bindingoffset}
 %    The binding offset for the inner margin.
 %    \begin{macrocode}
 \newdimen\Gm@bindingoffset
 %    \end{macrocode}
 %    \end{macro}
-%    \begin{macro}{\Gm@wd@mp}
-%    \begin{macro}{\Gm@odd@mp}
-%    \begin{macro}{\Gm@even@mp}
+%    \begin{macro}[int]{\Gm@wd@mp}
+%    \begin{macro}[int]{\Gm@odd@mp}
+%    \begin{macro}[int]{\Gm@even@mp}
 %    Correction lengths for \cs{textwidth}, \cs{oddsidemargin} and
 %    \cs{evensidemargin} in |includemp| mode.
 %    \begin{macrocode}
@@ -1867,10 +1892,10 @@ the derived files: geometry.{sty,ins,drv}, geometry-samples.tex.
 \newdimen\Gm@even@mp
 %    \end{macrocode}
 %    \end{macro}\end{macro}\end{macro}
-%    \begin{macro}{\Gm@layoutwidth}
-%    \begin{macro}{\Gm@layoutheight}
-%    \begin{macro}{\Gm@layouthoffset}
-%    \begin{macro}{\Gm@layoutvoffset}
+%    \begin{macro}[int]{\Gm@layoutwidth}
+%    \begin{macro}[int]{\Gm@layoutheight}
+%    \begin{macro}[int]{\Gm@layouthoffset}
+%    \begin{macro}[int]{\Gm@layoutvoffset}
 %    The dimensions for the layout area.
 %    \begin{macrocode}
 \newdimen\Gm@layoutwidth
@@ -1879,19 +1904,19 @@ the derived files: geometry.{sty,ins,drv}, geometry-samples.tex.
 \newdimen\Gm@layoutvoffset
 %    \end{macrocode}
 %    \end{macro}\end{macro}\end{macro}\end{macro}
-%    \begin{macro}{\Gm@dimlist}
+%    \begin{macro}[int]{\Gm@dimlist}
 %    The token in which \LaTeX{} native dimensions can be stored.
 %    \begin{macrocode}
 \newtoks\Gm@dimlist
 %    \end{macrocode}
 %    \end{macro}
-%    \begin{macro}{\Gm@warning}
+%    \begin{macro}[int]{\Gm@warning}
 %    The macro to print warning messages.
 %    \begin{macrocode}
 \def\Gm@warning#1{\PackageWarningNoLine{geometry}{#1}}%
 %    \end{macrocode}
 %    \end{macro}
-%    \begin{macro}{\ifGm@preamble}
+%    \begin{macro}[int]{\ifGm@preamble}
 %    The macro executes the option given as an argument
 %    only if it's specified in the preamble, as the options of
 %    |\usepackage| and/or the argument of |\geometry|. Otherwise,
@@ -1906,9 +1931,9 @@ the derived files: geometry.{sty,ins,drv}, geometry-samples.tex.
   \fi}%
 %    \end{macrocode}
 %    \end{macro}
-%    \begin{macro}{\Gm@Dhratio}
-%    \begin{macro}{\Gm@Dhratiotwo}
-%    \begin{macro}{\Gm@Dvratio}
+%    \begin{macro}[int]{\Gm@Dhratio}
+%    \begin{macro}[int]{\Gm@Dhratiotwo}
+%    \begin{macro}[int]{\Gm@Dvratio}
 %    The default values for the horizontal and vertical
 %    \textsl{marginalratio} are defined. \cs{Gm@Dhratiotwo} denotes the
 %    default value of horizontal \textsl{marginratio} for twoside
@@ -1920,8 +1945,8 @@ the derived files: geometry.{sty,ins,drv}, geometry-samples.tex.
 \def\Gm@Dvratio{2:3}% = top:bottom default
 %    \end{macrocode}
 %    \end{macro}\end{macro}\end{macro}
-%    \begin{macro}{\Gm@Dhscale}
-%    \begin{macro}{\Gm@Dvscale}
+%    \begin{macro}[int]{\Gm@Dhscale}
+%    \begin{macro}[int]{\Gm@Dvscale}
 %    The default values for the horizontal and vertical \textsl{scale}
 %    are defined with $0.7$.
 %    \begin{macrocode}
@@ -1929,12 +1954,12 @@ the derived files: geometry.{sty,ins,drv}, geometry-samples.tex.
 \def\Gm@Dvscale{0.7}%
 %    \end{macrocode}
 %    \end{macro}\end{macro}
-%    \begin{macro}{\Gm@dvips}%
-%    \begin{macro}{\Gm@dvipdfm}%
-%    \begin{macro}{\Gm@pdftex}%
-%    \begin{macro}{\Gm@luatex}%
-%    \begin{macro}{\Gm@xetex}%
-%    \begin{macro}{\Gm@vtex}%
+%    \begin{macro}[int]{\Gm@dvips}%
+%    \begin{macro}[int]{\Gm@dvipdfm}%
+%    \begin{macro}[int]{\Gm@pdftex}%
+%    \begin{macro}[int]{\Gm@luatex}%
+%    \begin{macro}[int]{\Gm@xetex}%
+%    \begin{macro}[int]{\Gm@vtex}%
 %    The driver names.
 %    \begin{macrocode}
 \def\Gm@dvips{dvips}%
@@ -1945,23 +1970,23 @@ the derived files: geometry.{sty,ins,drv}, geometry-samples.tex.
 \def\Gm@vtex{vtex}%
 %    \end{macrocode}
 %    \end{macro}\end{macro}\end{macro}\end{macro}\end{macro}\end{macro}
-%    \begin{macro}{\Gm@true}%
-%    \begin{macro}{\Gm@false}%
+%    \begin{macro}[int]{\Gm@true}%
+%    \begin{macro}[int]{\Gm@false}%
 %    The macros for |true| and |false|.
 %    \begin{macrocode}
 \def\Gm@true{true}%
 \def\Gm@false{false}%
 %    \end{macrocode}
 %    \end{macro}\end{macro}
-%    \begin{macro}{\Gm@orgpw}
-%    \begin{macro}{\Gm@orgph}
+%    \begin{macro}[int]{\Gm@orgpw}
+%    \begin{macro}[int]{\Gm@orgph}
 %    These macros keep original paper (media) size intact.
 %    \begin{macrocode}
 \edef\Gm@orgpw{\the\paperwidth}%
 \edef\Gm@orgph{\the\paperheight}%
 %    \end{macrocode}
 %    \end{macro}\end{macro}
-%    \begin{macro}{\Gm@savelength}
+%    \begin{macro}[int]{\Gm@savelength}
 %    The macro saves the specified length to |\Gm@restore|.
 %    \begin{macrocode}
 \def\Gm@savelength#1{%
@@ -1969,7 +1994,7 @@ the derived files: geometry.{sty,ins,drv}, geometry-samples.tex.
   #1\endcsname\expandafter=\expandafter\the\csname #1\endcsname\relax}}%
 %    \end{macrocode}
 %    \end{macro}
-%    \begin{macro}{\Gm@saveboolean}
+%    \begin{macro}[int]{\Gm@saveboolean}
 %    The macro saves the specified boolean to |\Gm@restore|.
 %    \begin{macrocode}
 \def\Gm@saveboolean#1{%
@@ -1980,13 +2005,13 @@ the derived files: geometry.{sty,ins,drv}, geometry-samples.tex.
   \fi}%
 %    \end{macrocode}
 %    \end{macro}
-%    \begin{macro}{\Gm@restore}
+%    \begin{macro}[int]{\Gm@restore}
 %    The initialization for |\Gm@restore|.
 %    \begin{macrocode}
 \def\Gm@restore{}%
 %    \end{macrocode}
 %    \end{macro}
-%    \begin{macro}{\Gm@save}
+%    \begin{macro}[int]{\Gm@save}
 %    The definition of the macro saving the real lengths
 %    \LaTeX\ options.
 %    \begin{macrocode}
@@ -2018,7 +2043,7 @@ the derived files: geometry.{sty,ins,drv}, geometry-samples.tex.
   \Gm@saveboolean{@reversemargin}}%
 %    \end{macrocode}
 %    \end{macro}
-%    \begin{macro}{\Gm@initnewgm}
+%    \begin{macro}[int]{\Gm@initnewgm}
 %    The macro initializes the parameters for layout
 %    in |\newgeometry|.
 %    \begin{macrocode}
@@ -2051,7 +2076,7 @@ the derived files: geometry.{sty,ins,drv}, geometry-samples.tex.
   \Gm@bindingoffset\z@}%
 %    \end{macrocode}
 %    \end{macro}
-%    \begin{macro}{\Gm@initall}
+%    \begin{macro}[int]{\Gm@initall}
 %    This initialization is called as soon as the package is load
 %    It's also called as soon as |reset| option is specified.
 %    \begin{macrocode}
@@ -2068,22 +2093,22 @@ the derived files: geometry.{sty,ins,drv}, geometry-samples.tex.
   \Gm@initnewgm}%
 %    \end{macrocode}
 %    \end{macro}
-%    \begin{macro}{\Gm@setdriver}
+%    \begin{macro}[int]{\Gm@setdriver}
 %    The macro sets the specified driver.
 %    \begin{macrocode}
 \def\Gm@setdriver#1{%
   \expandafter\let\expandafter\Gm@driver\csname Gm@#1\endcsname}%
 %    \end{macrocode}
 %    \end{macro}
-%    \begin{macro}{\Gm@unsetdriver}
+%    \begin{macro}[int]{\Gm@unsetdriver}
 %    The macro unsets the specified driver if it has been set.
 %    \begin{macrocode}
 \def\Gm@unsetdriver#1{%
   \expandafter\ifx\csname Gm@#1\endcsname\Gm@driver\let\Gm@driver\@empty\fi}%
 %    \end{macrocode}
 %    \end{macro}
-%    \begin{macro}{\Gm@setbool}
-%    \begin{macro}{\Gm@setboolrev}
+%    \begin{macro}[int]{\Gm@setbool}
+%    \begin{macro}[int]{\Gm@setboolrev}
 %    The macros for boolean option processing.
 %    \begin{macrocode}
 \def\Gm@setbool{\@dblarg\Gm@@setbool}%
@@ -2093,8 +2118,8 @@ the derived files: geometry.{sty,ins,drv}, geometry-samples.tex.
   {\csname Gm@#2\Gm@false\endcsname}{\csname Gm@#2\Gm@true\endcsname}}%
 %    \end{macrocode}
 %    \end{macro}\end{macro}
-%    \begin{macro}{\Gm@doif}
-%    \begin{macro}{\Gm@doifelse}
+%    \begin{macro}[int]{\Gm@doif}
+%    \begin{macro}[int]{\Gm@doifelse}
 %    \cs{Gm@doif} executes the third argument |#3| using a boolean value
 %    |#2| of a option |#1|. \cs{Gm@doifelse} executes the third
 %    argument |#3| if a boolean option |#1| with its value |#2| |true|,
@@ -2121,7 +2146,7 @@ the derived files: geometry.{sty,ins,drv}, geometry-samples.tex.
   \Gm@doif{#1}{#2}{\ifx\Gm@bool\Gm@true #3\else #4\fi}}%
 %    \end{macrocode}
 %    \end{macro}\end{macro}
-%    \begin{macro}{\Gm@reverse}
+%    \begin{macro}[int]{\Gm@reverse}
 %    The macro reverses a bool value.
 %    \begin{macrocode}
 \def\Gm@reverse#1{%
@@ -2129,8 +2154,8 @@ the derived files: geometry.{sty,ins,drv}, geometry-samples.tex.
   \csname Gm@#1false\endcsname\else\csname Gm@#1true\endcsname\fi}%
 %    \end{macrocode}
 %    \end{macro}
-%    \begin{macro}{\Gm@defbylen}
-%    \begin{macro}{\Gm@defbycnt}
+%    \begin{macro}[int]{\Gm@defbylen}
+%    \begin{macro}[int]{\Gm@defbycnt}
 %    Macros \cs{Gm@defbylen} and \cs{Gm@defbycnt} can be used to define
 %    \cs{Gm@xxxx} variables by length and counter respectively
 %    with \textsf{calc} package.
@@ -2143,14 +2168,14 @@ the derived files: geometry.{sty,ins,drv}, geometry-samples.tex.
   \expandafter\xdef\csname Gm@#1\endcsname{\the\value{Gm@tempcnt}}\endgroup}%
 %    \end{macrocode}
 %    \end{macro}\end{macro}
-%    \begin{macro}{\Gm@set@ratio}
+%    \begin{macro}[int]{\Gm@set@ratio}
 %    The macro parses the value of options specifying marginal ratios,
 %    which is used in \cs{Gm@setbyratio} macro.
 %    \begin{macrocode}
 \def\Gm@sep@ratio#1:#2{\@tempcnta=#1\@tempcntb=#2}%
 %    \end{macrocode}
 %    \end{macro}
-%    \begin{macro}{\Gm@setbyratio}
+%    \begin{macro}[int]{\Gm@setbyratio}
 %    The macro determines the dimension specified by |#4| calculating
 %    |#3|$\times a / b$, where $a$ and $b$ are given by \cs{Gm@mratio}
 %    with $a:b$ value. If |#1| in brackets is |b|, $a$ and $b$ are swapped.
@@ -2173,7 +2198,7 @@ the derived files: geometry.{sty,ins,drv}, geometry-samples.tex.
   \expandafter\edef\csname Gm@#4\endcsname{\the\@tempdimb}}%
 %    \end{macrocode}
 %    \end{macro}
-%    \begin{macro}{\Gm@detiv}
+%    \begin{macro}[int]{\Gm@detiv}
 %    This macro determines the fourth length(|#4|) from |#1|(\glen{layoutwidth}
 %    or \glen{layoutheight}), |#2| and |#3|. It is used in
 %    \cs{Gm@detall} macro.
@@ -2194,7 +2219,7 @@ the derived files: geometry.{sty,ins,drv}, geometry-samples.tex.
   \expandafter\edef\csname Gm@#4\endcsname{\the\@tempdima}}%
 %    \end{macrocode}
 %    \end{macro}
-%    \begin{macro}{\Gm@detiiandiii}
+%    \begin{macro}[int]{\Gm@detiiandiii}
 %    This macro determines |#2| and |#3| from |#1| with the first argument
 %    (|#1|) can be |width| or |height|, which is expanded into dimensions
 %    of paper and total body. It is used in \cs{Gm@detall} macro.
@@ -2228,7 +2253,7 @@ the derived files: geometry.{sty,ins,drv}, geometry-samples.tex.
 %    \end{macrocode}
 %    \end{macro}
 %
-%    \begin{macro}{\Gm@detall}
+%    \begin{macro}[int]{\Gm@detall}
 %    This macro determines partition of each direction.
 %    The first argument (|#1|) should be |h| or |v|, the second (|#2|)
 %    |width| or |height|, the third (|#3|) |lmargin| or |top|, and
@@ -2331,7 +2356,7 @@ the derived files: geometry.{sty,ins,drv}, geometry-samples.tex.
 %    \end{macrocode}
 %    \end{macro}
 %
-%    \begin{macro}{\Gm@clean}
+%    \begin{macro}[int]{\Gm@clean}
 %    The macro for setting unspecified dimensions to be \cs{@undefined}.
 %    This is used by \cs{geometry} macro.
 %    \begin{macrocode}
@@ -2354,7 +2379,7 @@ the derived files: geometry.{sty,ins,drv}, geometry-samples.tex.
 %    \end{macrocode}
 %    \end{macro}
 %
-%    \begin{macro}{\Gm@parse@divide}
+%    \begin{macro}[int]{\Gm@parse@divide}
 %    The macro parses (|h|,|v|)|divide| options.
 %    \begin{macrocode}
 \def\Gm@parse@divide#1#2#3#4{%
@@ -2377,7 +2402,7 @@ the derived files: geometry.{sty,ins,drv}, geometry-samples.tex.
 %    \end{macrocode}
 %    \end{macro}
 %
-%    \begin{macro}{\Gm@branch}
+%    \begin{macro}[int]{\Gm@branch}
 %    The macro splits a value into the same two values.
 %    \begin{macrocode}
 \def\Gm@branch#1#2#3{%
@@ -2397,7 +2422,7 @@ the derived files: geometry.{sty,ins,drv}, geometry-samples.tex.
 %    \end{macrocode}
 %    \end{macro}
 %
-%    \begin{macro}{\Gm@magtooffset}
+%    \begin{macro}[int]{\Gm@magtooffset}
 %    This macro is used to adjust offsets by \cs{mag}.
 %    \begin{macrocode}
 \def\Gm@magtooffset{%
@@ -2412,7 +2437,7 @@ the derived files: geometry.{sty,ins,drv}, geometry-samples.tex.
 %    \end{macrocode}
 %    \end{macro}
 %
-%    \begin{macro}{\Gm@setlength}
+%    \begin{macro}[int]{\Gm@setlength}
 %    This macro stores \LaTeX{} native dimensions, which are stored and
 %    set afterwards.
 %    \begin{macrocode}
@@ -2422,7 +2447,7 @@ the derived files: geometry.{sty,ins,drv}, geometry-samples.tex.
   {\the\Gm@dimlist \Gm@len{#1}{#2}}}\addtolist}%
 %    \end{macrocode}
 %    \end{macro}
-%    \begin{macro}{\Gm@expandlengths}
+%    \begin{macro}[int]{\Gm@expandlengths}
 %    This macro processes \cs{Gm@dimlist}.
 %    \begin{macrocode}
 \def\Gm@expandlengths{%
@@ -2432,7 +2457,7 @@ the derived files: geometry.{sty,ins,drv}, geometry-samples.tex.
 %    \end{macrocode}
 %    \end{macro}
 %
-%    \begin{macro}{\Gm@setsize}
+%    \begin{macro}[int]{\Gm@setsize}
 %    The macro sets |paperwidth| and |paperheight| dimensions
 %    using \cs{Gm@setlength} macro.
 %    \begin{macrocode}
@@ -2443,7 +2468,7 @@ the derived files: geometry.{sty,ins,drv}, geometry-samples.tex.
   \ifGm@landscape\Gm@swap@papersizetrue\else\Gm@swap@papersizefalse\fi}%
 %    \end{macrocode}
 %    \end{macro}
-%    \begin{macro}{\Gm@setpaper@ifpre}
+%    \begin{macro}[int]{\Gm@setpaper@ifpre}
 %    The macro changes the paper size.
 %    \begin{macrocode}
 \def\Gm@setpaper@ifpre#1{%
@@ -2513,24 +2538,24 @@ the derived files: geometry.{sty,ins,drv}, geometry-samples.tex.
 \@namedef{Gm@screen}#1{\Gm@setsize{#1}(225,180){mm}}%
 %    \end{macrocode}
 %
-%  \begin{key}{Gm}{paper}
+%  \begin{key}{paper}
 %    |paper| takes a paper name as its value.
 %    \begin{macrocode}
 \define@key{Gm}{paper}{\setkeys{Gm}{#1}}%
 \let\KV@Gm@papername\KV@Gm@paper
 %    \end{macrocode}
 %  \end{key}
-%  \begin{key}{Gm}{a[0-10]paper}
-%  \begin{key}{Gm}{b[0-10]paper}
-%  \begin{key}{Gm}{c[0-10]paper}
-%  \begin{key}{Gm}{dlpaper}
-%  \begin{key}{Gm}{e4paper}
-%  \begin{key}{Gm}{b[0-12]j}
-%  \begin{key}{Gm}{ansi[a-e]paper}
-%  \begin{key}{Gm}{letterpaper}
-%  \begin{key}{Gm}{legalpaper}
-%  \begin{key}{Gm}{executivepaper}
-%  \begin{key}{Gm}{screen}
+%  \begin{key}{a[0-10]paper}
+%  \begin{key}{b[0-10]paper}
+%  \begin{key}{c[0-10]paper}
+%  \begin{key}{dlpaper}
+%  \begin{key}{e4paper}
+%  \begin{key}{b[0-12]j}
+%  \begin{key}{ansi[a-e]paper}
+%  \begin{key}{letterpaper}
+%  \begin{key}{legalpaper}
+%  \begin{key}{executivepaper}
+%  \begin{key}{screen}
 %    The following paper names are available.
 %    \begin{macrocode}
 \define@key{Gm}{a0paper}[true]{\Gm@setpaper@ifpre{a0paper}}%
@@ -2595,9 +2620,9 @@ the derived files: geometry.{sty,ins,drv}, geometry-samples.tex.
 %    \end{macrocode}
 %  \end{key}\end{key}\end{key}\end{key}\end{key}\end{key}
 %  \end{key}\end{key}\end{key}\end{key}\end{key}
-%  \begin{key}{Gm}{paperwidth}
-%  \begin{key}{Gm}{paperheight}
-%  \begin{key}{Gm}{papersize}
+%  \begin{key}{paperwidth}
+%  \begin{key}{paperheight}
+%  \begin{key}{papersize}
 %    Direct specification for paper size is also possible.
 %    \begin{macrocode}
 \define@key{Gm}{paperwidth}{\ifGm@preamble{paperwidth}{%
@@ -2608,10 +2633,10 @@ the derived files: geometry.{sty,ins,drv}, geometry-samples.tex.
   \def\Gm@paper{custom}\Gm@branch{#1}{paperwidth}{paperheight}}}%
 %    \end{macrocode}
 %  \end{key}\end{key}\end{key}
-%  \begin{key}{Gm}{layout}
-%  \begin{key}{Gm}{layoutwidth}
-%  \begin{key}{Gm}{layoutheight}
-%  \begin{key}{Gm}{layoutsize}
+%  \begin{key}{layout}
+%  \begin{key}{layoutwidth}
+%  \begin{key}{layoutheight}
+%  \begin{key}{layoutsize}
 %    Direct specification for layout size is also possible.
 %    \begin{macrocode}
 \define@key{Gm}{layout}{\Gm@layouttrue\@nameuse{Gm@#1}{Gm@layout}}%
@@ -2621,8 +2646,8 @@ the derived files: geometry.{sty,ins,drv}, geometry-samples.tex.
 \define@key{Gm}{layoutsize}{\Gm@branch{#1}{layoutwidth}{layoutheight}}%
 %    \end{macrocode}
 %  \end{key}\end{key}\end{key}\end{key}
-%  \begin{key}{Gm}{landscape}
-%  \begin{key}{Gm}{portrait}
+%  \begin{key}{landscape}
+%  \begin{key}{portrait}
 %    Paper orientation setting.
 %    \begin{macrocode}
 \define@key{Gm}{landscape}[true]{\ifGm@preamble{landscape}{%
@@ -2635,9 +2660,9 @@ the derived files: geometry.{sty,ins,drv}, geometry-samples.tex.
   {\ifGm@landscape\else\Gm@landscapetrue\Gm@reverse{swap@papersize}\fi}}}%
 %    \end{macrocode}
 %  \end{key}\end{key}
-%  \begin{key}{Gm}{hscale}
-%  \begin{key}{Gm}{vscale}
-%  \begin{key}{Gm}{scale}
+%  \begin{key}{hscale}
+%  \begin{key}{vscale}
+%  \begin{key}{scale}
 %    These options can determine the length(s) of \gpart{total body}
 %    giving \textit{scale(s)} against the paper size.
 %    \begin{macrocode}
@@ -2646,11 +2671,11 @@ the derived files: geometry.{sty,ins,drv}, geometry-samples.tex.
 \define@key{Gm}{scale}{\Gm@branch{#1}{hscale}{vscale}}%
 %    \end{macrocode}
 %  \end{key}\end{key}\end{key}
-%  \begin{key}{Gm}{width}
-%  \begin{key}{Gm}{height}
-%  \begin{key}{Gm}{total}
-%  \begin{key}{Gm}{totalwidth}
-%  \begin{key}{Gm}{totalheight}
+%  \begin{key}{width}
+%  \begin{key}{height}
+%  \begin{key}{total}
+%  \begin{key}{totalwidth}
+%  \begin{key}{totalheight}
 %    These options give concrete dimension(s) of \gpart{total body}.
 %    |totalwidth| and |totalheight| are aliases of |width| and |height|
 %    respectively.
@@ -2662,10 +2687,10 @@ the derived files: geometry.{sty,ins,drv}, geometry-samples.tex.
 \let\KV@Gm@totalheight\KV@Gm@height
 %    \end{macrocode}
 %  \end{key}\end{key}\end{key}\end{key}\end{key}
-%  \begin{key}{Gm}{textwidth}
-%  \begin{key}{Gm}{textheight}
-%  \begin{key}{Gm}{text}
-%  \begin{key}{Gm}{body}
+%  \begin{key}{textwidth}
+%  \begin{key}{textheight}
+%  \begin{key}{text}
+%  \begin{key}{body}
 %    These options directly sets the dimensions \cs{textwidth} and
 %    \cs{textheight}. |body| is an alias of |text|.
 %    \begin{macrocode}
@@ -2675,17 +2700,17 @@ the derived files: geometry.{sty,ins,drv}, geometry-samples.tex.
 \let\KV@Gm@body\KV@Gm@text
 %    \end{macrocode}
 %  \end{key}\end{key}\end{key}\end{key}
-%  \begin{key}{Gm}{lines}
+%  \begin{key}{lines}
 %    The option sets \cs{textheight} with the number of lines.
 %    \begin{macrocode}
 \define@key{Gm}{lines}{\Gm@vbodytrue\Gm@defbycnt{lines}{#1}}%
 %    \end{macrocode}
 %  \end{key}
-%  \begin{key}{Gm}{includehead}
-%  \begin{key}{Gm}{includefoot}
-%  \begin{key}{Gm}{includeheadfoot}
-%  \begin{key}{Gm}{includemp}
-%  \begin{key}{Gm}{includeall}
+%  \begin{key}{includehead}
+%  \begin{key}{includefoot}
+%  \begin{key}{includeheadfoot}
+%  \begin{key}{includemp}
+%  \begin{key}{includeall}
 %    The options take the corresponding dimensions as part of
 %    \gpart{body}.
 %    \begin{macrocode}
@@ -2700,11 +2725,11 @@ the derived files: geometry.{sty,ins,drv}, geometry-samples.tex.
   {\Gm@includeheadfalse\Gm@includefootfalse\Gm@includempfalse}}%
 %    \end{macrocode}
 %  \end{key}\end{key}\end{key}\end{key}\end{key}
-%  \begin{key}{Gm}{ignorehead}
-%  \begin{key}{Gm}{ignorefoot}
-%  \begin{key}{Gm}{ignoreheadfoot}
-%  \begin{key}{Gm}{ignoremp}
-%  \begin{key}{Gm}{ignoreall}
+%  \begin{key}{ignorehead}
+%  \begin{key}{ignorefoot}
+%  \begin{key}{ignoreheadfoot}
+%  \begin{key}{ignoremp}
+%  \begin{key}{ignoreall}
 %  These options exclude \gpart{head}, \gpart{foot}
 %  and \gpart{marginpars} when determining \gpart{body}.
 %    \begin{macrocode}
@@ -2722,16 +2747,16 @@ the derived files: geometry.{sty,ins,drv}, geometry-samples.tex.
   {\Gm@includeheadtrue\Gm@includefoottrue\Gm@includemptrue}}%
 %    \end{macrocode}
 %  \end{key}\end{key}\end{key}\end{key}\end{key}
-%  \begin{key}{Gm}{heightrounded}
+%  \begin{key}{heightrounded}
 %    The option rounds \cs{textheight} to n-times of \cs{baselineskip}
 %    plus \cs{topskip}.
 %    \begin{macrocode}
 \define@key{Gm}{heightrounded}[true]{\Gm@setbool{heightrounded}{#1}}%
 %    \end{macrocode}
 %  \end{key}
-%  \begin{key}{Gm}{hdivide}
-%  \begin{key}{Gm}{vdivide}
-%  \begin{key}{Gm}{divide}
+%  \begin{key}{hdivide}
+%  \begin{key}{vdivide}
+%  \begin{key}{divide}
 %    The options are useful to specify partitioning
 %    in each direction of the paper.
 %    \begin{macrocode}
@@ -2742,18 +2767,18 @@ the derived files: geometry.{sty,ins,drv}, geometry-samples.tex.
 %    \end{macrocode}
 %  \end{key}\end{key}\end{key}
 %
-%  \begin{key}{Gm}{lmargin}
-%  \begin{key}{Gm}{rmargin}
-%  \begin{key}{Gm}{tmargin}
-%  \begin{key}{Gm}{bmargin}
-%  \begin{key}{Gm}{left}
-%  \begin{key}{Gm}{inner}
-%  \begin{key}{Gm}{innermargin}
-%  \begin{key}{Gm}{right}
-%  \begin{key}{Gm}{outer}
-%  \begin{key}{Gm}{outermargin}
-%  \begin{key}{Gm}{top}
-%  \begin{key}{Gm}{bottom}
+%  \begin{key}{lmargin}
+%  \begin{key}{rmargin}
+%  \begin{key}{tmargin}
+%  \begin{key}{bmargin}
+%  \begin{key}{left}
+%  \begin{key}{inner}
+%  \begin{key}{innermargin}
+%  \begin{key}{right}
+%  \begin{key}{outer}
+%  \begin{key}{outermargin}
+%  \begin{key}{top}
+%  \begin{key}{bottom}
 %    These options set \gpart{margins}.
 %    |left|, |inner|, |innermargin| are aliases of |lmargin|.
 %    |right|, |outer|, |outermargin| are aliases of |rmargin|.
@@ -2775,9 +2800,9 @@ the derived files: geometry.{sty,ins,drv}, geometry-samples.tex.
 %  \end{key}\end{key}\end{key}\end{key}\end{key}
 %  \end{key}\end{key}\end{key}\end{key}\end{key}
 %  \end{key}\end{key}
-%  \begin{key}{Gm}{hmargin}
-%  \begin{key}{Gm}{vmargin}
-%  \begin{key}{Gm}{margin}
+%  \begin{key}{hmargin}
+%  \begin{key}{vmargin}
+%  \begin{key}{margin}
 %  These options are shorthands for setting \gpart{margins}.
 %    \begin{macrocode}
 \define@key{Gm}{hmargin}{\Gm@branch{#1}{lmargin}{rmargin}}%
@@ -2786,12 +2811,12 @@ the derived files: geometry.{sty,ins,drv}, geometry-samples.tex.
   \Gm@branch{#1}{rmargin}{bmargin}}%
 %    \end{macrocode}
 %  \end{key}\end{key}\end{key}
-%  \begin{key}{Gm}{hmarginratio}
-%  \begin{key}{Gm}{vmarginratio}
-%  \begin{key}{Gm}{marginratio}
-%  \begin{key}{Gm}{hratio}
-%  \begin{key}{Gm}{vratio}
-%  \begin{key}{Gm}{ratio}
+%  \begin{key}{hmarginratio}
+%  \begin{key}{vmarginratio}
+%  \begin{key}{marginratio}
+%  \begin{key}{hratio}
+%  \begin{key}{vratio}
+%  \begin{key}{ratio}
 %  Options specifying the margin ratios.
 %    \begin{macrocode}
 \define@key{Gm}{hmarginratio}{\edef\Gm@hmarginratio{#1}}%
@@ -2803,9 +2828,9 @@ the derived files: geometry.{sty,ins,drv}, geometry-samples.tex.
 %    \end{macrocode}
 %  \end{key}\end{key}\end{key}
 %  \end{key}\end{key}\end{key}
-%  \begin{key}{Gm}{hcentering}
-%  \begin{key}{Gm}{vcentering}
-%  \begin{key}{Gm}{centering}
+%  \begin{key}{hcentering}
+%  \begin{key}{vcentering}
+%  \begin{key}{centering}
 %    Useful shorthands to place \gpart{body} centered.
 %    \begin{macrocode}
 \define@key{Gm}{hcentering}[true]{\Gm@doifelse{hcentering}{#1}%
@@ -2816,14 +2841,14 @@ the derived files: geometry.{sty,ins,drv}, geometry-samples.tex.
   {\def\Gm@hmarginratio{1:1}\def\Gm@vmarginratio{1:1}}{}}%
 %    \end{macrocode}
 %  \end{key}\end{key}\end{key}
-%  \begin{key}{Gm}{twoside}
+%  \begin{key}{twoside}
 %    If |twoside=true|, \cs{@twoside} and \cs{@mparswitch} is set to |true|.
 %    \begin{macrocode}
 \define@key{Gm}{twoside}[true]{\Gm@doifelse{twoside}{#1}%
   {\@twosidetrue\@mparswitchtrue}{\@twosidefalse\@mparswitchfalse}}%
 %    \end{macrocode}
 %  \end{key}
-%  \begin{key}{Gm}{asymmetric}
+%  \begin{key}{asymmetric}
 %    |asymmetric| sets \cs{@mparswitchfalse} and \cs{@twosidetrue}
 %     A |asymmetric=false| has no effect.
 %    \begin{macrocode}
@@ -2831,17 +2856,17 @@ the derived files: geometry.{sty,ins,drv}, geometry-samples.tex.
   {\@twosidetrue\@mparswitchfalse}{}}%
 %    \end{macrocode}
 %  \end{key}
-%  \begin{key}{Gm}{bindingoffset}
+%  \begin{key}{bindingoffset}
 %    The macro adds the specified space to the inner margin.
 %    \begin{macrocode}
 \define@key{Gm}{bindingoffset}{\Gm@setlength\Gm@bindingoffset{#1}}%
 %    \end{macrocode}
 %  \end{key}
-%  \begin{key}{Gm}{headheight}
-%  \begin{key}{Gm}{headsep}
-%  \begin{key}{Gm}{footskip}
-%  \begin{key}{Gm}{head}
-%  \begin{key}{Gm}{foot}
+%  \begin{key}{headheight}
+%  \begin{key}{headsep}
+%  \begin{key}{footskip}
+%  \begin{key}{head}
+%  \begin{key}{foot}
 %    The direct settings of \gpart{head} and/or \gpart{foot} dimensions.
 %    \begin{macrocode}
 \define@key{Gm}{headheight}{\Gm@setlength\headheight{#1}}%
@@ -2851,9 +2876,9 @@ the derived files: geometry.{sty,ins,drv}, geometry-samples.tex.
 \let\KV@Gm@foot\KV@Gm@footskip
 %    \end{macrocode}
 %  \end{key}\end{key}\end{key}\end{key}\end{key}
-%  \begin{key}{Gm}{nohead}
-%  \begin{key}{Gm}{nofoot}
-%  \begin{key}{Gm}{noheadfoot}
+%  \begin{key}{nohead}
+%  \begin{key}{nofoot}
+%  \begin{key}{noheadfoot}
 %    They are only shorthands to set \gpart{head} and/or \gpart{foot}
 %    to be |0pt|.
 %    \begin{macrocode}
@@ -2866,15 +2891,15 @@ the derived files: geometry.{sty,ins,drv}, geometry-samples.tex.
   \z@\Gm@setlength\footskip\z@}{}}%
 %    \end{macrocode}
 %  \end{key}\end{key}\end{key}
-%  \begin{key}{Gm}{footnotesep}
+%  \begin{key}{footnotesep}
 %    The option directly sets a native dimension \cs{footnotesep}.
 %    \begin{macrocode}
 \define@key{Gm}{footnotesep}{\Gm@setlength{\skip\footins}{#1}}%
 %    \end{macrocode}
 %  \end{key}
-%  \begin{key}{Gm}{marginparwidth}
-%  \begin{key}{Gm}{marginpar}
-%  \begin{key}{Gm}{marginparsep}
+%  \begin{key}{marginparwidth}
+%  \begin{key}{marginpar}
+%  \begin{key}{marginparsep}
 %    They directly set native dimensions \cs{marginparwidth} and
 %    \cs{marginparsep}.
 %    \begin{macrocode}
@@ -2883,7 +2908,7 @@ the derived files: geometry.{sty,ins,drv}, geometry-samples.tex.
 \define@key{Gm}{marginparsep}{\Gm@setlength\marginparsep{#1}}%
 %    \end{macrocode}
 %  \end{key}\end{key}\end{key}
-%  \begin{key}{Gm}{nomarginpar}
+%  \begin{key}{nomarginpar}
 %    The macro is a shorthand for \cs{marginparwidth}|=0pt| and
 %    \cs{marginparsep}|=0pt|.
 %    \begin{macrocode}
@@ -2891,15 +2916,15 @@ the derived files: geometry.{sty,ins,drv}, geometry-samples.tex.
   {\Gm@setlength\marginparwidth\z@\Gm@setlength\marginparsep\z@}{}}%
 %    \end{macrocode}
 %  \end{key}
-%  \begin{key}{Gm}{columnsep}
+%  \begin{key}{columnsep}
 %    The option sets a native dimension \cs{columnsep}.
 %    \begin{macrocode}
 \define@key{Gm}{columnsep}{\Gm@setlength\columnsep{#1}}%
 %    \end{macrocode}
 %  \end{key}
-%  \begin{key}{Gm}{hoffset}
-%  \begin{key}{Gm}{voffset}
-%  \begin{key}{Gm}{offset}
+%  \begin{key}{hoffset}
+%  \begin{key}{voffset}
+%  \begin{key}{offset}
 %    The former two options set native dimensions \cs{hoffset} and
 %    \cs{voffset}. |offset| can set both of them with the same value.
 %    \begin{macrocode}
@@ -2908,31 +2933,31 @@ the derived files: geometry.{sty,ins,drv}, geometry-samples.tex.
 \define@key{Gm}{offset}{\Gm@branch{#1}{hoffset}{voffset}}%
 %    \end{macrocode}
 %  \end{key}\end{key}\end{key}
-%  \begin{key}{Gm}{layouthoffset}
-%  \begin{key}{Gm}{layoutvoffset}
-%  \begin{key}{Gm}{layoutoffset}
+%  \begin{key}{layouthoffset}
+%  \begin{key}{layoutvoffset}
+%  \begin{key}{layoutoffset}
 %    \begin{macrocode}
 \define@key{Gm}{layouthoffset}{\Gm@setlength\Gm@layouthoffset{#1}}%
 \define@key{Gm}{layoutvoffset}{\Gm@setlength\Gm@layoutvoffset{#1}}%
 \define@key{Gm}{layoutoffset}{\Gm@branch{#1}{layouthoffset}{layoutvoffset}}%
 %    \end{macrocode}
 %  \end{key}\end{key}\end{key}
-%  \begin{key}{Gm}{twocolumn}
+%  \begin{key}{twocolumn}
 %    The option sets \cs{twocolumn} switch.
 %    \begin{macrocode}
 \define@key{Gm}{twocolumn}[true]{%
   \Gm@doif{twocolumn}{#1}{\csname @twocolumn\Gm@bool\endcsname}}%
 %    \end{macrocode}
 %  \end{key}
-%  \begin{key}{Gm}{onecolumn}
+%  \begin{key}{onecolumn}
 %    This option has the reverse effect of |twocolumn| option.
 %    \begin{macrocode}
 \define@key{Gm}{onecolumn}[true]{%
   \Gm@doifelse{onecolumn}{#1}{\@twocolumnfalse}{\@twocolumntrue}}%
 %    \end{macrocode}
 %  \end{key}
-%  \begin{key}{Gm}{reversemp}
-%  \begin{key}{Gm}{reversemarginpar}
+%  \begin{key}{reversemp}
+%  \begin{key}{reversemarginpar}
 %    The both options set \cs{reversemargin}.
 %    \begin{macrocode}
 \define@key{Gm}{reversemp}[true]{%
@@ -2941,7 +2966,7 @@ the derived files: geometry.{sty,ins,drv}, geometry-samples.tex.
   \Gm@doif{reversemarginpar}{#1}{\csname @reversemargin\Gm@bool\endcsname}}%
 %    \end{macrocode}
 %  \end{key}\end{key}
-%  \begin{key}{Gm}{dviver}
+%  \begin{key}{dviver}
 %    \begin{macrocode}
 \define@key{Gm}{driver}{\ifGm@preamble{driver}{%
   \edef\@@tempa{#1}\edef\@@auto{auto}\edef\@@none{none}%
@@ -2951,12 +2976,12 @@ the derived files: geometry.{sty,ins,drv}, geometry-samples.tex.
   \setkeys{Gm}{#1}\fi\fi\fi\let\@@auto\relax\let\@@none\relax}}%
 %    \end{macrocode}
 %  \end{key}
-%  \begin{key}{Gm}{dvips}
-%  \begin{key}{Gm}{dvipdfm}\begin{key}{Gm}{dvipdfmx}\begin{key}{Gm}{xdvipdfmx}
-%  \begin{key}{Gm}{pdftex}
-%  \begin{key}{Gm}{luatex}
-%  \begin{key}{Gm}{xetex}
-%  \begin{key}{Gm}{vtex}
+%  \begin{key}{dvips}
+%  \begin{key}{dvipdfm}\begin{key}{dvipdfmx}\begin{key}{xdvipdfmx}
+%  \begin{key}{pdftex}
+%  \begin{key}{luatex}
+%  \begin{key}{xetex}
+%  \begin{key}{vtex}
 %    The \Gm\ package supports |dvips|, |dvipdfm|,
 %    |pdflatex|, |luatex| and |vtex|. |dvipdfm| works like |dvips|.
 %    \begin{macrocode}
@@ -2978,13 +3003,20 @@ the derived files: geometry.{sty,ins,drv}, geometry-samples.tex.
   \Gm@doifelse{vtex}{#1}{\Gm@setdriver{vtex}}{\Gm@unsetdriver{vtex}}}}%
 %    \end{macrocode}
 %  \end{key}\end{key}\end{key}\end{key}\end{key}\end{key}\end{key}\end{key}
-%  \begin{key}{Gm}{verbose}
+%  \begin{key}{verbose}
 %    The verbose mode.
 %    \begin{macrocode}
 \define@key{Gm}{verbose}[true]{\ifGm@preamble{verbose}{\Gm@setbool{verbose}{#1}}}%
 %    \end{macrocode}
 %  \end{key}
-%  \begin{key}{Gm}{reset}
+%  \begin{key}{logunit}
+%    Specifies the unit used when printing dimensions to the log or terminal.
+%    \begin{macrocode}
+\def\Gm@logunit{pt}%
+\define@key{Gm}{logunit}{\ifGm@preamble{logunit}{\def\Gm@logunit{#1}}}%
+%    \end{macrocode}
+%  \end{key}
+%  \begin{key}{reset}
 %    The option cancels all the options specified before |reset|,
 %    except |pass|. |mag| ($\neq1000$) with |truedimen| cannot be also
 %    reset.
@@ -2994,7 +3026,7 @@ the derived files: geometry.{sty,ins,drv}, geometry-samples.tex.
   \ProcessOptionsKV[c]{Gm}\Gm@setdefaultpaper}{}}}%
 %    \end{macrocode}
 %  \end{key}
-%  \begin{key}{Gm}{resetpaper}
+%  \begin{key}{resetpaper}
 %    If |resetpaper| is set to |true|, the paper size redefined in the package
 %    is discarded and the original one is restored. This option may be useful
 %    to print nonstandard sized documents with normal printers and papers.
@@ -3003,14 +3035,14 @@ the derived files: geometry.{sty,ins,drv}, geometry-samples.tex.
   \Gm@setbool{resetpaper}{#1}}}%
 %    \end{macrocode}
 %  \end{key}
-%  \begin{key}{Gm}{mag}
+%  \begin{key}{mag}
 %    |mag| is expanded immediately when it is specified. So |reset| can't
 %    reset |mag| when it is set with |truedimen|.
 %    \begin{macrocode}
 \define@key{Gm}{mag}{\ifGm@preamble{mag}{\mag=#1}}%
 %    \end{macrocode}
 %  \end{key}
-%  \begin{key}{Gm}{truedimen}
+%  \begin{key}{truedimen}
 %    If |truedimen| is set to |true|, all of the internal
 %    explicit dimensions is changed to \textit{true} dimensions,
 %    e.g., |1in| is changed to |1truein|.
@@ -3020,27 +3052,27 @@ the derived files: geometry.{sty,ins,drv}, geometry-samples.tex.
   {\let\Gm@truedimen\@empty}}}%
 %    \end{macrocode}
 %  \end{key}
-%  \begin{key}{Gm}{pass}
+%  \begin{key}{pass}
 %    The option makes all the options specified ineffective except
 %    verbose switch.
 %    \begin{macrocode}
 \define@key{Gm}{pass}[true]{\ifGm@preamble{pass}{\Gm@setbool{pass}{#1}}}%
 %    \end{macrocode}
 %  \end{key}
-%  \begin{key}{Gm}{showframe}
+%  \begin{key}{showframe}
 %    The showframe option prints page frames to help you understand
 %    what the resulting layout is like.
 %    \begin{macrocode}
 \define@key{Gm}{showframe}[true]{\Gm@setbool{showframe}{#1}}%
 %    \end{macrocode}
 %  \end{key}
-%  \begin{key}{Gm}{showcrop}
+%  \begin{key}{showcrop}
 %    The showcrop option prints crop marks at each corner of the layout area.
 %    \begin{macrocode}
 \define@key{Gm}{showcrop}[true]{\Gm@setbool{showcrop}{#1}}%
 %    \end{macrocode}
 %  \end{key}
-%    \begin{macro}{\Gm@setdefaultpaper}
+%    \begin{macro}[int]{\Gm@setdefaultpaper}
 %    The macro stores paper dimensions.
 %    This macro should be called after |\ProcessOptionsKV[c]{Gm}|.
 %    If the |landscape| option in |\documentclass| is
@@ -3054,7 +3086,7 @@ the derived files: geometry.{sty,ins,drv}, geometry-samples.tex.
   \fi}%
 %    \end{macrocode}
 %    \end{macro}
-%    \begin{macro}{\Gm@adjustpaper}
+%    \begin{macro}[int]{\Gm@adjustpaper}
 %    The macro checks if paperwidth/height is larger than 0pt,
 %    which is used in \cs{Gm@process}.
 %    The paper dimensions can be swapped when paper orientation
@@ -3082,7 +3114,7 @@ the derived files: geometry.{sty,ins,drv}, geometry-samples.tex.
   \fi}%
 %    \end{macrocode}
 %    \end{macro}
-%    \begin{macro}{\Gm@checkmp}
+%    \begin{macro}[int]{\Gm@checkmp}
 %    The macro checks whether or not the marginpars overrun the page.
 %    \begin{macrocode}
 \def\Gm@checkmp{%
@@ -3118,7 +3150,7 @@ the derived files: geometry.{sty,ins,drv}, geometry-samples.tex.
   \fi}%
 %    \end{macrocode}
 %    \end{macro}
-%    \begin{macro}{\Gm@adjustmp}
+%    \begin{macro}[int]{\Gm@adjustmp}
 %    The macro sets marginpar correction when |includemp| is set,
 %    which is used in \cs{Gm@process}. The variables \cs{Gm@wd@mp},
 %    \cs{Gm@odd@mp} and \cs{Gm@even@mp} are set here.
@@ -3150,7 +3182,7 @@ the derived files: geometry.{sty,ins,drv}, geometry-samples.tex.
   \fi}%
 %    \end{macrocode}
 %    \end{macro}
-%    \begin{macro}{\Gm@adjustbody}
+%    \begin{macro}[int]{\Gm@adjustbody}
 %    If the horizontal dimension of \gpart{body} is specified by user,
 %    \cs{Gm@width} is set properly here.
 %    \begin{macrocode}
@@ -3217,7 +3249,7 @@ the derived files: geometry.{sty,ins,drv}, geometry-samples.tex.
   \fi}%
 %    \end{macrocode}
 %    \end{macro}
-%    \begin{macro}{\Gm@process}
+%    \begin{macro}[int]{\Gm@process}
 %    The main macro processing the specified dimensions is defined.
 %    \begin{macrocode}
 \def\Gm@process{%
@@ -3327,7 +3359,7 @@ the derived files: geometry.{sty,ins,drv}, geometry-samples.tex.
 %    \end{macrocode}
 %    \end{macro}
 %
-%    \begin{macro}{\Gm@detectdriver}
+%    \begin{macro}[int]{\Gm@detectdriver}
 %    The macro checks the typeset environment and changes the driver option
 %    if necessary. To make the engine detection more robust, the macro is
 %    rewritten with packages \textsf{ifpdf}, \textsf{ifvtex} and
@@ -3390,7 +3422,7 @@ the derived files: geometry.{sty,ins,drv}, geometry-samples.tex.
   \fi}%
 %    \end{macrocode}
 %    \end{macro}
-%    \begin{macro}{\Gm@showparams}
+%    \begin{macro}[int]{\Gm@showparams}
 %    Prints the resulted parameters and dimensions to STDOUT
 %    if |verbose| is true.
 %    |\Gm@width| and |\Gm@height| are expanded to get the real size.
@@ -3398,11 +3430,14 @@ the derived files: geometry.{sty,ins,drv}, geometry-samples.tex.
 \def\Gm@showparams#1{%
   \ifGm@verbose\expandafter\typeout\else\expandafter\wlog\fi
   {\Gm@logcontent{#1}}}%
-\def\Gm@showdim#1{* \string#1=\the#1^^J}%
+\def\Gm@printdim#1{%
+  \UseName{dim_to_decimal_in_unit:nn}{#1}{1\Gm@logunit}\Gm@logunit
+  }
+\def\Gm@showdim#1{* \string#1=\Gm@printdim#1^^J}%
 \def\Gm@showbool#1{\@nameuse{ifGm@#1}#1\space\fi}%
 %    \end{macrocode}
 %    \end{macro}
-%    \begin{macro}{\Gm@logcontent}
+%    \begin{macro}[int]{\Gm@logcontent}
 %    The content of geometry parameters and native dimensions for the
 %    page layout.
 %    \begin{macrocode}
@@ -3414,14 +3449,14 @@ the derived files: geometry.{sty,ins,drv}, geometry-samples.tex.
   * paper: \ifx\Gm@paper\@undefined<default>\else\Gm@paper\fi^^J%
   * layout: \ifGm@layout<custom>\else<same size as paper>\fi^^J%
   \ifGm@layout
-  * layout(width,height): (\the\Gm@layoutwidth,\the\Gm@layoutheight)^^J%
+  * layout(width,height): (\Gm@printdim\Gm@layoutwidth,\Gm@printdim\Gm@layoutheight)^^J%
   \fi
-  * layoutoffset:(h,v)=(\the\Gm@layouthoffset,\the\Gm@layoutvoffset)^^J%
+  * layoutoffset:(h,v)=(\Gm@printdim\Gm@layouthoffset,\Gm@printdim\Gm@layoutvoffset)^^J%
   \@ifundefined{Gm@lines}{}{* lines: \Gm@lines^^J}%
   \@ifundefined{Gm@hmarginratio}{}{* hratio: \Gm@hmarginratio^^J}%
   \@ifundefined{Gm@vmarginratio}{}{* vratio: \Gm@vmarginratio^^J}%
   \ifdim\Gm@bindingoffset=\z@\else
-  * bindingoffset: \the\Gm@bindingoffset^^J\fi
+  * bindingoffset: \Gm@printdim\Gm@bindingoffset^^J\fi
   * modes: %
    \Gm@showbool{landscape}%
    \Gm@showbool{includehead}%
@@ -3434,8 +3469,8 @@ the derived files: geometry.{sty,ins,drv}, geometry-samples.tex.
    \Gm@showbool{showframe}%
    \Gm@showbool{showcrop}%
   ^^J%
-  * h-part:(L,W,R)=(\Gm@lmargin, \Gm@width, \Gm@rmargin)^^J%
-  * v-part:(T,H,B)=(\Gm@tmargin, \Gm@height, \Gm@bmargin)^^J%
+  * h-part:(L,W,R)=(\Gm@printdim\Gm@lmargin, \Gm@printdim\Gm@width, \Gm@printdim\Gm@rmargin)^^J%
+  * v-part:(T,H,B)=(\Gm@printdim\Gm@tmargin, \Gm@printdim\Gm@height, \Gm@printdim\Gm@bmargin)^^J%
   \fi
   \Gm@showdim{\paperwidth}%
   \Gm@showdim{\paperheight}%
@@ -3454,7 +3489,7 @@ the derived files: geometry.{sty,ins,drv}, geometry-samples.tex.
   * \string\skip\string\footins=\the\skip\footins^^J%
   \Gm@showdim{\hoffset}%
   \Gm@showdim{\voffset}%
-  \Gm@showdim{\mag}%
+  * \string\mag=\the\mag^^J%
   * \string\@twocolumn\if@twocolumn true\else false\fi^^J%
   * \string\@twoside\if@twoside true\else false\fi^^J%
   * \string\@mparswitch\if@mparswitch true\else false\fi^^J%
@@ -3554,7 +3589,7 @@ the derived files: geometry.{sty,ins,drv}, geometry-samples.tex.
   }}%
 %    \end{macrocode}
 %
-%    \begin{macro}{\ProcessOptionsKV}
+%    \begin{macro}[no-user-doc]{\ProcessOptionsKV}
 %    This macro can process class and package options using `key=value'
 %    scheme. Only class options are processed with an optional argument
 %    `|c|', package options with `|p|' , and both of them by default.
@@ -3588,7 +3623,7 @@ the derived files: geometry.{sty,ins,drv}, geometry-samples.tex.
 %    \begin{macrocode}
 \def\Gm@setkeys{\setkeys{Gm}}%
 %    \end{macrocode}
-%    \begin{macro}{\Gm@processconf}
+%    \begin{macro}[int]{\Gm@processconf}
 %    \cs{ExecuteOptions} is replaced with \cs{Gm@setkey} to make it
 %    possible to deal with '\meta{key}=\meta{value}' as its argument.
 %    \begin{macrocode}
@@ -3628,7 +3663,7 @@ the derived files: geometry.{sty,ins,drv}, geometry-samples.tex.
 \Gm@process
 %    \end{macrocode}
 %
-%    \begin{macro}{\AtBeginDocument}
+%    \begin{macro}[no-user-doc]{\AtBeginDocument}
 %   The processes for |verbose|, |showframe| and drivers are added to
 %   |\AtBeginDocument|.
 %   |\Gm@restore@org| is redefined here with the paper size specified
@@ -3803,7 +3838,7 @@ the derived files: geometry.{sty,ins,drv}, geometry-samples.tex.
 %    \end{macrocode}
 %    \end{macro}
 %
-%    \begin{macro}{\geometry}
+%    \begin{macro}[no-user-doc]{\geometry}
 %    The macro \cs{geometry} can be called multiple times
 %    in the preamble (before |\begin{document}|).
 %    \begin{macrocode}
@@ -3814,7 +3849,7 @@ the derived files: geometry.{sty,ins,drv}, geometry-samples.tex.
 \@onlypreamble\geometry
 %    \end{macrocode}
 %    \end{macro}
-%    \begin{macro}{\Gm@changelayout}
+%    \begin{macro}[int]{\Gm@changelayout}
 %   The macro, which can be called from |\newgeometry|,
 %   |\restoregeometry| and |\loadgeometry|, changes the layout
 %   in the middle of the document.
@@ -3833,7 +3868,7 @@ the derived files: geometry.{sty,ins,drv}, geometry-samples.tex.
   \setlength{\linewidth}{\hsize}}%
 %    \end{macrocode}
 %    \end{macro}
-%    \begin{macro}{\newgeometry}
+%    \begin{macro}[no-user-doc]{\newgeometry}
 %    The macro |\newgeometry|, which changes the layout,
 %    can be used only in the document.
 %    It would reset the options specified in the preamble except for
@@ -3852,7 +3887,7 @@ the derived files: geometry.{sty,ins,drv}, geometry-samples.tex.
   \Gm@showparams{newgeometry}}%
 %    \end{macrocode}
 %    \end{macro}
-%    \begin{macro}{\restoregeometry}
+%    \begin{macro}[no-user-doc]{\restoregeometry}
 %    The macro restores the resulting layout specified in the preamble,
 %    namely the first-page layout right after |\begin{document}|.
 %    \begin{macrocode}
@@ -3862,7 +3897,7 @@ the derived files: geometry.{sty,ins,drv}, geometry-samples.tex.
   \Gm@changelayout}%
 %    \end{macrocode}
 %    \end{macro}
-%    \begin{macro}{\savegeometry}
+%    \begin{macro}[no-user-doc]{\savegeometry}
 %    The macro saves the layout with the name specified
 %    with the argument. The saved layout can be loaded
 %    with |\loadgeometry{|\meta{name}|}|.
@@ -3872,7 +3907,7 @@ the derived files: geometry.{sty,ins,drv}, geometry-samples.tex.
   \expandafter\edef\csname Gm@restore@@#1\endcsname{\Gm@restore}}%
 %    \end{macrocode}
 %    \end{macro}
-%    \begin{macro}{\loadgeometry}
+%    \begin{macro}[no-user-doc]{\loadgeometry}
 %    The macro loads the layout saved with |\savegeometry{|\meta{name}|}|.
 %    If the name is not found, the macro would warn it and
 %    do nothing for the layout.
