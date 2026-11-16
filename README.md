@@ -20,7 +20,7 @@ CTAN: macros/latex/contrib/geometry
 
 #### Release 6.3
 * Add `logunit` option to specify units for printing dimensions to the log or terminal ([#21](https://github.com/LaTeX-Package-Repositories/geometry/issues/21)).
-* Tag the documentation
+* Tag the documentation.
 
 #### Release 6.2
 * Remove atbegshi dependency for the `showframe` and `showcrop` options.
