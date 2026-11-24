@@ -40,12 +40,12 @@
 %</ignore>
 %<package|driver>\NeedsTeXFormat{LaTeX2e}
 %<package>\ProvidesPackage{geometry}
-%<package>  [2026/11/16 v6.3 Page Geometry]
+%<package>  [2026/11/24 v6.3a Page Geometry]
 %<*install>
 \input docstrip.tex
 \Msg{************************************************************************}
 \Msg{* Installation}
-\Msg{* Package: geometry 2026/11/16 v6.3 Page Geometry}
+\Msg{* Package: geometry 2026/11/24 v6.3a Page Geometry}
 \Msg{************************************************************************}
 
 \keepsilent
@@ -1217,7 +1217,12 @@ the derived files: geometry.{sty,ins,drv}, geometry-samples.tex.
 % \item[\onlypre verbose] displays the parameter results on the terminal.
 %   |verbose=false| (default) still puts them into the log file.
 % \item[\onlypre logunit] sets the unit for dimensions displayed in the log and
-%   (with |verbose=true|) the terminal. Can be one of |em|, |ex|, |in|, |pt|, |pc|, |cm|, |mm|, |dd|, |cc|, |nd|, |nc|, |bp|, or |sp|. The default is |pt|.
+%   (with |verbose=true|) the terminal. Can be one of |em|, |ex|, |in|, |pt|,
+%   |pc|, |cm|, |mm|, |dd|, |cc|, |nd|, |nc|, |bp|, or |sp|. If not set, the
+%   dimensions are printed in |pt| using \cs{the}. If set (including the value
+%   |pt|), the dimensions are printed with \cs{dim_to_decimal_in_unit:nn}. This
+%   may have different rounding and trailing zero behavior than the default
+%   implementation.
 % \item[\onlypre reset] sets back the layout dimensions and switches to the
 %   settings before \Gm\ is loaded. Options given in
 %   |geometry.cfg| are also cleared.
@@ -3012,7 +3017,7 @@ the derived files: geometry.{sty,ins,drv}, geometry-samples.tex.
 %  \begin{key}{logunit}
 %    Specifies the unit used when printing dimensions to the log or terminal.
 %    \begin{macrocode}
-\def\Gm@logunit{pt}%
+\let\Gm@logunit\NoValue
 \define@key{Gm}{logunit}{\ifGm@preamble{logunit}{\def\Gm@logunit{#1}}}%
 %    \end{macrocode}
 %  \end{key}
@@ -3430,8 +3435,19 @@ the derived files: geometry.{sty,ins,drv}, geometry-samples.tex.
 \def\Gm@showparams#1{%
   \ifGm@verbose\expandafter\typeout\else\expandafter\wlog\fi
   {\Gm@logcontent{#1}}}%
+\def\Gm@printnondim#1{%
+  \ifx\Gm@logunit\NoValue
+    #1%
+  \else
+    \UseName{dim_to_decimal_in_unit:nn}{#1}{1\Gm@logunit}\Gm@logunit
+  \fi
+  }
 \def\Gm@printdim#1{%
-  \UseName{dim_to_decimal_in_unit:nn}{#1}{1\Gm@logunit}\Gm@logunit
+  \ifx\Gm@logunit\NoValue
+    \the#1%
+  \else
+    \UseName{dim_to_decimal_in_unit:nn}{#1}{1\Gm@logunit}\Gm@logunit
+  \fi
   }
 \def\Gm@showdim#1{* \string#1=\Gm@printdim#1^^J}%
 \def\Gm@showbool#1{\@nameuse{ifGm@#1}#1\space\fi}%
@@ -3469,8 +3485,8 @@ the derived files: geometry.{sty,ins,drv}, geometry-samples.tex.
    \Gm@showbool{showframe}%
    \Gm@showbool{showcrop}%
   ^^J%
-  * h-part:(L,W,R)=(\Gm@printdim\Gm@lmargin, \Gm@printdim\Gm@width, \Gm@printdim\Gm@rmargin)^^J%
-  * v-part:(T,H,B)=(\Gm@printdim\Gm@tmargin, \Gm@printdim\Gm@height, \Gm@printdim\Gm@bmargin)^^J%
+  * h-part:(L,W,R)=(\Gm@printnondim\Gm@lmargin, \Gm@printnondim\Gm@width, \Gm@printnondim\Gm@rmargin)^^J%
+  * v-part:(T,H,B)=(\Gm@printnondim\Gm@tmargin, \Gm@printnondim\Gm@height, \Gm@printnondim\Gm@bmargin)^^J%
   \fi
   \Gm@showdim{\paperwidth}%
   \Gm@showdim{\paperheight}%

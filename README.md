@@ -1,4 +1,4 @@
-# LaTeX Package: Geometry 2026/11/16 v6.3
+# LaTeX Package: Geometry 2026/11/24 v6.3a
 
 Flexible and complete interface to document dimensions.
 
@@ -18,6 +18,9 @@ CTAN: macros/latex/contrib/geometry
 
 ## Recent changes
 
+#### Release 6.3a
+  * Use original implementation for printing dimensions to the log if `logunit` is not specified ([#32](https://github.com/LaTeX-Package-Repositories/geometry/issues/32)).
+  
 #### Release 6.3
 * Add `logunit` option to specify units for printing dimensions to the log or terminal ([#21](https://github.com/LaTeX-Package-Repositories/geometry/issues/21)).
 * Tag the documentation.
