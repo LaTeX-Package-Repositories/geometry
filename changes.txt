@@ -1,3 +1,6 @@
+2026-11-24 Release 6.3a
+  * Use original implementation for printing dimensions to the log if `logunit` is not specified (gh/32)
+
 2026-11-16 Release 6.3
   * Add `logunit` option to specify units for printing dimensions to the log or terminal (gh/21)
   * Tag the documentation
