@@ -1,0 +1,57 @@
+This is a generated file for the l3build validation system.
+Don't change this file in any respect.
+(../l3backend-luatex.def
+File: l3backend-luatex.def ....-..-.. L3 backend support: PDF output (LuaTeX)
+\l__color_backend_stack_int=\count...
+Inserting `l3color' in `luaotfload.parse_color'.) (logunit-mm.aux)
+LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line ....
+LaTeX Font Info:    ... okay on input line ....
+LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line ....
+LaTeX Font Info:    ... okay on input line ....
+LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line ....
+LaTeX Font Info:    ... okay on input line ....
+LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line ....
+LaTeX Font Info:    ... okay on input line ....
+LaTeX Font Info:    Checking defaults for TS1/cmr/m/n on input line ....
+LaTeX Font Info:    ... okay on input line ....
+LaTeX Font Info:    Checking defaults for TU/lmr/m/n on input line ....
+LaTeX Font Info:    ... okay on input line ....
+LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line ....
+LaTeX Font Info:    ... okay on input line ....
+LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line ....
+LaTeX Font Info:    ... okay on input line ....
+*geometry* driver: auto-detecting
+*geometry* detected driver: luatex
+*geometry* verbose mode - [ preamble ] result:
+* driver: luatex
+* paper: <default>
+* layout: <same size as paper>
+* layoutoffset:(h,v)=(0mm,0mm)
+* modes: 
+* h-part:(L,W,R)=(32.3855mm, 151.13014mm, 32.3855mm)
+* v-part:(T,H,B)=(33.52852mm, 195.58017mm, 50.29279mm)
+* \paperwidth=215.90114mm
+* \paperheight=279.40147mm
+* \textwidth=151.13014mm
+* \textheight=195.58017mm
+* \oddsidemargin=6.98537mm
+* \evensidemargin=6.98537mm
+* \topmargin=-4.8757mm
+* \headheight=4.21754mm
+* \headsep=8.78654mm
+* \topskip=3.51462mm
+* \footskip=10.54385mm
+* \marginparwidth=22.84502mm
+* \marginparsep=3.86607mm
+* \columnsep=3.51462mm
+* \skip\footins=9.0pt plus 4.0pt minus 2.0pt
+* \hoffset=0mm
+* \voffset=0mm
+* \mag=1000
+* \@twocolumnfalse
+* \@twosidefalse
+* \@mparswitchfalse
+* \@reversemarginfalse
+* (1in=72.27pt=25.4mm, 1cm=28.453pt)
+[1
+] (logunit-mm.aux)

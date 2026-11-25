@@ -1,0 +1,10 @@
+\input{regression-test}
+\documentclass{article}
+\usepackage[verbose]{geometry}
+
+\START
+\begin{document}
+
+some text
+
+\end{document}

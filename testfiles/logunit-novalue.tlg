@@ -1,0 +1,57 @@
+This is a generated file for the l3build validation system.
+Don't change this file in any respect.
+(../l3backend-luatex.def
+File: l3backend-luatex.def ....-..-.. L3 backend support: PDF output (LuaTeX)
+\l__color_backend_stack_int=\count...
+Inserting `l3color' in `luaotfload.parse_color'.) (logunit-novalue.aux)
+LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line ....
+LaTeX Font Info:    ... okay on input line ....
+LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line ....
+LaTeX Font Info:    ... okay on input line ....
+LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line ....
+LaTeX Font Info:    ... okay on input line ....
+LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line ....
+LaTeX Font Info:    ... okay on input line ....
+LaTeX Font Info:    Checking defaults for TS1/cmr/m/n on input line ....
+LaTeX Font Info:    ... okay on input line ....
+LaTeX Font Info:    Checking defaults for TU/lmr/m/n on input line ....
+LaTeX Font Info:    ... okay on input line ....
+LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line ....
+LaTeX Font Info:    ... okay on input line ....
+LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line ....
+LaTeX Font Info:    ... okay on input line ....
+*geometry* driver: auto-detecting
+*geometry* detected driver: luatex
+*geometry* verbose mode - [ preamble ] result:
+* driver: luatex
+* paper: <default>
+* layout: <same size as paper>
+* layoutoffset:(h,v)=(0.0pt,0.0pt)
+* modes: 
+* h-part:(L,W,R)=(92.14519pt, 430.00462pt, 92.14519pt)
+* v-part:(T,H,B)=(95.39737pt, 556.47656pt, 143.09605pt)
+* \paperwidth=614.295pt
+* \paperheight=794.96999pt
+* \textwidth=430.00462pt
+* \textheight=556.47656pt
+* \oddsidemargin=19.8752pt
+* \evensidemargin=19.8752pt
+* \topmargin=-13.87262pt
+* \headheight=12.0pt
+* \headsep=25.0pt
+* \topskip=10.0pt
+* \footskip=30.0pt
+* \marginparwidth=65.0pt
+* \marginparsep=11.0pt
+* \columnsep=10.0pt
+* \skip\footins=9.0pt plus 4.0pt minus 2.0pt
+* \hoffset=0.0pt
+* \voffset=0.0pt
+* \mag=1000
+* \@twocolumnfalse
+* \@twosidefalse
+* \@mparswitchfalse
+* \@reversemarginfalse
+* (1in=72.27pt=25.4mm, 1cm=28.453pt)
+[1
+] (logunit-novalue.aux)
